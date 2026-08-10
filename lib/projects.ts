@@ -78,6 +78,23 @@ export const projects: Project[] = [
     ],
     stack: ["n8n", "GPT", "LinkedIn API", "Threads"],
   },
+  {
+    id: "hwp-generator",
+    title: "한글문서 생성 시스템",
+    en: "HWP Document Generator",
+    category: "생산성·콘텐츠",
+    status: "예정",
+    summary: "양식과 데이터만 넣으면 한글(HWP) 문서를 자동으로 생성합니다.",
+    detail:
+      "정형화된 공문·제안서·보고서 양식에 데이터를 채워 한글(HWP/HWPX) 문서를 자동 생성합니다. 반복적인 문서 작성 업무를 없애고, AI로 초안 문구까지 채워 넣을 수 있습니다.",
+    highlights: [
+      "템플릿 기반 자동 생성",
+      "데이터 병합·차트 삽입",
+      "AI 초안 문구 작성",
+      "HWPX 포맷 지원",
+    ],
+    stack: ["Python", "HWPX", "GPT"],
+  },
 
   // ── 주식·금융 ─────────────────────────────
   {
@@ -167,6 +184,40 @@ export const projects: Project[] = [
     ],
     stack: ["Meta Ads", "Google Sheets", "n8n", "Telegram"],
     // repoUrl: GitHub 저장소 주소 (공유 예정)
+  },
+  {
+    id: "gov-support-finder",
+    title: "정부지원사업 스크래핑 & 추천",
+    en: "Gov Grant Finder",
+    category: "자동화",
+    status: "예정",
+    summary: "여러 기관의 정부지원사업 공고를 자동 수집하고, 조건에 맞는 사업을 추천합니다.",
+    detail:
+      "여기저기 흩어진 정부지원사업·공고를 자동으로 스크래핑해 한곳에 모으고, 업종·규모·지역 등 조건에 맞춰 '나에게 맞는 사업'을 추천·알림합니다. 마감이 임박한 공고도 놓치지 않습니다.",
+    highlights: [
+      "기관별 공고 자동 수집",
+      "조건 기반 맞춤 추천",
+      "마감 임박 알림",
+      "지원 자격·규모 요약",
+    ],
+    stack: ["n8n", "스크래핑", "GPT", "Next.js"],
+  },
+  {
+    id: "realestate-scraper",
+    title: "부동산 매물정보 스크래핑",
+    en: "Real Estate Listing Scraper",
+    category: "자동화",
+    status: "예정",
+    summary: "여러 부동산 플랫폼의 매물 정보를 자동 수집·정리해 한눈에 비교합니다.",
+    detail:
+      "여러 부동산 플랫폼에서 조건에 맞는 매물을 자동으로 수집해 시트·대시보드로 정리하고, 신규 매물이나 가격 변동이 생기면 알림을 보냅니다. 발품 없이 시장을 모니터링할 수 있습니다.",
+    highlights: [
+      "플랫폼별 매물 자동 수집",
+      "조건 필터링·중복 제거",
+      "신규·가격변동 알림",
+      "시트·대시보드 정리",
+    ],
+    stack: ["Python", "스크래핑", "n8n", "Sheets"],
   },
   {
     id: "n8n-templates",
