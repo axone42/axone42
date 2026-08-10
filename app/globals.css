@@ -256,8 +256,9 @@ p, li, span, a { overflow-wrap: break-word; }
   width: 42px; height: 42px; border-radius: 11px;
   background: var(--color-violet-soft); border: 1px solid #e2defb;
   display: inline-flex; align-items: center; justify-content: center;
-  font-size: 20px; margin-bottom: 18px;
+  font-size: 20px; margin-bottom: 18px; color: var(--color-dusk-violet);
 }
+.card__icon svg { display: block; }
 .card__title {
   font-family: var(--font-geist); font-size: 20px; font-weight: 700;
   color: var(--color-ink); margin: 0 0 10px;
@@ -349,10 +350,12 @@ p, li, span, a { overflow-wrap: break-word; }
 /* anchor chips row */
 .anchors { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
 .anchor-chip {
+  display: inline-flex; align-items: center; gap: 7px;
   font-size: 14px; color: var(--color-ink);
   border: 1px solid var(--color-hairline-strong); border-radius: var(--radius-buttons);
   padding: 8px 16px; transition: background .18s ease;
 }
+.anchor-chip svg { color: var(--color-dusk-violet); }
 .anchor-chip:hover { background: var(--color-tint); }
 
 /* ---------- CTA band (다크 대비 포인트, 유지) ---------- */
@@ -938,6 +941,18 @@ p, li, span, a { overflow-wrap: break-word; }
 @media (max-width: 860px) {
   .pricing { grid-template-columns: 1fr; }
   .pricing__summary { position: static; }
+}
+
+/* ---------- Contact layout: 필요한 서비스(좌) + 기업정보(우) ---------- */
+.contact-top { display: grid; grid-template-columns: 1.5fr 1fr; gap: 28px; align-items: start; margin-bottom: 28px; }
+.contact-info {
+  border: 1px solid var(--color-hairline); border-radius: var(--radius-cards);
+  background: var(--color-tint); padding: 24px; position: sticky; top: 96px;
+}
+.contact-info__title { font-family: var(--font-geist); font-size: 22px; font-weight: 700; color: var(--color-ink); margin: 0; }
+@media (max-width: 860px) {
+  .contact-top { grid-template-columns: 1fr; }
+  .contact-info { position: static; }
 }
 
 /* ---------- Contact service picker (가격 연동) ---------- */

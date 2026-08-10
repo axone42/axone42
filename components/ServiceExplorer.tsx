@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import ServiceIcon from "@/components/ServiceIcon";
 import {
   services,
   AUTOMATION_CATEGORIES,
@@ -56,7 +57,7 @@ export default function ServiceExplorer() {
                 ))}
               </div>
             )}
-            <span className="card__icon" aria-hidden>{svc.icon}</span>
+            <span className="card__icon"><ServiceIcon id={svc.id} /></span>
             <h3 className="card__title">{svc.title}</h3>
             <p className="card__body">{svc.summary}</p>
             {svc.automations && (
@@ -118,7 +119,7 @@ function ServiceModal({ service, onClose }: { service: Service; onClose: () => v
         <button className="modal__close" onClick={onClose} aria-label="닫기">✕</button>
         <div className="modal__scroll">
 
-        <p className="modal__eyebrow">Service · {service.icon}</p>
+        <p className="modal__eyebrow">Service</p>
         <h2 className="modal__title" id="modal-title">{service.title}</h2>
 
         {/* 태그 (최상단) */}

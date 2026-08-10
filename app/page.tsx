@@ -4,6 +4,7 @@ import { WorkflowMockup, DashboardMockup, ChatMockup } from "@/components/Mockup
 import TechStack from "@/components/TechStack";
 import CaseStudies from "@/components/CaseStudies";
 import Faq from "@/components/Faq";
+import ServiceIcon from "@/components/ServiceIcon";
 import { site, stats } from "@/lib/site";
 import { services } from "@/lib/services";
 import { testimonials } from "@/lib/showcase";
@@ -108,7 +109,7 @@ export default function Home() {
                       ))}
                     </div>
                   )}
-                  <span className="card__icon" aria-hidden>{svc.icon}</span>
+                  <span className="card__icon"><ServiceIcon id={svc.id} /></span>
                   <h3 className="card__title">{svc.title}</h3>
                   <p className="card__body">{svc.summary}</p>
                   <span className="card__link">자세히 보기</span>

@@ -25,7 +25,7 @@ export const priceItems: PriceItem[] = [
   { id: "ax-consulting", name: "AX 컨설팅 (진단 + 로드맵)", from: 5_000_000, unit: "프로젝트", group: "컨설팅·전략" },
   { id: "mvp", name: "MVP · 프로토타입 개발", from: 6_000_000, unit: "프로젝트", note: "아이디어 빠른 검증", group: "개발" },
   { id: "chatbot", name: "기업형 챗봇 제작 (LangGraph)", from: 8_000_000, unit: "프로젝트", group: "개발" },
-  { id: "shopping", name: "쇼핑몰 구축", from: 7_000_000, unit: "프로젝트", group: "개발" },
+  { id: "shopping", name: "쇼핑몰 구축", from: 10_000_000, unit: "프로젝트", group: "개발" },
   { id: "website", name: "홈페이지 구축", from: 3_500_000, unit: "프로젝트", group: "개발" },
   { id: "erp", name: "ERP / CRM 개발", from: 15_000_000, unit: "범위별", note: "규모에 따라 협의", group: "개발" },
   { id: "automation", name: "AI 자동화 구축", from: 1_500_000, unit: "건당", note: "+ 운영 월 50만원~", group: "자동화·데이터" },

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { priceItems, PRICE_GROUPS, PROMO_RATE, formatKRW } from "@/lib/pricing";
+import { site } from "@/lib/site";
 
 type Status =
   | { state: "idle" }
@@ -105,8 +106,9 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} noValidate>
-      {/* ① 필요한 서비스 선택 (가격 연동) */}
-      <div className="field field--full" style={{ marginBottom: 20 }}>
+      {/* 상단: 필요한 서비스(좌) + 기업정보(우) */}
+      <div className="contact-top">
+      <div className="field" style={{ margin: 0 }}>
         <label style={{ marginBottom: 4 }}>필요한 서비스 <span style={{ color: "var(--color-slate)", fontWeight: 400 }}>(복수 선택 가능 · 예상 시작가 자동 계산)</span></label>
         <div className="contact-picker">
           {PRICE_GROUPS.map((group) => {
@@ -147,7 +149,32 @@ export default function ContactForm() {
         )}
       </div>
 
-      {/* ② 연락 정보 */}
+        {/* 기업정보 (우측 상단) */}
+        <aside className="contact-info">
+          <p className="eyebrow" style={{ margin: "0 0 12px" }}>Reach us</p>
+          <h3 className="contact-info__title">연락처</h3>
+          <div className="info-list" style={{ marginTop: 16 }}>
+            <div className="info-list__item">
+              <p className="info-list__label">이메일</p>
+              <p className="info-list__value">{site.email}</p>
+            </div>
+            <div className="info-list__item">
+              <p className="info-list__label">대표</p>
+              <p className="info-list__value">{site.ceo}</p>
+            </div>
+            <div className="info-list__item">
+              <p className="info-list__label">소재지</p>
+              <p className="info-list__value">{site.address}</p>
+            </div>
+            <div className="info-list__item">
+              <p className="info-list__label">사업자등록번호</p>
+              <p className="info-list__value">{site.bizNumber}</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      {/* 연락 정보 입력 */}
       <div className="form-grid">
         <div className="field">
           <label htmlFor="name">이름 *</label>

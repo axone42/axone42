@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ServiceExplorer from "@/components/ServiceExplorer";
+import ServiceIcon from "@/components/ServiceIcon";
 import { services } from "@/lib/services";
 
 export const metadata: Metadata = {
@@ -27,7 +28,7 @@ export default function ServicesPage() {
             <div className="anchors">
               {services.map((s) => (
                 <a key={s.id} href={`#${s.id}`} className="anchor-chip">
-                  {s.icon} {s.title}
+                  <ServiceIcon id={s.id} size={15} /> {s.title}
                 </a>
               ))}
             </div>
