@@ -866,6 +866,34 @@ p, li, span, a { overflow-wrap: break-word; }
 .legal strong { color: var(--color-ink); font-weight: 600; }
 .legal__date { margin-top: 32px; font-size: 13px; color: var(--color-slate); }
 
+/* ---------- Admin (자체 프로젝트 관리) ---------- */
+.admin-banner {
+  font-size: 14px; color: var(--color-ash); line-height: 1.6;
+  border: 1px solid rgba(107,98,242,0.3); background: var(--color-violet-soft);
+  border-radius: var(--radius-ui); padding: 14px 18px; margin-bottom: 20px;
+}
+.admin-banner b { color: var(--color-ink); }
+.admin-banner code { background: #fff; border: 1px solid var(--color-hairline); border-radius: 5px; padding: 1px 6px; font-size: 13px; }
+.admin-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 24px; }
+.admin-toast { font-size: 14px; color: #1a9e5f; font-weight: 600; }
+.admin-list { display: flex; flex-direction: column; gap: 20px; }
+.admin-card { border: 1px solid var(--color-hairline); border-radius: var(--radius-cards); background: #fff; padding: 24px; box-shadow: var(--shadow-soft); display: flex; flex-direction: column; gap: 16px; }
+.admin-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.admin-row3 { display: grid; grid-template-columns: 1fr 1fr 1.2fr; gap: 16px; align-items: end; }
+.admin-list .field > span { font-size: 13px; color: var(--color-ash); font-weight: 600; }
+.admin-check { flex-direction: row !important; align-items: center; gap: 8px; }
+.admin-check input { width: 16px; height: 16px; accent-color: var(--color-dusk-violet); }
+.admin-hint { font-size: 12px; color: var(--color-slate); margin: 6px 0 0; }
+.admin-input {
+  font-family: var(--font-dm-sans); font-size: 14px; color: var(--color-ink);
+  background: #fff; border: 1px solid var(--color-hairline-strong);
+  border-radius: var(--radius-ui); padding: 9px 12px; outline: none; flex: 1;
+}
+.admin-input:focus { border-color: var(--color-dusk-violet); }
+@media (max-width: 640px) {
+  .admin-row2, .admin-row3 { grid-template-columns: 1fr; }
+}
+
 /* ---------- Reveal animation ---------- */
 .js [data-reveal] { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
 .js [data-reveal].is-visible { opacity: 1; transform: none; }

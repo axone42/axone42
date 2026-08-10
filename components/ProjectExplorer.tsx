@@ -165,6 +165,10 @@ function ProjectModal({ p, onClose }: { p: Project; onClose: () => void }) {
             </div>
             <button type="button" className="btn btn--ghost" onClick={onClose}>닫기</button>
           </div>
+
+          <p className="sample-note" style={{ marginTop: 16 }}>
+            * MVP 버전을 공유합니다. 최종본은 당사 자산으로, 도입·협업은 문의 요청해 주세요.
+          </p>
         </div>
       </div>
     </div>,
