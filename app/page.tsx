@@ -48,7 +48,7 @@ export default function Home() {
               ))}
             </ul>
             <div className="hero__actions">
-              <Link href="/contact" className="btn btn--primary">
+              <Link href="/contact" className="btn btn--light">
                 무료 상담 신청
               </Link>
               <Link href="/services" className="btn btn--ghost">
