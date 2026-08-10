@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 type ContactPayload = {
   name?: string;
   email?: string;
+  phone?: string;
   company?: string;
   service?: string;
   message?: string;
@@ -59,6 +60,7 @@ export async function POST(request: Request) {
 
   const name = (data.name ?? "").trim();
   const email = (data.email ?? "").trim();
+  const phone = (data.phone ?? "").trim();
   const message = (data.message ?? "").trim();
   const company = (data.company ?? "").trim();
   const service = (data.service ?? "").trim() || "미지정";
@@ -80,6 +82,7 @@ export async function POST(request: Request) {
     ``,
     `이름: ${name}`,
     `이메일: ${email}`,
+    `연락처: ${phone || "-"}`,
     `회사/소속: ${company || "-"}`,
     `관심 서비스: ${service}`,
     ``,
@@ -95,6 +98,7 @@ export async function POST(request: Request) {
       <table style="border-collapse:collapse">
         <tr><td style="padding:4px 12px 4px 0;color:#888">이름</td><td>${esc(name)}</td></tr>
         <tr><td style="padding:4px 12px 4px 0;color:#888">이메일</td><td>${esc(email)}</td></tr>
+        <tr><td style="padding:4px 12px 4px 0;color:#888">연락처</td><td>${esc(phone) || "-"}</td></tr>
         <tr><td style="padding:4px 12px 4px 0;color:#888">회사/소속</td><td>${esc(company) || "-"}</td></tr>
         <tr><td style="padding:4px 12px 4px 0;color:#888">관심 서비스</td><td>${esc(service)}</td></tr>
       </table>

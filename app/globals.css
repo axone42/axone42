@@ -169,7 +169,7 @@ p, li, span, a { overflow-wrap: break-word; }
 }
 .nav__links { display: flex; align-items: center; gap: 4px; }
 .nav__link {
-  font-size: 14px; color: var(--color-ash);
+  font-size: 14px; font-weight: 700; color: var(--color-ash);
   padding: 7px 13px; border-radius: var(--radius-buttons);
   border: 1px solid transparent;
   transition: border-color .18s ease, background .18s ease, color .18s ease;

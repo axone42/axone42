@@ -10,9 +10,26 @@ type Status =
   | { state: "ok"; message: string; ticketId: string }
   | { state: "error"; message: string };
 
+// 숫자만 입력하면 한국 전화번호 형식으로 하이픈 자동 삽입
+// 02(서울): 2-3-4 / 2-4-4, 그 외(010·031·070 등): 3-3-4 / 3-4-4
+function formatPhone(value: string): string {
+  const d = value.replace(/\D/g, "").slice(0, 11);
+  if (d.startsWith("02")) {
+    if (d.length < 3) return d;
+    if (d.length < 6) return `${d.slice(0, 2)}-${d.slice(2)}`;
+    if (d.length < 10) return `${d.slice(0, 2)}-${d.slice(2, d.length - 4)}-${d.slice(d.length - 4)}`;
+    return `${d.slice(0, 2)}-${d.slice(2, 6)}-${d.slice(6, 10)}`;
+  }
+  if (d.length < 4) return d;
+  if (d.length < 8) return `${d.slice(0, 3)}-${d.slice(3)}`;
+  if (d.length < 11) return `${d.slice(0, 3)}-${d.slice(3, d.length - 4)}-${d.slice(d.length - 4)}`;
+  return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7, 11)}`;
+}
+
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>({ state: "idle" });
   const [service, setService] = useState("");
+  const [phone, setPhone] = useState("");
 
   // /contact?service=... 로 진입 시 관심 서비스 자동 선택
   useEffect(() => {
@@ -29,6 +46,7 @@ export default function ContactForm() {
     const payload = {
       name: String(fd.get("name") ?? ""),
       email: String(fd.get("email") ?? ""),
+      phone: String(fd.get("phone") ?? ""),
       company: String(fd.get("company") ?? ""),
       service: String(fd.get("service") ?? ""),
       message: String(fd.get("message") ?? ""),
@@ -66,10 +84,23 @@ export default function ContactForm() {
           <input id="email" name="email" type="email" placeholder="you@company.com" required />
         </div>
         <div className="field">
+          <label htmlFor="phone">연락처</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            inputMode="numeric"
+            autoComplete="tel"
+            placeholder="숫자만 입력하면 자동으로 - 가 붙어요"
+            value={phone}
+            onChange={(e) => setPhone(formatPhone(e.target.value))}
+          />
+        </div>
+        <div className="field">
           <label htmlFor="company">회사 / 소속</label>
           <input id="company" name="company" type="text" placeholder="(선택)" />
         </div>
-        <div className="field">
+        <div className="field field--full">
           <label htmlFor="service">관심 서비스</label>
           <select
             id="service"
@@ -104,7 +135,7 @@ export default function ContactForm() {
       <label className="consent">
         <input type="checkbox" name="agree" required />
         <span>
-          <Link href="/privacy" target="_blank" className="consent__link">개인정보 수집·이용</Link>에 동의합니다. (이름·이메일·문의내용, 상담 목적, 3년 보관) *
+          <Link href="/privacy" target="_blank" className="consent__link">개인정보 수집·이용</Link>에 동의합니다. (이름·연락처·이메일·문의내용, 상담 목적, 3년 보관) *
         </span>
       </label>
 

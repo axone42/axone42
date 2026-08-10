@@ -29,8 +29,8 @@ export const site = {
 };
 
 export const stats = [
-  { num: "2022~", label: "AX·자동화 전문 운영 경력" },
-  { num: "n8n", label: "워크플로우 자동화 기반" },
-  { num: "8대", label: "핵심 서비스 라인업" },
-  { num: "1:1", label: "맞춤형 컨설팅 & 운영" },
+  { num: "올인원", label: "전략·개발·운영을 한 팀이" },
+  { num: "맞춤형", label: "업무에 꼭 맞는 1:1 구축" },
+  { num: "AI 챗봇", label: "상태를 기억하는 기업형 챗봇" },
+  { num: "사후관리", label: "구축 후 운영·개선까지 함께" },
 ];
