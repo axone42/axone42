@@ -23,6 +23,7 @@ export const site = {
   nav: [
     { href: "/", label: "홈" },
     { href: "/services", label: "서비스" },
+    { href: "/pricing", label: "가격" },
     { href: "/projects", label: "자체프로젝트" },
     { href: "/about", label: "회사소개" },
   ],

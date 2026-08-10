@@ -30,11 +30,15 @@ export default function ContactForm() {
   const [status, setStatus] = useState<Status>({ state: "idle" });
   const [service, setService] = useState("");
   const [phone, setPhone] = useState("");
+  const [message, setMessage] = useState("");
 
-  // /contact?service=... 로 진입 시 관심 서비스 자동 선택
+  // /contact?service=... / ?estimate=... 로 진입 시 자동 채움
   useEffect(() => {
-    const q = new URLSearchParams(window.location.search).get("service");
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get("service");
     if (q && services.some((s) => s.title === q)) setService(q);
+    const est = params.get("estimate");
+    if (est) setMessage(est);
   }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -64,6 +68,9 @@ export default function ContactForm() {
       if (res.ok && json.ok) {
         setStatus({ state: "ok", message: json.message, ticketId: json.ticketId });
         form.reset();
+        setMessage("");
+        setPhone("");
+        setService("");
       } else {
         setStatus({ state: "error", message: json.error ?? "접수 중 오류가 발생했습니다." });
       }
@@ -120,6 +127,8 @@ export default function ContactForm() {
           <textarea
             id="message"
             name="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             placeholder="현재 업무 상황이나 자동화하고 싶은 일, 궁금한 점을 자유롭게 적어 주세요."
             required
           />
