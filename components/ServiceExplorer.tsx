@@ -251,7 +251,7 @@ function ServiceModal({ service, onClose }: { service: Service; onClose: () => v
         {/* CTA */}
         <div className="modal__cta">
           <p className="modal__cta-text">
-            <strong style={{ color: "#fff", fontWeight: 500 }}>{service.title}</strong>에 관심이 있으신가요?
+            <strong style={{ color: "var(--color-ink)", fontWeight: 600 }}>{service.title}</strong>에 관심이 있으신가요?
             상황을 알려주시면 맞춤 제안을 드립니다.
           </p>
           <div style={{ display: "flex", gap: 10 }}>
