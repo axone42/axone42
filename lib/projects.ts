@@ -143,6 +143,23 @@ export const projects: Project[] = [
 
   // ── 자동화 ─────────────────────────────
   {
+    id: "sheets-telegram-alert",
+    title: "구글시트 → 텔레그램 리드 알림",
+    en: "Google Sheets → Telegram Lead Alert",
+    category: "자동화",
+    status: "공개",
+    recommended: true,
+    summary: "메타(페이스북·인스타) 광고 CRM을 구글시트에 연결하고, 신규 리드가 유입되면 즉시 텔레그램으로 알림을 보냅니다.",
+    highlights: [
+      "메타 광고 리드 → 구글시트 자동 수집",
+      "신규 행 유입 실시간 감지",
+      "텔레그램으로 즉시 알림",
+      "리드 정보 요약해 전송",
+    ],
+    stack: ["Meta Ads", "Google Sheets", "n8n", "Telegram"],
+    // repoUrl: GitHub 저장소 주소 (공유 예정)
+  },
+  {
     id: "n8n-templates",
     title: "n8n 워크플로우 템플릿 갤러리",
     en: "n8n Workflow Template Gallery",
