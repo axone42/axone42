@@ -50,7 +50,7 @@ export default function ProjectsPage() {
               <Reveal key={p.id} delay={i * 60}>
                 <div className="card proj-card" style={{ height: "100%" }}>
                   <div className="proj-card__top">
-                    <span className="proj-status">{p.status}</span>
+                    <span className={`proj-status${p.status === "공개" ? " proj-status--live" : ""}`}>{p.status}</span>
                     <span className="proj-rec">★ 추천</span>
                   </div>
                   <h3 className="card__title">{p.title}</h3>
@@ -61,6 +61,20 @@ export default function ProjectsPage() {
                       <span key={t} className="tag">{t}</span>
                     ))}
                   </div>
+                  {(p.repoUrl || p.demoUrl) && (
+                    <div className="proj-links">
+                      {p.repoUrl && (
+                        <a href={p.repoUrl} target="_blank" rel="noopener noreferrer" className="proj-link">
+                          GitHub 저장소 ↗
+                        </a>
+                      )}
+                      {p.demoUrl && (
+                        <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="proj-link proj-link--demo">
+                          데모 보기 →
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
               </Reveal>
             ))}
@@ -83,7 +97,7 @@ export default function ProjectsPage() {
                   <Reveal key={p.id} delay={i * 50}>
                     <div className="card proj-card" style={{ height: "100%" }}>
                       <div className="proj-card__top">
-                        <span className="proj-status">{p.status}</span>
+                        <span className={`proj-status${p.status === "공개" ? " proj-status--live" : ""}`}>{p.status}</span>
                         {p.recommended && <span className="proj-rec">★ 추천</span>}
                       </div>
                       <h3 className="card__title">{p.title}</h3>
@@ -99,6 +113,20 @@ export default function ProjectsPage() {
                           <span key={t} className="tag">{t}</span>
                         ))}
                       </div>
+                      {(p.repoUrl || p.demoUrl) && (
+                        <div className="proj-links">
+                          {p.repoUrl && (
+                            <a href={p.repoUrl} target="_blank" rel="noopener noreferrer" className="proj-link">
+                              GitHub 저장소 ↗
+                            </a>
+                          )}
+                          {p.demoUrl && (
+                            <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="proj-link proj-link--demo">
+                              데모 보기 →
+                            </a>
+                          )}
+                        </div>
+                      )}
                     </div>
                   </Reveal>
                 ))}

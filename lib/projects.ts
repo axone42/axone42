@@ -3,7 +3,7 @@
 
 export type ProjectStatus = "예정" | "진행 중" | "공개";
 
-export const PROJECT_CATEGORIES = ["주식·금융", "자동화", "AI 앱"] as const;
+export const PROJECT_CATEGORIES = ["생산성·콘텐츠", "주식·금융", "자동화", "AI 앱"] as const;
 export type ProjectCategory = (typeof PROJECT_CATEGORIES)[number];
 
 export type Project = {
@@ -16,9 +16,62 @@ export type Project = {
   summary: string;
   highlights: string[];
   stack: string[];
+  repoUrl?: string; // GitHub 저장소
+  demoUrl?: string; // 데모 링크
 };
 
 export const projects: Project[] = [
+  // ── 생산성·콘텐츠 ─────────────────────────────
+  {
+    id: "blog-posting",
+    title: "AI 블로그 포스팅",
+    en: "AI Blog Posting",
+    category: "생산성·콘텐츠",
+    status: "공개",
+    recommended: true,
+    summary: "주제만 입력하면 초안 작성부터 SEO 구성·발행까지, 블로그 콘텐츠를 자동으로 생성·게시합니다.",
+    highlights: [
+      "주제 → 초안 자동 생성",
+      "SEO 제목·메타 자동 구성",
+      "이미지 자동 첨부",
+      "예약·자동 발행",
+    ],
+    stack: ["Next.js", "GPT", "n8n"],
+    // repoUrl: GitHub 저장소 주소 (공유 예정)
+  },
+  {
+    id: "team-calendar",
+    title: "팀 캘린더",
+    en: "Team Calendar",
+    category: "생산성·콘텐츠",
+    status: "공개",
+    recommended: true,
+    summary: "팀의 일정과 업무를 한눈에 공유하고 관리하는 협업 캘린더.",
+    highlights: [
+      "팀 일정 공유·색상 구분",
+      "업무 배정·담당자 표시",
+      "반복 일정·알림",
+      "월/주/일 뷰",
+    ],
+    stack: ["Next.js", "Supabase", "TypeScript"],
+    // repoUrl: GitHub 저장소 주소 (공유 예정)
+  },
+  {
+    id: "personal-branding",
+    title: "개인 브랜딩 자동화",
+    en: "Personal Branding Automation",
+    category: "생산성·콘텐츠",
+    status: "예정",
+    summary: "쓰레드·링크드인 등 채널에 맞춰 콘텐츠를 자동 리라이팅·발행해 개인 브랜딩을 돕습니다.",
+    highlights: [
+      "채널별 톤 자동 리라이팅",
+      "Threads·LinkedIn 발행",
+      "발행 스케줄 관리",
+      "반응·성과 추적",
+    ],
+    stack: ["n8n", "GPT", "LinkedIn API", "Threads"],
+  },
+
   // ── 주식·금융 ─────────────────────────────
   {
     id: "stock-dashboard",

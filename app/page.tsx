@@ -9,8 +9,9 @@ import { services } from "@/lib/services";
 import { testimonials } from "@/lib/showcase";
 
 const heroBullets = [
-  "n8n 기반 AI 자동화 운영",
-  "AX 전략 컨설팅",
+  "AX 전략 컨설팅 · 프로젝트 수행",
+  "기업형 챗봇 제작",
+  "AI 자동화 운영",
   "홈페이지·프로그램 제작",
   "바이브코딩 · AI 자동화 강의",
 ];
