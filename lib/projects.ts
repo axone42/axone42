@@ -14,6 +14,7 @@ export type Project = {
   status: ProjectStatus;
   recommended?: boolean;
   summary: string;
+  detail?: string; // 모달용 상세 설명
   highlights: string[];
   stack: string[];
   repoUrl?: string; // GitHub 저장소
@@ -30,6 +31,8 @@ export const projects: Project[] = [
     status: "공개",
     recommended: true,
     summary: "주제만 입력하면 초안 작성부터 SEO 구성·발행까지, 블로그 콘텐츠를 자동으로 생성·게시합니다.",
+    detail:
+      "키워드나 주제만 입력하면 최신 정보를 반영해 초안을 작성하고, SEO 제목·메타·태그를 자동으로 구성한 뒤 예약 발행까지 처리합니다. 담당자는 검수만 하면 되도록 설계해, 꾸준한 콘텐츠 발행에 드는 시간을 크게 줄였습니다.",
     highlights: [
       "주제 → 초안 자동 생성",
       "SEO 제목·메타 자동 구성",
@@ -47,6 +50,8 @@ export const projects: Project[] = [
     status: "공개",
     recommended: true,
     summary: "팀의 일정과 업무를 한눈에 공유하고 관리하는 협업 캘린더.",
+    detail:
+      "부서·팀별 일정을 색상으로 구분해 표시하고, 업무를 담당자에게 배정하며 반복 일정과 알림을 지원합니다. 월·주·일 뷰로 팀 전체 일정을 한눈에 파악할 수 있어, 흩어진 일정 관리를 하나로 모았습니다.",
     highlights: [
       "팀 일정 공유·색상 구분",
       "업무 배정·담당자 표시",
@@ -63,6 +68,8 @@ export const projects: Project[] = [
     category: "생산성·콘텐츠",
     status: "예정",
     summary: "쓰레드·링크드인 등 채널에 맞춰 콘텐츠를 자동 리라이팅·발행해 개인 브랜딩을 돕습니다.",
+    detail:
+      "하나의 글을 채널(쓰레드·링크드인 등)별 톤과 형식에 맞게 자동 리라이팅하고, 예약 발행과 반응·성과 추적까지 자동화합니다. 개인·1인 기업의 지속적인 브랜딩 활동을 손쉽게 유지할 수 있도록 돕습니다.",
     highlights: [
       "채널별 톤 자동 리라이팅",
       "Threads·LinkedIn 발행",
@@ -150,6 +157,8 @@ export const projects: Project[] = [
     status: "공개",
     recommended: true,
     summary: "메타(페이스북·인스타) 광고 CRM을 구글시트에 연결하고, 신규 리드가 유입되면 즉시 텔레그램으로 알림을 보냅니다.",
+    detail:
+      "메타 광고에서 발생한 리드를 구글시트에 자동으로 적재하고, 새로운 행이 추가되는 즉시 n8n이 이를 감지해 리드 정보를 요약한 메시지를 텔레그램으로 발송합니다. 리드를 놓치지 않고 즉시 대응할 수 있어 초기 응대 속도를 크게 높였습니다.",
     highlights: [
       "메타 광고 리드 → 구글시트 자동 수집",
       "신규 행 유입 실시간 감지",
