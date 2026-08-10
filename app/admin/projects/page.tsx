@@ -101,6 +101,11 @@ export default function AdminProjectsPage() {
     flash("기본값으로 초기화했습니다");
   };
 
+  const logout = async () => {
+    await fetch("/api/admin/logout", { method: "POST" });
+    window.location.href = "/admin/login";
+  };
+
   const tsCode = useMemo(() => toTsLiteral(list), [list]);
 
   const copy = async (text: string, label: string) => {
@@ -128,6 +133,7 @@ export default function AdminProjectsPage() {
         <button className="btn btn--ghost" onClick={() => copy(tsCode, "TypeScript 코드")}>코드 복사 (TS)</button>
         <button className="btn btn--ghost" onClick={() => copy(JSON.stringify(list, null, 2), "JSON")}>JSON 복사</button>
         <button className="btn btn--ghost" onClick={resetDefaults}>기본값 복원</button>
+        <button className="btn btn--ghost" onClick={logout} style={{ marginLeft: "auto" }}>로그아웃</button>
         {toast && <span className="admin-toast">✓ {toast}</span>}
       </div>
 
