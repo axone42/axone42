@@ -390,6 +390,16 @@ button { font-family: inherit; }
 .field input:focus, .field select:focus, .field textarea:focus { border-color: rgba(107,98,242,0.7); }
 .field textarea { resize: vertical; min-height: 130px; }
 .field select { appearance: none; }
+/* 드롭다운 팝업 옵션 — 흰 배경/흰 글씨(안 보임) 방지 */
+.field select option {
+  background: #161616;
+  color: #ededed;
+}
+.field select option:checked,
+.field select option:hover {
+  background: #6b62f2;
+  color: #ffffff;
+}
 .form-note { font-size: 13px; color: var(--color-slate); margin-top: 4px; }
 .consent { display: flex; align-items: flex-start; gap: 10px; margin-top: 20px; font-size: 14px; color: var(--color-ash); cursor: pointer; }
 .consent input { margin-top: 3px; width: 16px; height: 16px; accent-color: var(--color-dusk-violet); flex: none; }

@@ -4,8 +4,10 @@ import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "회사소개",
-  description: `${site.name}(${site.nameEn}) 회사 소개 — ${site.tagline}`,
+  title: "회사소개 — AI 트랜스포메이션 파트너",
+  description:
+    "AI 전환 파트너 에이엑스원(AXONE). 대표 이원희, 경기 부천 소재. 컨설팅부터 개발·운영·교육까지 실행하는 AX 전문 기업의 소개와 사업자 정보·등록 업종.",
+  alternates: { canonical: "/about" },
 };
 
 const values = [

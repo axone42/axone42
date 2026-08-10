@@ -3,7 +3,8 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "이용약관",
-  description: `${site.name}(${site.nameEn}) 이용약관`,
+  description: `${site.name}(${site.nameEn}) 서비스 이용약관 — 서비스 제공·이용자 의무·지식재산권·책임 등.`,
+  alternates: { canonical: "/terms" },
 };
 
 export default function TermsPage() {

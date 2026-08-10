@@ -7,11 +7,13 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
+  alternates: { canonical: "/" },
   title: {
-    default: `${site.name}(${site.nameEn}) — ${site.tagline}`,
+    default: "에이엑스원(AXONE) | AI 자동화·AX 컨설팅 파트너",
     template: `%s | ${site.nameEn}`,
   },
-  description: site.description,
+  description:
+    "기업의 AI 전환(AX)을 설계하고 실행합니다. n8n 기반 AI 자동화 운영, AX 컨설팅, 챗봇·쇼핑몰·ERP 개발, 홈페이지 제작, 실무 교육까지 — 에이엑스원(AXONE).",
   keywords: [
     "AX컨설팅",
     "AI자동화",

@@ -5,9 +5,10 @@ import ServiceExplorer from "@/components/ServiceExplorer";
 import { services } from "@/lib/services";
 
 export const metadata: Metadata = {
-  title: "서비스",
+  title: "AI 자동화·컨설팅·챗봇·개발 서비스",
   description:
-    "AI 자동화 운영서비스(n8n 워크플로우 사례), AX 컨설팅, 바이브코딩 강의, AI 자동화 강의 — 에이엑스원(AXONE)의 서비스 목록.",
+    "n8n 기반 AI 자동화 운영, AX 컨설팅, 쇼핑몰·챗봇(LangGraph)·ERP/CRM·홈페이지 개발, 바이브코딩·AI 자동화 강의까지. 에이엑스원(AXONE)의 8대 서비스와 20+ 자동화 구축 사례.",
+  alternates: { canonical: "/services" },
 };
 
 export default function ServicesPage() {

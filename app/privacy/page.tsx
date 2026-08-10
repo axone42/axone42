@@ -3,7 +3,8 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "개인정보처리방침",
-  description: `${site.name}(${site.nameEn}) 개인정보처리방침`,
+  description: `${site.name}(${site.nameEn})의 개인정보 수집·이용·보관 및 이용자 권리 안내.`,
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {

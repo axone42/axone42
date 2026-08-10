@@ -4,9 +4,10 @@ import Reveal from "@/components/Reveal";
 import { projects, PROJECT_CATEGORIES } from "@/lib/projects";
 
 export const metadata: Metadata = {
-  title: "자체 프로젝트",
+  title: "자체 프로젝트 로드맵 (주식·자동화·AI)",
   description:
-    "에이엑스원(AXONE)이 직접 만드는 오픈 프로젝트 로드맵 — 주식·금융, 자동화, AI 앱. 공개 예정 리스트.",
+    "에이엑스원이 직접 만드는 오픈 프로젝트 공개 예정 로드맵 — 실시간 주식 대시보드, AI 뉴스 감성분석, n8n 워크플로우 템플릿, RAG 챗봇 등.",
+  alternates: { canonical: "/projects" },
 };
 
 export default function ProjectsPage() {
