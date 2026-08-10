@@ -940,6 +940,26 @@ p, li, span, a { overflow-wrap: break-word; }
   .pricing__summary { position: static; }
 }
 
+/* ---------- Contact service picker (가격 연동) ---------- */
+.contact-picker { display: flex; flex-direction: column; gap: 16px; }
+.contact-picker__group { display: flex; flex-direction: column; gap: 8px; }
+.contact-picker__gtitle {
+  font-family: var(--font-geist); font-size: 12px; font-weight: 700;
+  color: var(--color-slate); letter-spacing: 0.06em; text-transform: uppercase;
+}
+.price-item--sm { padding: 12px 14px; gap: 12px; }
+.price-item--sm .price-item__name { font-size: 14px; }
+.contact-estimate {
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+  margin-top: 14px; padding: 14px 18px;
+  border: 1px solid rgba(107,98,242,0.3); border-radius: var(--radius-ui);
+  background: var(--color-violet-soft); font-size: 14px; color: var(--color-ash);
+}
+.contact-estimate b { font-family: var(--font-geist); font-size: 20px; color: var(--color-ink); }
+.contact-estimate__promo {
+  margin-left: auto; color: var(--color-dusk-violet); font-weight: 600;
+}
+
 /* ---------- Admin login ---------- */
 .admin-login { min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
 .admin-login__card {

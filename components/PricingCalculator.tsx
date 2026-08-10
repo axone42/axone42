@@ -14,16 +14,11 @@ export default function PricingCalculator() {
   const total = useMemo(() => chosen.reduce((s, p) => s + p.from, 0), [chosen]);
   const promo = Math.round((total * (1 - PROMO_RATE)) / 10000) * 10000;
 
-  // 견적 요약을 문의 폼 메시지로 전달
-  const estimate =
+  // 선택한 서비스 id를 문의 폼으로 전달 → 폼에서 동일하게 선택된 상태로 이어짐
+  const contactHref =
     chosen.length > 0
-      ? `[견적 문의] 선택: ${chosen.map((c) => c.name).join(", ")}\n예상 시작가 합계: ${formatKRW(total)}원~` +
-        (chosen.length >= 2 ? ` (런칭 프로모션 -20% 적용 시 ${formatKRW(promo)}원~)` : "")
-      : "";
-
-  const contactHref = estimate
-    ? `/contact?estimate=${encodeURIComponent(estimate)}`
-    : "/contact";
+      ? `/contact?items=${chosen.map((c) => c.id).join(",")}`
+      : "/contact";
 
   return (
     <div className="pricing">

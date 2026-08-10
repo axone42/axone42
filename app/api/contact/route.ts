@@ -10,6 +10,7 @@ type ContactPayload = {
   phone?: string;
   company?: string;
   service?: string;
+  estimate?: string;
   message?: string;
   agree?: boolean;
   // 허니팟 (사람은 비워둠, 봇은 채움)
@@ -64,6 +65,7 @@ export async function POST(request: Request) {
   const message = (data.message ?? "").trim();
   const company = (data.company ?? "").trim();
   const service = (data.service ?? "").trim() || "미지정";
+  const estimate = (data.estimate ?? "").trim();
 
   const errors: string[] = [];
   if (name.length < 2) errors.push("이름을 입력해 주세요.");
@@ -85,6 +87,7 @@ export async function POST(request: Request) {
     `연락처: ${phone || "-"}`,
     `회사/소속: ${company || "-"}`,
     `관심 서비스: ${service}`,
+    `예상 견적: ${estimate || "-"}`,
     ``,
     `문의 내용:`,
     message,
@@ -101,6 +104,7 @@ export async function POST(request: Request) {
         <tr><td style="padding:4px 12px 4px 0;color:#888">연락처</td><td>${esc(phone) || "-"}</td></tr>
         <tr><td style="padding:4px 12px 4px 0;color:#888">회사/소속</td><td>${esc(company) || "-"}</td></tr>
         <tr><td style="padding:4px 12px 4px 0;color:#888">관심 서비스</td><td>${esc(service)}</td></tr>
+        <tr><td style="padding:4px 12px 4px 0;color:#888">예상 견적</td><td>${esc(estimate) || "-"}</td></tr>
       </table>
       <p style="margin:16px 0 4px;color:#888">문의 내용</p>
       <div style="white-space:pre-wrap;border-left:3px solid #6b62f2;padding-left:12px">${esc(message)}</div>
