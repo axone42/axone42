@@ -1,0 +1,36 @@
+// 회사 기본 정보 — 사업자등록증 기준
+export const site = {
+  name: "에이엑스원",
+  nameEn: "AXONE",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://axone.kr",
+  tagline: "기업의 AX(AI Transformation)를 설계하고 실행합니다",
+  description:
+    "에이엑스원(AXONE)은 AX 컨설팅을 중심으로 AI 자동화 운영, 홈페이지·프로그램 제작, 실무 교육까지 아우르는 AI 트랜스포메이션 파트너입니다.",
+  ceo: "이원희",
+  bizNumber: "624-21-01756",
+  established: "2022-07-11",
+  address:
+    "경기도 부천시 원미구 부천로3번길 48, 7층 725호 (심곡동, 심곡동 피노키오 상가)",
+  email: "ai-consulting@naver.com",
+  categories: [
+    "정보통신업 · 컴퓨터 프로그래밍 서비스업",
+    "정보통신업 · 포털 및 기타 인터넷 정보 매개 서비스업",
+    "정보통신업 · 홈페이지 제작",
+    "전문·과학·기술서비스업 · 경영 컨설팅업",
+    "전문·과학·기술서비스업 · 광고 대행업",
+    "전문·과학·기술서비스업 · 시각 디자인업",
+  ],
+  nav: [
+    { href: "/", label: "홈" },
+    { href: "/services", label: "서비스" },
+    { href: "/projects", label: "자체프로젝트" },
+    { href: "/about", label: "회사소개" },
+  ],
+};
+
+export const stats = [
+  { num: "2022~", label: "AX·자동화 전문 운영 경력" },
+  { num: "n8n", label: "워크플로우 자동화 기반" },
+  { num: "8대", label: "핵심 서비스 라인업" },
+  { num: "1:1", label: "맞춤형 컨설팅 & 운영" },
+];
