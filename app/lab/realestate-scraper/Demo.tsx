@@ -84,6 +84,22 @@ const LISTINGS: Listing[] = [
   { id: "L8", name: "잠실 엘스", complex: "308동 · 중층", gu: "송파구", deal: "전세", price: 98000, area: 24, floor: 12, totalFloor: 33, source: "직방", isNew: false, change: 500, hue: 45 },
 ];
 
+// 단지 이름에 사진을 고정해 정렬·필터·데이터 갱신 후에도 같은 사진을 보여줍니다.
+const PROPERTY_PHOTOS: Record<string, string> = {
+  "래미안퍼스티지": "listing-L1",
+  "마포프레스티지자이": "listing-L2",
+  "서울숲트리마제": "listing-L3",
+  "헬리오시티": "listing-L4",
+  "한남더힐": "listing-L5",
+  "마포래미안푸르지오": "listing-L6",
+  "옥수하이츠": "listing-L7",
+  "잠실엘스": "listing-L8",
+};
+function propertyPhoto(name: string): string | undefined {
+  const file = PROPERTY_PHOTOS[name.replace(/\s/g, "")];
+  return file ? `/lab-img/realestate/${file}.webp` : undefined;
+}
+
 /* ── 옵션/헬퍼 ──────────────────────────────────────────── */
 
 const PRICE_BANDS = [
@@ -408,6 +424,7 @@ export default function Demo() {
               <div className="res-grid">
                 {filtered.map((l) => {
                   const src = SOURCE_STYLE[l.source];
+                  const photo = propertyPhoto(l.name);
                   return (
                     <article key={l.id} className="res-card">
                       {/* AI 공간 예시 썸네일 */}
@@ -415,8 +432,8 @@ export default function Demo() {
                         className="res-card__thumb"
                         style={{ background: `linear-gradient(135deg, hsl(${l.hue} 62% 58%), hsl(${(l.hue + 40) % 360} 58% 42%))` }}
                       >
-                        <DemoPhoto src={`/lab-img/realestate/p${l.hue % 3 + 1}.webp`} alt="AI 생성 주거 공간 예시 · 실제 매물 사진 아님" className="res-card__photo" />
-                        <span className="res-card__image-label">AI 공간 예시</span>
+                        {photo && <DemoPhoto src={photo} alt={`${l.name} 카드용 AI 공간 예시 · 실제 매물 사진 아님`} className="res-card__photo" />}
+                        <span className="res-card__image-label">{photo ? "AI 공간 예시" : "공간 사진 준비중"}</span>
                         <div aria-hidden className="res-card__glow" />
                         <div className="res-card__badges">
                           {l.isNew && <span className="res-badge res-badge--new">NEW</span>}
@@ -585,12 +602,12 @@ const RES_CSS = `
 /* 카드 */
 .res-card { background: #fff; border: 1px solid var(--color-hairline); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
 .res-card:not(.res-card--skel):hover { transform: translateY(-4px); box-shadow: 0 16px 30px -18px rgba(20,20,50,0.4); border-color: var(--color-hairline-strong); }
-.res-card__thumb { position: relative; height: 108px; display: flex; align-items: flex-end; padding: 11px; overflow: hidden; }
+.res-card__thumb { position: relative; height: 160px; display: flex; align-items: flex-end; padding: 11px; overflow: hidden; }
 .res-card__grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px); background-size: 24px 24px; }
 .res-card__photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .res-card__image-label { position:absolute; bottom:8px; right:8px; z-index:1; color:#fff; background:#14132b99; font-size:9px; padding:2px 5px; border-radius:4px; }
 .res-card__glow { position:absolute; inset:0; background:linear-gradient(transparent 35%,#0009); }
-.res-card__name { position: relative; color: #fff; font-family: var(--font-geist); font-weight: 800; font-size: 14.5px; text-shadow: 0 1px 4px rgba(0,0,0,0.4); line-height: 1.2; }
+.res-card__name { position: relative; padding-right:76px; color: #fff; font-family: var(--font-geist); font-weight: 800; font-size: 14.5px; text-shadow: 0 1px 4px rgba(0,0,0,0.4); line-height: 1.2; }
 .res-card__badges { position: absolute; top: 9px; left: 9px; display: flex; gap: 5px; flex-wrap: wrap; }
 .res-badge { font-size: 10.5px; font-weight: 800; border-radius: 7px; padding: 3px 7px; letter-spacing: 0.02em; box-shadow: 0 2px 6px -2px rgba(0,0,0,0.3); }
 .res-badge--new { color: #1f8a3b; background: rgba(255,255,255,0.95); }
@@ -652,7 +669,7 @@ const RES_CSS = `
   .res-toolbar__deals { justify-content: space-between; }
   .res-select { flex: 1; }
   .res-field { flex: 1 1 130px; }
-  .res-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+  .res-grid { grid-template-columns: minmax(0, 1fr); }
   .res-bar__right .res-tbtn:not(.res-tbtn--primary) { display: none; }
 }
 `;

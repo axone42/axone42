@@ -309,6 +309,62 @@
       "height": 600,
       "bytes": 137734,
       "prompt": "Photorealistic landscape 3:2 architectural photograph of a generic modern Korean midrise residential building with trees and landscaped walkway, soft daylight, no identifiable real development, no signs or text."
+    },
+    {
+      "file": "public/lab-img/realestate/listing-L1.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 60780,
+      "prompt": "Photorealistic architectural interior photograph of a fictional residential space: spacious high-floor 34-pyeong Korean apartment living room, ivory sectional sofa, pale limestone wall, dark walnut media console, tall corner windows, distant urban skyline, bright morning light. Wide landscape 3:2, camera at human eye level, realistic room proportions, straight architectural verticals, rich natural textures, premium real estate magazine quality, no people, no signage, no captions, no collage. Compose furniture across the center so it remains recognizable in a wide website property card crop. This is an invented illustrative interior, not documentation of any actual address."
+    },
+    {
+      "file": "public/lab-img/realestate/listing-L2.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 80544,
+      "prompt": "Photorealistic architectural interior photograph of a fictional residential space: cozy 25-pyeong Korean family apartment, warm oak floors, beige two-seat sofa, round oak dining table visible beside open kitchen, green plants, city windows, Scandinavian styling. Wide landscape 3:2, camera at human eye level, realistic room proportions, straight architectural verticals, rich natural textures, premium real estate magazine quality, no people, no signage, no captions, no collage. Compose furniture across the center so it remains recognizable in a wide website property card crop. This is an invented illustrative interior, not documentation of any actual address."
+    },
+    {
+      "file": "public/lab-img/realestate/listing-L3.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 53104,
+      "prompt": "Photorealistic architectural interior photograph of a fictional residential space: modern 29-pyeong high-rise apartment living room, broad river visible through large windows, low white sofa, charcoal accent chair, round glass coffee table, restrained cool neutral palette. Wide landscape 3:2, camera at human eye level, realistic room proportions, straight architectural verticals, rich natural textures, premium real estate magazine quality, no people, no signage, no captions, no collage. Compose furniture across the center so it remains recognizable in a wide website property card crop. This is an invented illustrative interior, not documentation of any actual address."
+    },
+    {
+      "file": "public/lab-img/realestate/listing-L4.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 60054,
+      "prompt": "Photorealistic architectural interior photograph of a fictional residential space: sun-filled south-facing 33-pyeong family apartment, pale oak flooring, cream sofa, soft blue accent chair, sunny dining nook with pendant light, contemporary white walls. Wide landscape 3:2, camera at human eye level, realistic room proportions, straight architectural verticals, rich natural textures, premium real estate magazine quality, no people, no signage, no captions, no collage. Compose furniture across the center so it remains recognizable in a wide website property card crop. This is an invented illustrative interior, not documentation of any actual address."
+    },
+    {
+      "file": "public/lab-img/realestate/listing-L5.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 89836,
+      "prompt": "Photorealistic architectural interior photograph of a fictional residential space: generous 41-pyeong low-rise luxury residence living room, garden trees outside wide windows, warm walnut paneling, sculptural tan leather armchair, cream modular sofa, stone coffee table. Wide landscape 3:2, camera at human eye level, realistic room proportions, straight architectural verticals, rich natural textures, premium real estate magazine quality, no people, no signage, no captions, no collage. Compose furniture across the center so it remains recognizable in a wide website property card crop. This is an invented illustrative interior, not documentation of any actual address."
+    },
+    {
+      "file": "public/lab-img/realestate/listing-L6.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 63008,
+      "prompt": "Photorealistic architectural interior photograph of a fictional residential space: practical 24-pyeong Korean rental apartment, compact open living room, light grey sofa, small rectangular wooden table, bright balcony sliding doors, comfortable clean everyday furnishings. Wide landscape 3:2, camera at human eye level, realistic room proportions, straight architectural verticals, rich natural textures, premium real estate magazine quality, no people, no signage, no captions, no collage. Compose furniture across the center so it remains recognizable in a wide website property card crop. This is an invented illustrative interior, not documentation of any actual address."
+    },
+    {
+      "file": "public/lab-img/realestate/listing-L7.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 61168,
+      "prompt": "Photorealistic architectural interior photograph of a fictional residential space: renovated 22-pyeong Korean apartment, white microcement walls, honey oak floor, warm terracotta sofa, built-in bookshelf, small arched doorway, carefully styled compact interior. Wide landscape 3:2, camera at human eye level, realistic room proportions, straight architectural verticals, rich natural textures, premium real estate magazine quality, no people, no signage, no captions, no collage. Compose furniture across the center so it remains recognizable in a wide website property card crop. This is an invented illustrative interior, not documentation of any actual address."
+    },
+    {
+      "file": "public/lab-img/realestate/listing-L8.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 53564,
+      "prompt": "Photorealistic architectural interior photograph of a fictional residential space: calm 24-pyeong mid-floor Korean apartment, soft sage green sofa, off-white walls, pale birch furniture, wide balcony window, sheer white curtains, gentle afternoon sunlight. Wide landscape 3:2, camera at human eye level, realistic room proportions, straight architectural verticals, rich natural textures, premium real estate magazine quality, no people, no signage, no captions, no collage. Compose furniture across the center so it remains recognizable in a wide website property card crop. This is an invented illustrative interior, not documentation of any actual address."
     }
   ]
 }
