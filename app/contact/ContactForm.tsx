@@ -1,17 +1,13 @@
 "use client";
-
 import Link from "next/link";
-import { useEffect, useMemo, useState } from "react";
-import { priceItems, PRICE_GROUPS, PROMO_RATE, formatKRW } from "@/lib/pricing";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { resolveIntent, selectedItems, serviceIntents } from "@/lib/pricing";
+import { validateContact, type ContactErrors } from "@/lib/contact-validation";
 import { site } from "@/lib/site";
+import ServicePicker from "@/components/ServicePicker";
+import EstimateSummary from "@/components/EstimateSummary";
 
-type Status =
-  | { state: "idle" }
-  | { state: "loading" }
-  | { state: "ok"; message: string; ticketId: string }
-  | { state: "error"; message: string };
-
-// 숫자만 입력하면 한국 전화번호 형식으로 하이픈 자동 삽입
 function formatPhone(value: string): string {
   const d = value.replace(/\D/g, "").slice(0, 11);
   if (d.startsWith("02")) {
@@ -27,210 +23,91 @@ function formatPhone(value: string): string {
 }
 
 export default function ContactForm() {
-  const [status, setStatus] = useState<Status>({ state: "idle" });
+  const params = useSearchParams();
+  const [ids, setIds] = useState<string[]>([]);
+  const [topic, setTopic] = useState("");
   const [phone, setPhone] = useState("");
-  const [message, setMessage] = useState("");
-  const [selected, setSelected] = useState<Record<string, boolean>>({});
-
-  // /contact?items=id1,id2 로 진입 시 가격 페이지에서 고른 조합을 그대로 선택
+  const [errors, setErrors] = useState<ContactErrors>({});
+  const [status, setStatus] = useState<{state:"idle"|"loading"|"ok"|"error"; message?:string}>({state:"idle"});
+  const submitting = useRef(false);
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const items = params.get("items");
-    if (items) {
-      const ids = items.split(",").map((s) => s.trim());
-      const next: Record<string, boolean> = {};
-      priceItems.forEach((p) => { if (ids.includes(p.id)) next[p.id] = true; });
-      setSelected(next);
-    } else {
-      // 이전 방식 호환: ?service=제목
-      const q = params.get("service");
-      if (q) {
-        const match = priceItems.find((p) => p.name.includes(q) || q.includes(p.name.split(" ")[0]));
-        if (match) setSelected({ [match.id]: true });
-      }
-    }
-  }, []);
-
-  const toggle = (id: string) => setSelected((prev) => ({ ...prev, [id]: !prev[id] }));
-
-  const chosen = priceItems.filter((p) => selected[p.id]);
-  const total = useMemo(() => chosen.reduce((s, p) => s + p.from, 0), [chosen]);
-  const promo = Math.round((total * (1 - PROMO_RATE)) / 10000) * 10000;
-
+    const intent = resolveIntent(new URLSearchParams(params.toString()));
+    setIds(intent.ids); setTopic(intent.topic);
+  }, [params]);
+  const toggle = (id: string) => {
+    const next = ids.includes(id) ? ids.filter((x) => x !== id) : [...ids, id];
+    setIds(next);
+    const intent = Object.values(serviceIntents).find((s) => s.title === topic);
+    if (intent && !next.includes(intent.item)) setTopic("");
+  };
+  const chosen = selectedItems(ids);
+  const errorFor = (field: keyof ContactErrors) => errors[field] && <p className="field-error" id={`${field}-error`}>{errors[field]}</p>;
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus({ state: "loading" });
-
+    if (submitting.current) return;
     const form = e.currentTarget;
     const fd = new FormData(form);
-
-    const serviceNames = chosen.map((c) => c.name).join(", ");
-    const estimate =
-      chosen.length > 0
-        ? `예상 시작가 ${formatKRW(total)}원~` +
-          (chosen.length >= 2 ? ` (프로모션 -20% 적용 시 ${formatKRW(promo)}원~)` : "")
-        : "";
-
     const payload = {
-      name: String(fd.get("name") ?? ""),
-      email: String(fd.get("email") ?? ""),
-      phone: String(fd.get("phone") ?? ""),
-      company: String(fd.get("company") ?? ""),
-      service: serviceNames || "미지정",
-      estimate,
-      message: String(fd.get("message") ?? ""),
-      agree: fd.get("agree") === "on",
-      company_website: String(fd.get("company_website") ?? ""),
+      name: String(fd.get("name") ?? ""), email: String(fd.get("email") ?? ""),
+      phone: String(fd.get("phone") ?? ""), company: String(fd.get("company") ?? ""),
+      message: String(fd.get("message") ?? ""), agree: fd.get("agree") === "on",
+      items: ids, topic, company_website: String(fd.get("company_website") ?? ""),
     };
-
+    const nextErrors = validateContact(payload);
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length) {
+      setStatus({state:"error",message:"입력 내용을 확인해 주세요."});
+      (form.elements.namedItem(Object.keys(nextErrors)[0]) as HTMLElement | null)?.focus();
+      return;
+    }
+    submitting.current = true;
+    setStatus({state:"loading"});
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await fetch("/api/contact", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
       const json = await res.json();
       if (res.ok && json.ok) {
-        setStatus({ state: "ok", message: json.message, ticketId: json.ticketId });
-        form.reset();
-        setMessage("");
-        setPhone("");
-        setSelected({});
+        setStatus({state:"ok",message:`${json.message} (접수번호 ${json.ticketId})`});
+        form.reset(); setPhone(""); setIds([]); setTopic("");
       } else {
-        setStatus({ state: "error", message: json.error ?? "접수 중 오류가 발생했습니다." });
+        setErrors(json.fieldErrors ?? {});
+        setStatus({state:"error",message:json.error ?? "접수하지 못했습니다. 입력 내용은 유지됩니다. 잠시 후 다시 시도해 주세요."});
       }
-    } catch {
-      setStatus({ state: "error", message: "네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요." });
-    }
+    } catch { setStatus({state:"error",message:"연결이 원활하지 않아 접수 여부를 확인하지 못했습니다. 잠시 후 다시 시도하거나 이메일로 문의해 주세요."}); }
+    finally { submitting.current = false; }
   }
-
-  return (
-    <form onSubmit={handleSubmit} noValidate>
-      {/* 상단: 필요한 서비스(좌) + 기업정보(우) */}
-      <div className="contact-top">
-      <div className="field" style={{ margin: 0 }}>
-        <label style={{ marginBottom: 4 }}>필요한 서비스 <span style={{ color: "var(--color-slate)", fontWeight: 400 }}>(복수 선택 가능 · 예상 시작가 자동 계산)</span></label>
-        <div className="contact-picker">
-          {PRICE_GROUPS.map((group) => {
-            const items = priceItems.filter((p) => p.group === group);
-            if (items.length === 0) return null;
-            return (
-              <div className="contact-picker__group" key={group}>
-                <span className="contact-picker__gtitle">{group}</span>
-                {items.map((p) => {
-                  const on = !!selected[p.id];
-                  return (
-                    <button
-                      type="button"
-                      key={p.id}
-                      className={`price-item price-item--sm${on ? " is-on" : ""}`}
-                      onClick={() => toggle(p.id)}
-                      aria-pressed={on}
-                    >
-                      <span className="price-item__check" aria-hidden>{on ? "✓" : ""}</span>
-                      <span className="price-item__body">
-                        <span className="price-item__name">{p.name}</span>
-                        {p.note && <span className="price-item__note">{p.note}</span>}
-                      </span>
-                      <span className="price-item__price"><b>{formatKRW(p.from)}원~</b><span>{p.unit}</span></span>
-                    </button>
-                  );
-                })}
-              </div>
-            );
-          })}
+  return <div className="contact-layout">
+    <form onSubmit={handleSubmit} noValidate className="contact-main">
+      <fieldset disabled={status.state === "loading"} className="contact-fields">
+        <div className="contact-interest">
+          <h2>어떤 도움이 필요하신가요?</h2>
+          <p>{topic || (chosen.length ? chosen.map((p) => p.name).join(" · ") : "아직 잘 모르겠어요 · 업무 상황만 알려주세요.")}</p>
+          <details className="contact-choice"><summary>{chosen.length ? "선택 서비스 수정" : "서비스를 직접 선택하고 싶어요"}</summary>
+            <button type="button" className="text-button" onClick={() => { setIds([]); setTopic(""); }}>아직 잘 모르겠어요 · 선택 해제</button>
+            <ServicePicker ids={ids} onToggle={toggle} />
+          </details>
+          {chosen.length > 0 && <details className="contact-choice"><summary>예상 비용 확인 · 초기비와 월비</summary><EstimateSummary ids={ids} /></details>}
         </div>
-        {chosen.length > 0 && (
-          <div className="contact-estimate">
-            <span>선택 {chosen.length}개 · 예상 시작가</span>
-            <b>{formatKRW(total)}원~</b>
-            {chosen.length >= 2 && <span className="contact-estimate__promo">프로모션 {formatKRW(promo)}원~</span>}
-          </div>
-        )}
-      </div>
-
-        {/* 기업정보 (우측 상단) */}
-        <aside className="contact-info">
-          <p className="eyebrow" style={{ margin: "0 0 12px" }}>Reach us</p>
-          <h3 className="contact-info__title">연락처</h3>
-          <div className="info-list" style={{ marginTop: 16 }}>
-            <div className="info-list__item">
-              <p className="info-list__label">이메일</p>
-              <p className="info-list__value">{site.email}</p>
-            </div>
-            <div className="info-list__item">
-              <p className="info-list__label">대표</p>
-              <p className="info-list__value">{site.ceo}</p>
-            </div>
-            <div className="info-list__item">
-              <p className="info-list__label">소재지</p>
-              <p className="info-list__value">{site.address}</p>
-            </div>
-            <div className="info-list__item">
-              <p className="info-list__label">사업자등록번호</p>
-              <p className="info-list__value">{site.bizNumber}</p>
-            </div>
-          </div>
-        </aside>
-      </div>
-
-      {/* 연락 정보 입력 */}
-      <div className="form-grid">
-        <div className="field">
-          <label htmlFor="name">이름 *</label>
-          <input id="name" name="name" type="text" placeholder="홍길동" required />
+        <div className="form-grid">
+          <div className="field"><label htmlFor="name">이름 *</label><input id="name" name="name" autoComplete="name" placeholder="홍길동" maxLength={100} required aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} />{errorFor("name")}</div>
+          <div className="field"><label htmlFor="email">이메일 *</label><input id="email" name="email" type="email" autoComplete="email" placeholder="you@company.com" maxLength={254} required aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} />{errorFor("email")}</div>
+          <div className="field"><label htmlFor="phone">연락처 (선택)</label><input id="phone" name="phone" type="tel" inputMode="numeric" autoComplete="tel" placeholder="010-0000-0000" value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))} /></div>
+          <div className="field"><label htmlFor="company">회사 / 소속 (선택)</label><input id="company" name="company" autoComplete="organization" maxLength={200} placeholder="회사 또는 팀 이름" /></div>
+          <div className="field field--full"><label htmlFor="message">문의 내용 *</label><textarea id="message" name="message" placeholder="예: 매일 주문 정보를 엑셀에 옮기고 있습니다. 지금 쓰는 도구와 줄이고 싶은 업무를 알려주세요." maxLength={5000} required aria-invalid={!!errors.message} aria-describedby={errors.message ? "message-error" : undefined} />{errorFor("message")}</div>
         </div>
-        <div className="field">
-          <label htmlFor="email">이메일 *</label>
-          <input id="email" name="email" type="email" placeholder="you@company.com" required />
-        </div>
-        <div className="field">
-          <label htmlFor="phone">연락처</label>
-          <input
-            id="phone" name="phone" type="tel" inputMode="numeric" autoComplete="tel"
-            placeholder="숫자만 입력하면 자동으로 - 가 붙어요"
-            value={phone} onChange={(e) => setPhone(formatPhone(e.target.value))}
-          />
-        </div>
-        <div className="field">
-          <label htmlFor="company">회사 / 소속</label>
-          <input id="company" name="company" type="text" placeholder="(선택)" />
-        </div>
-        <div className="field field--full">
-          <label htmlFor="message">문의 내용 *</label>
-          <textarea
-            id="message" name="message" value={message} onChange={(e) => setMessage(e.target.value)}
-            placeholder="현재 업무 상황이나 자동화하고 싶은 일, 궁금한 점을 자유롭게 적어 주세요."
-            required
-          />
-        </div>
-      </div>
-
-      {/* 허니팟 */}
-      <div aria-hidden style={{ position: "absolute", left: "-9999px", width: 1, height: 1, overflow: "hidden" }}>
-        <label htmlFor="company_website">Company Website</label>
-        <input id="company_website" name="company_website" type="text" tabIndex={-1} autoComplete="off" />
-      </div>
-
-      <label className="consent">
-        <input type="checkbox" name="agree" required />
-        <span>
-          <Link href="/privacy" target="_blank" className="consent__link">개인정보 수집·이용</Link>에 동의합니다. (이름·연락처·이메일·문의내용, 상담 목적, 3년 보관) *
-        </span>
-      </label>
-
-      <div style={{ display: "flex", alignItems: "center", gap: 16, marginTop: 16, flexWrap: "wrap" }}>
-        <button type="submit" className="btn btn--primary" disabled={status.state === "loading"}>
-          {status.state === "loading" ? "접수 중…" : "문의 보내기"}
-        </button>
-        {status.state === "ok" && (
-          <span className="form-status form-status--ok">✓ {status.message} (접수번호 {status.ticketId})</span>
-        )}
-        {status.state === "error" && (
-          <span className="form-status form-status--err">⚠ {status.message}</span>
-        )}
-      </div>
-      <p className="form-note">* 표시는 필수 입력 항목입니다. 접수 내용은 상담 목적으로만 사용됩니다.</p>
+        <div aria-hidden style={{position:"absolute",left:"-9999px",width:1,height:1,overflow:"hidden"}}><label htmlFor="company_website">Company Website</label><input id="company_website" name="company_website" tabIndex={-1} autoComplete="off" /></div>
+        <label className="consent"><input id="agree" type="checkbox" name="agree" required aria-invalid={!!errors.agree} aria-describedby={errors.agree ? "agree-error" : undefined} /><span><Link href="/privacy" target="_blank" className="consent__link">개인정보 수집·이용</Link>에 동의합니다. (상담 목적, 이름·연락처·이메일·문의 내용, 3년 보관) *</span></label>
+        {errorFor("agree")}
+        <button type="submit" className="btn btn--primary contact-submit">{status.state === "loading" ? "접수 중…" : "무료 상담 신청"}</button>
+      </fieldset>
+      {status.state === "error" && <div className="form-feedback form-feedback--error" role="alert"><p>{status.message}</p><a href={`mailto:${site.email}`}>이메일로 문의하기 →</a></div>}
+      {status.state === "ok" && <div className="form-feedback" role="status">{status.message}</div>}
+      <p className="form-note">상담 신청만으로 비용이 발생하지 않습니다. 유료 작업은 범위와 견적에 동의하신 후 시작합니다.</p>
     </form>
-  );
+    <aside className="contact-aside">
+      <p className="eyebrow">다음 단계</p><h2>상담은 이렇게 진행됩니다</h2>
+      <ol className="flowsteps"><li>남겨주신 업무와 문의 내용을 확인합니다.</li><li>영업일 기준 1~2일 내 이메일 또는 연락처로 답변드립니다.</li><li>필요한 범위·예상 일정·비용을 함께 정합니다.</li></ol>
+      <hr /><h3>직접 연락하기</h3><a className="contact-email" href={`mailto:${site.email}`}>{site.email}</a>
+      <p>에이엑스원 · 대표 {site.ceo}</p><p>{site.address}</p>
+    </aside>
+  </div>;
 }

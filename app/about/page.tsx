@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
+import TechStack from "@/components/TechStack";
 
 export const metadata: Metadata = {
   title: "회사소개 — AI 트랜스포메이션 파트너",
@@ -41,6 +42,11 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
+      <section className="section--tight"><div className="container about-owner">
+        <div className="about-owner__mark" aria-hidden>AX</div>
+        <div><p className="eyebrow">에이엑스원 대표</p><h2>{site.ceo}</h2><p>AI 업무 자동화, 웹·시스템 구축, 컨설팅과 실무 교육을 제공합니다. 귀사의 현재 업무와 목표를 바탕으로 필요한 개발·운영 범위를 상담합니다.</p><a className="card__link" href={`mailto:${site.email}`}>{site.email} →</a></div>
+        <div className="about-evidence"><h3>맡기기 전에 확인하세요</h3><p>직접 만든 데모의 체험 범위를 공개하고, 진행 전 결과물·일정·비용·운영 조건을 함께 정합니다.</p><Link href="/projects" className="btn btn--ghost">자체 제작 데모 보기 →</Link></div>
+      </div></section>
       <section className="section--tight">
         <div className="container">
           <div className="cards">
@@ -58,6 +64,7 @@ export default function AboutPage() {
       </section>
 
       <div className="container"><div className="glow-strip" /></div>
+      <section className="section--tight"><div className="container"><details className="technology-details"><summary>프로젝트에 맞춰 선택하는 기술과 도구</summary><p>기존 시스템과 운영 환경에 맞춰 필요한 도구를 조합합니다.</p><TechStack /></details></div></section>
 
       {/* Company info + categories */}
       <section className="section">

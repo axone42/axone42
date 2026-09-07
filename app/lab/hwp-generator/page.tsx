@@ -4,7 +4,7 @@ import Demo from "./Demo";
 
 export const metadata: Metadata = {
   title: "한글문서 생성 시스템 데모",
-  description: "양식과 데이터만 입력하면 공문·제안서·보고서를 한글(HWPX) 문서로 자동 생성하고 AI가 초안 문구까지 채워 넣는 AXONE 자체 프로젝트 데모.",
+  description: "공문·제안서·보고서의 내용을 편집하고 미리보기와 본문 텍스트 다운로드를 체험하는 문서 생성 데모.",
   alternates: { canonical: "/lab/hwp-generator" },
 };
 
@@ -14,7 +14,8 @@ export default function Page() {
       category="생산성·콘텐츠"
       title="한글문서 생성 시스템"
       en="HWP Document Generator"
-      tagline="양식과 데이터만 넣으면 공문·제안서·보고서를 한글(HWPX) 문서로 자동 생성합니다. AI가 초안 문구까지 채워 넣습니다."
+      tagline="문서 정보를 편집하고 초안·미리보기·텍스트 다운로드를 체험합니다."
+      scope="공문·제안서·보고서 편집과 본문 .txt 다운로드를 제공합니다. HWPX 서식 파일 생성은 아직 지원하지 않습니다. AI 연결이 어려우면 샘플 초안으로 안내합니다."
       stack={["Python", "HWPX", "GPT"]}
     >
       <Demo />

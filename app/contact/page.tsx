@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import ContactForm from "./ContactForm";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "문의·무료 상담 신청",
@@ -16,10 +17,10 @@ export default function ContactPage() {
         <div className="container">
           <Reveal>
             <p className="eyebrow">Contact</p>
-            <h1 className="page-hero__title">문의하기</h1>
+            <h1 className="page-hero__title">업무 고민부터 들려주세요</h1>
             <p className="page-hero__lead">
-              자동화하고 싶은 업무, 컨설팅·제작·교육 문의를 남겨 주세요.
-              접수 즉시 확인 후 영업일 기준 1~2일 내 연락드립니다.
+              어떤 서비스가 필요한지 몰라도 괜찮습니다. 현재 상황을 남겨주시면
+              영업일 기준 1~2일 내 연락드립니다.
             </p>
           </Reveal>
         </div>
@@ -28,8 +29,8 @@ export default function ContactPage() {
       <section className="section--tight">
         <div className="container">
           <Reveal>
-            <div className="card" style={{ padding: 32 }}>
-              <ContactForm />
+            <div className="contact-card">
+              <Suspense fallback={<p>상담 양식을 준비하고 있습니다.</p>}><ContactForm /></Suspense>
             </div>
           </Reveal>
         </div>

@@ -23,6 +23,6 @@ export const faqs: Faq[] = [
   },
   {
     q: "어떤 프로그램·기술을 사용하나요?",
-    a: "n8n, OpenAI·Claude, LangGraph, Next.js, Python 등 검증된 스택을 사용합니다. 위 '우리가 사용하는 기술 스택'을 참고하세요.",
+    a: "업무와 기존 시스템에 맞춰 n8n, OpenAI·Claude, LangGraph, Next.js, Python 등을 선택합니다. 상담에서는 기술명보다 연결할 업무와 실제 결과물을 중심으로 설명합니다.",
   },
 ];

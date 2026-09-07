@@ -14,6 +14,7 @@ export default function LabShell({
   tagline,
   stack,
   children,
+  scope,
 }: {
   category: string;
   title: string;
@@ -21,6 +22,7 @@ export default function LabShell({
   tagline?: string;
   stack?: string[];
   children: React.ReactNode;
+  scope?: string;
 }) {
   return (
     <div className="labx">
@@ -51,6 +53,7 @@ export default function LabShell({
         </p>
       )}
 
+      <div className="labx__scope"><b>체험 범위</b><span>{scope ?? "사용 흐름을 살펴보는 자체 제작 데모입니다. 예시 데이터와 일부 외부 조회를 사용하며, 실제 주문·발송·외부 시스템 저장은 수행하지 않습니다. 실제 도입 범위는 상담에서 확정합니다."}</span></div>
       {/* 데모 본체 — 전체폭 */}
       <div className="labx__stage">{children}</div>
 

@@ -2,12 +2,17 @@
 
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useState } from "react";
-import Reveal from "@/components/Reveal";
 import { projects, PROJECT_CATEGORIES, type Project } from "@/lib/projects";
 
 export default function ProjectExplorer() {
   const [active, setActive] = useState<Project | null>(null);
-  const recommended = projects.filter((p) => p.recommended);
+  const [category, setCategory] = useState("전체");
+  const [availability, setAvailability] = useState("전체");
+  const ordered = [...projects].sort((a,b) => {
+    const order = ["자동화", "AI 앱", "생산성·콘텐츠", "웹·커머스", "주식·금융"];
+    return order.indexOf(a.category) - order.indexOf(b.category);
+  });
+  const visible = ordered.filter((p) => (category === "전체" || p.category === category) && (availability === "전체" || (availability === "데모 체험" ? !!p.demoUrl : !p.demoUrl)));
 
   const close = useCallback(() => setActive(null), []);
 
@@ -27,47 +32,15 @@ export default function ProjectExplorer() {
 
   return (
     <>
-      {/* 우선 추천 / 공개 */}
-      <section className="section--tight">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">먼저 살펴보세요</p>
-            <h2 className="section-title" style={{ fontSize: "28px" }}>
-              ★ 공개·추천 프로젝트 {recommended.length}선
-            </h2>
-          </Reveal>
-          <div className="cards" style={{ marginTop: 28 }}>
-            {recommended.map((p, i) => (
-              <Reveal key={p.id} delay={i * 60}>
-                <ProjectCard p={p} onOpen={() => setActive(p)} />
-              </Reveal>
-            ))}
-          </div>
+      <section className="section--tight"><div className="container">
+        <div className="project-filters" aria-label="프로젝트 필터">
+          <div className="filterbar" aria-label="분야">{["전체", ...PROJECT_CATEGORIES].map((cat) => <button type="button" key={cat} className={`filter-chip${category === cat ? " is-active" : ""}`} aria-pressed={category === cat} onClick={() => setCategory(cat)}>{cat}</button>)}</div>
+          <div className="filterbar" aria-label="체험 가능 여부">{["전체", "데모 체험", "소개·예정"].map((value) => <button type="button" key={value} className={`filter-chip${availability === value ? " is-active" : ""}`} aria-pressed={availability === value} onClick={() => setAvailability(value)}>{value}</button>)}</div>
         </div>
-      </section>
-
-      {/* 카테고리별 전체 로드맵 */}
-      {PROJECT_CATEGORIES.map((cat) => {
-        const list = projects.filter((p) => p.category === cat);
-        if (list.length === 0) return null;
-        return (
-          <section className="section" id={cat} key={cat} style={{ scrollMarginTop: 96 }}>
-            <div className="container">
-              <Reveal>
-                <p className="eyebrow">Roadmap</p>
-                <h2 className="section-title">{cat}</h2>
-              </Reveal>
-              <div className="cards" style={{ marginTop: 28 }}>
-                {list.map((p, i) => (
-                  <Reveal key={p.id} delay={i * 50}>
-                    <ProjectCard p={p} withHighlights onOpen={() => setActive(p)} />
-                  </Reveal>
-                ))}
-              </div>
-            </div>
-          </section>
-        );
-      })}
+        <p role="status">{visible.length}개 프로젝트 · 데모별 체험 범위를 확인해 주세요.</p>
+        <div className="cards projects-grid">{visible.map((p) => <ProjectCard key={p.id} p={p} onOpen={() => setActive(p)} />)}</div>
+        {!visible.length && <p className="empty-state">이 조건의 프로젝트가 없습니다. 다른 분야를 선택해 주세요.</p>}
+      </div></section>
 
       {active && <ProjectModal p={active} onClose={close} />}
     </>
@@ -84,11 +57,9 @@ function ProjectCard({
   onOpen: () => void;
 }) {
   return (
-    <button type="button" className="card proj-card card--btn" style={{ height: "100%" }} onClick={onOpen} aria-haspopup="dialog">
+    <article className="card proj-card" style={{ height: "100%" }}>
       <div className="proj-card__top">
-        <span className={`proj-status${p.status === "공개" ? " proj-status--live" : ""}`}>{p.status}</span>
-        {p.demoUrl && <span className="proj-demo">▶ 데모 체험</span>}
-        {p.recommended && <span className="proj-rec">★ 추천</span>}
+        <span className="proj-status">{p.demoUrl ? "체험 가능한 데모" : p.status === "공개" ? "소개 공개 · 체험 준비" : "개발 예정"}</span>
       </div>
       <h3 className="card__title">{p.title}</h3>
       <p className="proj-en">{p.en}</p>
@@ -100,13 +71,11 @@ function ProjectCard({
           ))}
         </ul>
       )}
-      <div className="tags" style={{ marginTop: "auto", paddingTop: 16 }}>
-        {p.stack.map((t) => (
-          <span key={t} className="tag">{t}</span>
-        ))}
+      <div className="project-card-actions">
+        {p.demoUrl && <a href={p.demoUrl} className="btn btn--primary">데모 체험 →</a>}
+        <button type="button" className="btn btn--ghost" onClick={onOpen} aria-haspopup="dialog" aria-label={`${p.title} 상세 보기`}>상세 보기</button>
       </div>
-      <span className="card__link" style={{ marginTop: 14 }}>상세 보기</span>
-    </button>
+    </article>
   );
 }
 
@@ -125,7 +94,7 @@ function ProjectModal({ p, onClose }: { p: Project; onClose: () => void }) {
         <button className="modal__close" onClick={onClose} aria-label="닫기">✕</button>
         <div className="modal__scroll">
           <p className="modal__eyebrow">
-            {p.category} · <span className={p.status === "공개" ? "proj-live-text" : ""}>{p.status}</span>
+            {p.category} · <span>{p.demoUrl ? "체험 가능한 데모" : p.status === "공개" ? "소개 공개 · 체험 준비" : "개발 예정"}</span>
             {p.demoUrl && <span className="proj-demo" style={{ marginLeft: 8 }}>▶ 데모 체험 가능</span>}
           </p>
           <h3 className="modal__title" id="project-title">{p.title}</h3>
@@ -136,20 +105,14 @@ function ProjectModal({ p, onClose }: { p: Project; onClose: () => void }) {
             <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="proj-demo-cta">
               <span className="proj-demo-cta__icon" aria-hidden>▶</span>
               <span>
-                <b>라이브 데모 체험하기</b>
-                <small>실제로 동작하는 화면을 새 탭에서 바로 열어봅니다</small>
+                <b>화면 데모 체험하기</b>
+                <small>예시 데이터와 사용 흐름을 새 탭에서 확인합니다</small>
               </span>
               <span className="proj-demo-cta__arrow" aria-hidden>→</span>
             </a>
           )}
 
           <p className="modal__desc">{p.detail ?? p.summary}</p>
-
-          {p.outcome && (
-            <div className="proj-outcome">
-              <span aria-hidden>✦</span> {p.outcome}
-            </div>
-          )}
 
           {p.useCases && p.useCases.length > 0 && (
             <div className="modal__section">
@@ -161,7 +124,7 @@ function ProjectModal({ p, onClose }: { p: Project; onClose: () => void }) {
           )}
 
           <div className="modal__section">
-            <h4>핵심 기능</h4>
+            <h4>도입 시 논의할 기능</h4>
             <ul className="curric" style={{ gridTemplateColumns: "1fr" }}>
               {p.highlights.map((h) => (
                 <li key={h}>{h}</li>
@@ -171,7 +134,7 @@ function ProjectModal({ p, onClose }: { p: Project; onClose: () => void }) {
 
           {p.flow && p.flow.length > 0 && (
             <div className="modal__section">
-              <h4>이렇게 동작해요</h4>
+              <h4>도입 시 목표 업무 흐름</h4>
               <ol className="flowsteps">
                 {p.flow.map((s) => <li key={s}>{s}</li>)}
               </ol>

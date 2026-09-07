@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { csvCell, downloadText } from "@/lib/download";
 
 type DocKey = "receipt" | "tax" | "card";
 
@@ -255,6 +256,9 @@ export default function Demo() {
   };
 
   const exportSheet = () => {
+    const rows: unknown[][] = [["샘플 데이터", doc.tab], ["항목", "값"], ...doc.fields.map((field) => [field.label, field.value])];
+    if (doc.items) rows.push([], ["품목", "수량", "단가", "금액"], ...doc.items.map((item) => [item.name, item.qty, item.price, item.amount]));
+    downloadText(`샘플-${doc.tab}.csv`, rows.map((row) => row.map(csvCell).join(",")).join("\r\n"), "text/csv;charset=utf-8");
     setExported(true);
     timers.current.push(setTimeout(() => setExported(false), 2200));
   };
@@ -483,7 +487,7 @@ export default function Demo() {
                   className={`lx-btn ${exported ? "lx-btn--ghost" : "lx-btn--primary"} ocrx__export-btn`}
                   onClick={exportSheet}
                 >
-                  {exported ? "내보내기 완료 ✓" : "📥 시트로 내보내기"}
+                  {exported ? "CSV 다운로드 요청됨" : "📥 샘플 CSV 다운로드"}
                 </button>
               </div>
             )}

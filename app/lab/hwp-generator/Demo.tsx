@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { downloadText } from "@/lib/download";
 
 /* ------------------------------------------------------------------ *
  * 템플릿 정의
@@ -140,6 +141,7 @@ export default function Demo() {
   };
 
   const runExport = () => {
+    downloadText(`${meta.name}.txt`, [f.title, `수신: ${f.receiver}`, `발신: ${f.sender}`, `문서번호: ${f.docNo}`, `작성일: ${f.date}`, `작성자: ${f.writer}`, "", labels.b1, f.body1, "", labels.b2, f.body2, "", labels.b3, f.body3].join("\n"));
     setExported(true);
     setTimeout(() => setExported(false), 2200);
   };
@@ -334,11 +336,11 @@ export default function Demo() {
             <div className="hg-canvas__actions">
               {exported && (
                 <span className="lx-pill lx-pill--ok hg-export-done">
-                  내보내기 완료 ✓ ({meta.name}.hwpx)
+                  텍스트 다운로드 요청됨 · {meta.name}.txt
                 </span>
               )}
               <button type="button" className="lx-btn lx-btn--ghost hg-export-btn" onClick={runExport}>
-                ⬇ HWPX 내보내기
+                ⬇ 본문 텍스트 다운로드
               </button>
             </div>
           </div>

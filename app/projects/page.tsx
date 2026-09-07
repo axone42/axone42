@@ -2,12 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ProjectExplorer from "@/components/ProjectExplorer";
-import { PROJECT_CATEGORIES } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "자체 프로젝트",
   description:
-    "에이엑스원이 직접 만들어 공개하는 오픈 프로젝트 — 블로그 자동화, 팀 캘린더, 리드 알림, 주식·자동화·AI 앱. 각 항목을 눌러 상세·데모·GitHub를 확인하세요.",
+    "AXONE 자체 제작 프로젝트. 업무 자동화·AI 앱·웹사이트 데모를 직접 사용하고 체험 범위와 구현 내용을 확인하세요.",
   alternates: { canonical: "/projects" },
 };
 
@@ -20,16 +19,10 @@ export default function ProjectsPage() {
             <p className="eyebrow">Projects</p>
             <h1 className="page-hero__title">자체 프로젝트</h1>
             <p className="page-hero__lead">
-              에이엑스원이 직접 만들어 공개하는 프로젝트입니다. 완성된 서비스부터 공개 예정
-              로드맵까지 — 각 항목을 누르면 상세 설명과 데모·GitHub 링크를 볼 수 있습니다.
+              직접 사용해볼 수 있는 데모와 소개 단계의 프로젝트를 구분해 안내합니다.
+              실제 고객사 실적이 아닌 자체 제작 예시이며, 체험 가능한 범위는 데모 상단에서 확인할 수 있습니다.
             </p>
-            <div className="anchors">
-              {PROJECT_CATEGORIES.map((c) => (
-                <a key={c} href={`#${encodeURIComponent(c)}`} className="anchor-chip">
-                  {c}
-                </a>
-              ))}
-            </div>
+
           </Reveal>
         </div>
       </section>

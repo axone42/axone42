@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ServiceExplorer from "@/components/ServiceExplorer";
-import ServiceIcon from "@/components/ServiceIcon";
-import { services } from "@/lib/services";
+import { serviceGroups } from "@/lib/service-groups";
 
 export const metadata: Metadata = {
   title: "AI 자동화·컨설팅·챗봇·개발 서비스",
   description:
-    "n8n 기반 AI 자동화 운영, AX 컨설팅, 쇼핑몰·챗봇(LangGraph)·ERP/CRM·홈페이지 개발, 바이브코딩·AI 자동화 강의까지. 에이엑스원(AXONE)의 8대 서비스와 20+ 자동화 구축 사례.",
+    "업무 자동화, 웹·시스템 구축, 컨설팅·교육. 해결하고 싶은 문제에 맞춰 AXONE의 12개 서비스와 자동화 구현 예시를 확인하세요.",
   alternates: { canonical: "/services" },
 };
 
@@ -20,15 +19,15 @@ export default function ServicesPage() {
         <div className="container">
           <Reveal>
             <p className="eyebrow">Services</p>
-            <h1 className="page-hero__title">서비스 목록</h1>
+            <h1 className="page-hero__title">해결하고 싶은 일에서 시작하세요</h1>
             <p className="page-hero__lead">
-              아래 항목을 선택하면 상세 안내를 확인할 수 있습니다. AI 자동화 운영부터
-              전략 컨설팅, 실무 교육까지 기업의 AX 여정을 함께합니다.
+              반복 업무를 줄이는 일, 필요한 시스템을 만드는 일, 팀의 AI 역량을 키우는 일.
+              목적에 맞는 서비스를 확인하고 필요한 범위만 상담하세요.
             </p>
             <div className="anchors">
-              {services.map((s) => (
+              {serviceGroups.map((s) => (
                 <a key={s.id} href={`#${s.id}`} className="anchor-chip">
-                  <ServiceIcon id={s.id} size={15} /> {s.title}
+                  {s.label}
                 </a>
               ))}
             </div>

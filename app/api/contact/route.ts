@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { sendMail, mailgunConfigured } from "@/lib/mailgun";
+import { sendMail } from "@/lib/mailgun";
+import { estimateText, selectedItems, serviceIntents } from "@/lib/pricing";
+import { validateContact } from "@/lib/contact-validation";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -13,6 +15,8 @@ type ContactPayload = {
   estimate?: string;
   message?: string;
   agree?: boolean;
+  items?: string[];
+  topic?: string;
   // 허니팟 (사람은 비워둠, 봇은 채움)
   company_website?: string;
 };
@@ -54,27 +58,31 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "잘못된 요청 형식입니다." }, { status: 400 });
   }
 
+  if (!data || typeof data !== "object" || Array.isArray(data)) {
+    return NextResponse.json({ ok: false, error: "잘못된 요청 형식입니다." }, { status: 400 });
+  }
+  const read = (value: unknown, max = 5000) => typeof value === "string" ? value.trim().slice(0, max) : "";
+
   // 허니팟: 채워져 있으면 봇 — 성공한 척하고 조용히 폐기
-  if (data.company_website && data.company_website.trim() !== "") {
+  if (read(data.company_website) !== "") {
     return NextResponse.json({ ok: true, ticketId: "AX-OK", message: "문의가 접수되었습니다." });
   }
 
-  const name = (data.name ?? "").trim();
-  const email = (data.email ?? "").trim();
-  const phone = (data.phone ?? "").trim();
-  const message = (data.message ?? "").trim();
-  const company = (data.company ?? "").trim();
-  const service = (data.service ?? "").trim() || "미지정";
-  const estimate = (data.estimate ?? "").trim();
+  const name = read(data.name, 101);
+  const email = read(data.email, 255);
+  const phone = read(data.phone, 30);
+  const message = read(data.message, 5001);
+  const company = read(data.company, 200);
+  const ids = Array.isArray(data.items) ? data.items.filter((id): id is string => typeof id === "string") : [];
+  const chosen = selectedItems(ids);
+  const topic = Object.values(serviceIntents).find((s) => s.title === data.topic && chosen.some((p) => p.id === s.item))?.title;
+  const service = [topic, ...chosen.map((p) => p.name)].filter(Boolean).join(" · ") || "무료 상담 · 서비스 미정";
+  // 견적은 클라이언트가 보내온 합계 대신 서버의 기준 금액으로 계산합니다.
+  const estimate = estimateText(ids);
 
-  const errors: string[] = [];
-  if (name.length < 2) errors.push("이름을 입력해 주세요.");
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push("올바른 이메일을 입력해 주세요.");
-  if (message.length < 5) errors.push("문의 내용을 조금 더 자세히 적어 주세요.");
-  if (data.agree !== true) errors.push("개인정보 수집·이용에 동의해 주세요.");
-
-  if (errors.length > 0) {
-    return NextResponse.json({ ok: false, error: errors.join(" ") }, { status: 422 });
+  const fieldErrors = validateContact({ name, email, message, agree: data.agree === true });
+  if (Object.keys(fieldErrors).length > 0) {
+    return NextResponse.json({ ok: false, error: "입력 내용을 확인해 주세요.", fieldErrors }, { status: 422 });
   }
 
   const ticketId = `AX-${Date.now().toString(36).toUpperCase()}`;
@@ -118,18 +126,15 @@ export async function POST(request: Request) {
     replyTo: email,
   });
 
-  if (result.ok === false && "error" in result) {
+  if (!result.ok) {
     // 메일 발송은 실패했지만 사용자에겐 접수 실패로 안내
     return NextResponse.json(
-      { ok: false, error: "접수 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요." },
-      { status: 502 }
+      { ok: false, error: "상담을 접수하지 못했습니다. 입력 내용은 유지됩니다. 잠시 후 다시 시도하거나 이메일로 문의해 주세요." },
+      { status: "skipped" in result ? 503 : 502 }
     );
   }
 
-  const delivered = result.ok === true;
-  console.log(
-    `[contact] ${ticketId} 접수 · 메일발송=${delivered ? "성공" : mailgunConfigured() ? "실패" : "건너뜀(미설정)"}`
-  );
+  console.log(`[contact] ${ticketId} 메일 서비스 전달 완료`);
 
   return NextResponse.json({
     ok: true,

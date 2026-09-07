@@ -30,7 +30,7 @@ export async function sendMail(input: MailInput): Promise<MailResult> {
   const to = process.env.MAIL_TO;
   const base = process.env.MAILGUN_API_BASE || "https://api.mailgun.net";
 
-  // 미설정 시: 개발 환경에서는 발송을 건너뛰되 접수는 정상 처리
+  // 미설정도 실패 결과입니다. 호출자는 접수 성공으로 표시하면 안 됩니다.
   if (!apiKey || !domain || !from || !to) {
     console.warn("[mailgun] 환경변수 미설정 — 발송을 건너뜁니다.");
     return { ok: false, skipped: true };
@@ -48,6 +48,7 @@ export async function sendMail(input: MailInput): Promise<MailResult> {
 
   try {
     const res = await fetch(`${base}/v3/${domain}/messages`, {
+      signal: AbortSignal.timeout(15000),
       method: "POST",
       headers: {
         Authorization: `Basic ${auth}`,

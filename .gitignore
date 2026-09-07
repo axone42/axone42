@@ -1,5 +1,7 @@
 /node_modules
 /.next
+/.next-review
+/.review-artifacts
 /out
 /build
 .env*.local

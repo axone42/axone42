@@ -4,6 +4,8 @@ import Link from "next/link";
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import ServiceIcon from "@/components/ServiceIcon";
+import { contactForService } from "@/lib/pricing";
+import { serviceGroups } from "@/lib/service-groups";
 import {
   services,
   AUTOMATION_CATEGORIES,
@@ -41,8 +43,10 @@ export default function ServiceExplorer() {
 
   return (
     <>
-      <div className="cards cards--2">
-        {services.map((svc, i) => (
+      {serviceGroups.map((group) => <section className="service-group" id={group.id} key={group.id}>
+      <p className="eyebrow">{group.label}</p><h2 className="section-title">{group.title}</h2><p className="section-lead">{group.description}</p>
+      <div className="cards cards--2" style={{ marginTop: 28 }}>
+        {group.services.map((id) => services.find((s) => s.id === id)!).map((svc, i) => (
           <button
             key={svc.id}
             type="button"
@@ -61,13 +65,14 @@ export default function ServiceExplorer() {
             <h3 className="card__title">{svc.title}</h3>
             <p className="card__body">{svc.summary}</p>
             {svc.automations && (
-              <p className="card__meta">자동화 구축 사례 {svc.automations.length}가지 →</p>
+              <p className="card__meta">자동화 구현 예시 {svc.automations.length}가지 →</p>
             )}
             <span className="card__link">상세 보기</span>
             <span className="card__index" aria-hidden>{String(i + 1).padStart(2, "0")}</span>
           </button>
         ))}
       </div>
+      </section>)}
 
       {active && <ServiceModal service={active} onClose={close} />}
     </>
@@ -159,10 +164,10 @@ function ServiceModal({ service, onClose }: { service: Service; onClose: () => v
           </div>
         )}
 
-        {/* 자동화 구축 사례: 필터 + 클릭 상세 */}
+        {/* 자동화 구현 예시: 필터 + 클릭 상세 */}
         {service.automations && (
           <div className="modal__section">
-            <h4>구축 사례 {service.automations.length}가지 · 필터로 골라 보세요</h4>
+            <h4>구현 예시 {service.automations.length}가지 · 필터로 골라 보세요</h4>
             <div className="filterbar">
               <button
                 type="button"
@@ -257,7 +262,7 @@ function ServiceModal({ service, onClose }: { service: Service; onClose: () => v
           </p>
           <div style={{ display: "flex", gap: 10 }}>
             <Link
-              href={`/contact?service=${encodeURIComponent(service.title)}`}
+              href={contactForService(service.id)}
               className="btn btn--primary"
               onClick={onClose}
             >
@@ -274,7 +279,7 @@ function ServiceModal({ service, onClose }: { service: Service; onClose: () => v
       {caseItem && (
         <CaseDetail
           item={caseItem}
-          serviceTitle={service.title}
+          serviceTitle={service.id}
           onClose={() => setCaseItem(null)}
         />
       )}
@@ -308,7 +313,7 @@ function CaseDetail({
         <button className="modal__close" onClick={onClose} aria-label="닫기">✕</button>
         <div className="modal__scroll">
 
-        <p className="modal__eyebrow">{item.category} · 자동화 사례</p>
+        <p className="modal__eyebrow">{item.category} · 자동화 구현 예시</p>
         <h3 className="modal__title" id="case-title">{item.title}</h3>
 
         {/* 사용 도구 태그 (최상단) */}
@@ -350,7 +355,7 @@ function CaseDetail({
           <p className="modal__cta-text">이 자동화를 우리 회사에 적용하고 싶으신가요?</p>
           <div style={{ display: "flex", gap: 10 }}>
             <Link
-              href={`/contact?service=${encodeURIComponent(serviceTitle)}`}
+              href={contactForService(serviceTitle)}
               className="btn btn--primary"
             >
               상담 신청

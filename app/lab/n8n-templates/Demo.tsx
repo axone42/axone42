@@ -370,7 +370,7 @@ function DetailModal({
         {/* 푸터 */}
         <div className="n8t-modal__foot">
           <span className="lx-muted" style={{ fontSize: 12.5, display: "inline-flex", alignItems: "center", gap: 6 }}>
-            <DownloadIcon /> {tpl.imports} 임포트
+            화면에서 동작을 살펴보는 예시입니다.
           </span>
           <button
             type="button"
@@ -378,7 +378,7 @@ function DetailModal({
             onClick={onImport}
             disabled={imported}
           >
-            {imported ? "임포트됨 ✓" : "임포트"}
+            {imported ? "목록에 담김 ✓" : "검토 목록에 추가"}
           </button>
         </div>
       </div>
@@ -446,7 +446,7 @@ export default function Demo() {
           </span>
           <span className="n8t-bar__mine">
             <DownloadIcon />
-            내 워크플로우 <b>{importedCount}</b>
+            검토 목록 (현재 화면) <b>{importedCount}</b>
           </span>
         </div>
       </div>
@@ -455,11 +455,11 @@ export default function Demo() {
         {/* 히어로 / 서브 헤더 */}
         <div className="n8t-hero">
           <div>
-            <h1 className="n8t-hero__h">바로 가져다 쓰는 자동화 레시피</h1>
-            <p className="n8t-hero__p">검증된 n8n 워크플로우를 검색하고 원클릭으로 임포트하세요.</p>
+            <h1 className="n8t-hero__h">우리 업무에 맞는 자동화 흐름 찾기</h1>
+            <p className="n8t-hero__p">업무별 구현 예시를 검색하고 검토 목록에 담아보세요. 실제 n8n 연결이나 JSON 임포트는 수행하지 않습니다.</p>
           </div>
           <div className="n8t-hero__badges">
-            <span className="n8t-hero__badge"><b>10.7k+</b> 누적 임포트</span>
+            <span className="n8t-hero__badge"><b>화면 시연</b> 구현 예시</span>
             <span className="n8t-hero__badge"><b>{CATS.length}</b> 카테고리</span>
           </div>
         </div>
@@ -528,7 +528,7 @@ export default function Demo() {
                     }
                   }}
                 >
-                  {done && <span className="n8t-card__ribbon">임포트됨</span>}
+                  {done && <span className="n8t-card__ribbon">목록에 담김</span>}
 
                   {/* 미니 다이어그램 */}
                   <div className="n8t-card__diagram">
@@ -551,7 +551,7 @@ export default function Demo() {
 
                   <div className="n8t-card__foot">
                     <span className="lx-muted n8t-card__imports">
-                      <DownloadIcon /> {t.imports}
+                      <DownloadIcon /> 시연
                     </span>
                     <button
                       type="button"
@@ -562,7 +562,7 @@ export default function Demo() {
                         markImported(t.id);
                       }}
                     >
-                      {done ? "임포트됨 ✓" : "원클릭 임포트"}
+                      {done ? "목록에 담김 ✓" : "검토 목록에 추가"}
                     </button>
                   </div>
                 </div>

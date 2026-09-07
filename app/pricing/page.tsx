@@ -17,16 +17,20 @@ export default function PricingPage() {
         <div className="container">
           <Reveal>
             <p className="eyebrow">Pricing</p>
-            <h1 className="page-hero__title">필요한 만큼, 조합형 견적</h1>
+            <h1 className="page-hero__title">초기 비용부터 월 운영비까지</h1>
             <p className="page-hero__lead">
-              하나의 고정 패키지가 아니라, 필요한 서비스만 골라 조합합니다. 아래에서 선택하면
-              예상 시작가가 바로 계산되고, 정확한 견적은 상담으로 확정해 드립니다.
+              필요한 서비스를 고르면 초기 비용과 매월 비용을 따로 확인할 수 있습니다.
+              각 서비스의 제공 내용과 상담에서 확정할 범위도 함께 살펴보세요.
             </p>
           </Reveal>
         </div>
       </section>
 
       <section className="section--tight">
+        <div className="container consultation-compare">
+          <div><span className="eyebrow">무료 상담</span><h2>우리 업무에 적용할 수 있을까요?</h2><p>업무 상황을 듣고 적용 가능성과 대략적인 범위를 안내합니다. 서비스 선택과 계약 의무가 없습니다.</p></div>
+          <div><span className="eyebrow">유료 AX 컨설팅 · 500만원 기준</span><h2>진단과 실행 로드맵이 필요해요</h2><p>업무 조사, 도입 우선순위와 실행 계획을 산출물로 정리합니다. 조사 기간·대상·산출물 범위는 착수 전 견적서로 확정합니다.</p></div>
+        </div>
         <div className="container">
           <Reveal>
             <PricingCalculator />

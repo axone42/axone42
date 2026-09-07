@@ -38,7 +38,7 @@ export default function Nav() {
 
         <button
           className="nav__toggle"
-          aria-label="메뉴 열기"
+          aria-label={open ? "메뉴 닫기" : "메뉴 열기"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >

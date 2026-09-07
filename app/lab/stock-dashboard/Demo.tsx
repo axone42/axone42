@@ -42,22 +42,6 @@ const HOLDINGS: Record<string, { qty: number; avg: number }> = {
 const GREEN = "#22c07a";
 const RED = "#ff5c6c";
 
-// 실시간 "라이브 틱" 설정 — 실제 시세를 앵커로 두고 아주 작은 평균회귀 랜덤워크를 얹어 화면 숫자가 살아있게 보이게 함.
-const TICK_MS = 900;            // 틱 주기
-const JITTER_STEP = 0.0006;     // 틱당 최대 이동폭 (±0.06%)
-const REVERT = 0.12;            // 앵커(실제값) 방향으로 되돌아가는 강도
-const CLAMP = 0.0018;           // 앵커 대비 최대 이탈폭 (±0.18%) — 실제값에서 절대 멀어지지 않음
-
-// 결정론적이지 않아도 되지만, 마운트 이후에만 호출됨(하이드레이션 안전).
-function walk(prev: number): number {
-  // 평균회귀 랜덤워크: 0(앵커) 쪽으로 당기면서 작은 노이즈 추가
-  const noise = (Math.random() * 2 - 1) * JITTER_STEP;
-  let next = prev * (1 - REVERT) + noise;
-  if (next > CLAMP) next = CLAMP;
-  if (next < -CLAMP) next = -CLAMP;
-  return next;
-}
-
 function fmtStock(v: number | null, currency: string): string {
   if (v == null) return "—";
   if (currency === "KRW") return "₩" + Math.round(v).toLocaleString("ko-KR");
@@ -148,53 +132,10 @@ export default function Demo() {
   const [pulse, setPulse] = useState(0);
   const mounted = useRef(true);
 
-  // ── 라이브 틱(코스메틱) 레이어 ─────────────────────────────
-  // 실제 fetch 값은 그대로 앵커로 유지하고, 심볼별 작은 오프셋(비율)을 굴려 화면 값만 살짝 흔든다.
-  // 하이드레이션 안전: 초기 렌더에서는 tick=0 → 오프셋 0 → 실제/앵커 값 그대로 그린다. 틱은 마운트 후 useEffect에서만 시작.
-  const [tick, setTick] = useState(0);
-  const offsets = useRef<Map<string, number>>(new Map()); // 심볼별 현재 오프셋(비율)
-  const dirs = useRef<Map<string, number>>(new Map());     // 마지막 방향(색 플래시용): 1=up, -1=down
-
   useEffect(() => {
     mounted.current = true;
     return () => { mounted.current = false; };
   }, []);
-
-  // 새 실제 데이터가 들어오면 오프셋을 앵커(실제값)로 리셋 — 절대 실제값에서 드리프트하지 않도록.
-  useEffect(() => {
-    offsets.current.clear();
-    dirs.current.clear();
-  }, [pulse]);
-
-  // 마운트 이후에만 도는 틱 인터벌 — 심볼별 오프셋을 평균회귀 랜덤워크로 갱신.
-  useEffect(() => {
-    const id = setInterval(() => {
-      if (!mounted.current) return;
-      const off = offsets.current;
-      const dir = dirs.current;
-      // 화면에 등장하는 모든 심볼(관심종목+지수+포트폴리오+선택 종목)에 대해 오프셋 갱신
-      const keys = new Set<string>([
-        ...watch.map((q) => q.symbol),
-        ...indices.map((q) => q.symbol),
-        ...Object.keys(HOLDINGS),
-        selected,
-      ]);
-      keys.forEach((k) => {
-        const prev = off.get(k) ?? 0;
-        const nextOff = walk(prev);
-        dir.set(k, nextOff > prev ? 1 : nextOff < prev ? -1 : dir.get(k) ?? 0);
-        off.set(k, nextOff);
-      });
-      setTick((t) => t + 1);
-    }, TICK_MS);
-    return () => clearInterval(id);
-  }, [watch, indices, selected]);
-
-  // 앵커(실제값)에 심볼별 오프셋을 적용해 "표시용" 가격 계산.
-  // tick 파라미터는 사용하지 않지만, 매 틱마다 아래 useMemo들이 재계산되도록 의존성에 넣는다.
-  const offsetOf = (symbol: string): number => offsets.current.get(symbol) ?? 0;
-  const applyOffset = (symbol: string, real: number | null): number | null =>
-    real == null ? null : real * (1 + offsetOf(symbol));
 
   const loadQuotes = useCallback(async () => {
     try {
@@ -260,62 +201,18 @@ export default function Demo() {
     loadNews(selected);
   }, [loadQuotes, loadChart, loadNews, selected, range]);
 
-  // 표시용 관심종목: 실제 change/prevClose는 앵커로 두고, 현재가에만 오프셋을 얹어 change/changePct를 재계산.
-  // tick이 바뀔 때마다(=매 틱) 재계산되어 화면 숫자가 살아 움직인다. 하이드레이션 안전: 최초 tick=0 → 오프셋 0 → 실제값 그대로.
-  const watchDisplay = useMemo<Quote[]>(
-    () =>
-      watch.map((q) => {
-        if (q.price == null) return q;
-        const price = q.price * (1 + offsetOf(q.symbol));
-        const base = q.prevClose ?? (q.change != null ? q.price - q.change : null);
-        const change = base != null ? price - base : q.change;
-        const changePct = base ? (price - base) / base * 100 : q.changePct;
-        return { ...q, price, change, changePct };
-      }),
-    [watch, tick], // eslint-disable-line react-hooks/exhaustive-deps
-  );
-  const indicesDisplay = useMemo<Quote[]>(
-    () =>
-      indices.map((q) => {
-        if (q.price == null) return q;
-        const price = q.price * (1 + offsetOf(q.symbol));
-        const base = q.prevClose ?? (q.change != null ? q.price - q.change : null);
-        const change = base != null ? price - base : q.change;
-        const changePct = base ? (price - base) / base * 100 : q.changePct;
-        return { ...q, price, change, changePct };
-      }),
-    [indices, tick], // eslint-disable-line react-hooks/exhaustive-deps
-  );
+  // 화면의 현재가는 수신한 시세 그대로 표시합니다. 조회 기간은 차트에만 적용합니다.
+  const watchDisplay = watch;
+  const indicesDisplay = indices;
+  const selQuote = watch.find((q) => q.symbol === selected);
+  const selCurrency = selQuote?.currency ?? meta?.currency ?? "";
+  const selPrice = selQuote?.price ?? meta?.price ?? null;
+  const selChange = selQuote?.change ?? null;
+  const selPct = selQuote?.changePct ?? null;
+  const up = (selChange ?? 0) >= 0;
+  const historyDisplay = history;
 
-  const selQuote = watchDisplay.find((q) => q.symbol === selected);
-  const selRealQuote = watch.find((q) => q.symbol === selected);
-  const selCurrency = meta?.currency || selQuote?.currency || "";
-  // 선택 종목 현재가: meta.price(실제)에도 동일 오프셋 적용, 없으면 표시용 관심종목가 사용.
-  const selPrice = useMemo(
-    () => applyOffset(selected, meta?.price ?? null) ?? selQuote?.price ?? null,
-    [selected, meta?.price, selQuote?.price, tick], // eslint-disable-line react-hooks/exhaustive-deps
-  );
-  // change/changePct: 표시가 기준으로 재계산 → 함께 움직인다.
-  const selBase = selRealQuote?.prevClose
-    ?? (selRealQuote?.change != null && selRealQuote?.price != null ? selRealQuote.price - selRealQuote.change : null);
-  const selChange = selPrice != null && selBase != null ? selPrice - selBase : selQuote?.change ?? null;
-  const selPct = selPrice != null && selBase ? (selPrice - selBase) / selBase * 100 : selQuote?.changePct ?? null;
-  const up = (selChange ?? (history.length > 1 ? history[history.length - 1].c - history[0].c : 0)) >= 0;
-  // 선택 종목의 마지막 틱 방향 → 현재가 색 플래시(1=상승 초록, -1=하락 빨강, 0=기본 흰색).
-  const selFlash = useMemo(() => dirs.current.get(selected) ?? 0, [selected, tick]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // 차트 마지막 점도 선택 종목 오프셋으로 살짝 흔든다(엣지 위글). 실제 history는 그대로 유지.
-  const historyDisplay = useMemo<HistoryPoint[]>(() => {
-    if (history.length < 2) return history;
-    const o = offsetOf(selected);
-    if (o === 0) return history;
-    const out = history.slice();
-    const last = out[out.length - 1];
-    out[out.length - 1] = { t: last.t, c: last.c * (1 + o) };
-    return out;
-  }, [history, selected, tick]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // 포트폴리오 평가손익 (실시간) — 표시용(오프셋 적용) 관심종목가로 계산되어 P/L도 함께 움직인다.
+  // 고정된 예시 보유량을 수신한 시세로 평가합니다.
   const priceBy = useMemo(() => {
     const m = new Map<string, Quote>();
     watchDisplay.forEach((q) => m.set(q.symbol, q));
@@ -357,7 +254,7 @@ export default function Demo() {
         <div className="mkt-toolbar">
           <span key={pulse} className="mkt-live">
             <span className="mkt-live__dot" />
-            LIVE
+            시세 조회 · 지연 가능
           </span>
           <span className="mkt-updated">
             {updated ? `업데이트 ${updated}` : "연결 중…"}
@@ -443,7 +340,7 @@ export default function Demo() {
                       <span className="lx-mono mkt-sym">{selected}</span>
                     </div>
                     <div className="mkt-price-row">
-                      <span className="lx-mono mkt-price" style={{ color: selFlash === 1 ? GREEN : selFlash === -1 ? RED : "#fff" }}>{fmtStock(selPrice, selCurrency)}</span>
+                      <span className="lx-mono mkt-price" style={{ color: up ? GREEN : RED }}>{fmtStock(selPrice, selCurrency)}</span>
                       <span className="lx-mono mkt-price-delta" style={{ color: up ? GREEN : RED }}>
                         {selChange != null ? (selChange >= 0 ? "+" : "") + fmtStock(Math.abs(selChange) * (selChange < 0 ? -1 : 1), selCurrency).replace("-", "") : ""} ({fmtPct(selPct)})
                       </span>
@@ -488,7 +385,7 @@ export default function Demo() {
               {/* 포트폴리오 */}
               <div className="lx-card mkt-port">
                 <div className="lx-h mkt-port__h">
-                  내 포트폴리오
+                  예시 포트폴리오
                   <span className="lx-mono mkt-port__pl" style={{ color: portfolio.totalPl >= 0 ? GREEN : RED }}>
                     {portfolio.totalPl >= 0 ? "+" : ""}₩{Math.round(portfolio.totalPl).toLocaleString("ko-KR")} ({fmtPct(portfolio.totalPct)})
                   </span>

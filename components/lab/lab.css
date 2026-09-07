@@ -189,3 +189,6 @@
 
 .lx-mono { font-variant-numeric: tabular-nums; font-family: var(--font-geist); }
 .lx-muted { color: var(--color-slate); }
+.labx__scope { display:flex; gap:14px; padding:14px 24px; background:#f7f7fc; border-bottom:1px solid #e7e7f0; color:#4b4b59; font-size:13px; line-height:1.6; }
+.labx__scope b { flex:none; color:#5149ad; }
+@media(max-width:640px) { .labx__scope { display:block; padding:12px 16px; } .labx__scope b { display:block; margin-bottom:4px; } }
