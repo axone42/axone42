@@ -15,14 +15,14 @@ export default function TechStack() {
           const icon = t.slug ? registry[t.slug] : null;
           return (
             <div className="tool-chip" key={i} aria-hidden={i >= tools.length}>
-              <span className="tool-icon">
-                {icon ? (
+              <span className="tool-icon" style={t.logoBackground ? { background: t.logoBackground } : undefined} aria-hidden="true">
+                {t.logo ? (
+                  <img src={t.logo} alt="" width={21} height={21} />
+                ) : icon ? (
                   <svg viewBox="0 0 24 24" role="img" aria-label={t.name} fill={t.color}>
                     <path d={icon.path} />
                   </svg>
-                ) : (
-                  <span className="mono" style={{ color: t.color }}>{t.mark}</span>
-                )}
+                ) : null}
               </span>
               <span className="tool-name">{t.name}</span>
             </div>

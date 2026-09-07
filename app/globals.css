@@ -872,10 +872,7 @@ p, li, span, a { overflow-wrap: break-word; }
   display: flex; align-items: center; justify-content: center;
   background: var(--color-tint); border: 1px solid var(--color-hairline);
 }
-.tool-icon svg { width: 21px; height: 21px; }
-.tool-icon .mono {
-  font-family: var(--font-geist); font-weight: 700; font-size: 12px; letter-spacing: -0.02em;
-}
+.tool-icon svg, .tool-icon img { width: 21px; height: 21px; object-fit: contain; }
 .tool-name {
   font-family: var(--font-geist); font-size: 14px; font-weight: 600;
   color: var(--color-ink); white-space: nowrap;

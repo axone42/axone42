@@ -1,18 +1,20 @@
-// 우리가 사용하는 프로그램/기술 스택 — 실제 브랜드 로고(simple-icons) + 일부 모노그램 대체
-// slug: simple-icons export 이름(있으면 실제 로고), null이면 mark(모노그램)로 대체
+// 우리가 사용하는 기술 스택 — simple-icons 또는 로컬 브랜드 로고
 export type Tool = {
   name: string;
   slug: string | null;
   color: string; // 로고/모노그램 색 (브랜드 컬러)
-  mark?: string; // slug 없을 때 표시할 짧은 글자
+  logo?: string; // 라이브러리에 없는 브랜드의 로컬 로고
+  logoBackground?: string;
 };
 
 export const tools: Tool[] = [
   // AI · LLM
-  { name: "OpenAI", slug: null, color: "#10A37F", mark: "AI" },
+  { name: "OpenAI", slug: null, color: "#14141d", logo: "/tool-logos/openai.svg" },
   { name: "Claude", slug: "siClaude", color: "#D97757" },
   { name: "LangChain", slug: "siLangchain", color: "#1C3C3C" },
-  { name: "LangGraph", slug: null, color: "#2F6F5E", mark: "LG" },
+  { name: "LangGraph", slug: null, color: "#2F6F5E", logo: "/tool-logos/langgraph.svg" },
+  { name: "PydanticAI", slug: "siPydantic", color: "#E92063" },
+  { name: "Claude Agent SDK", slug: "siClaude", color: "#D97757" },
   { name: "Hugging Face", slug: "siHuggingface", color: "#FF9D00" },
 
   // 자동화
@@ -38,7 +40,7 @@ export const tools: Tool[] = [
   { name: "Prisma", slug: "siPrisma", color: "#2D3748" },
 
   // 인프라 · 배포
-  { name: "AWS", slug: null, color: "#FF9900", mark: "aws" },
+  { name: "AWS", slug: null, color: "#FF9900", logo: "/tool-logos/aws.svg" },
   { name: "Vercel", slug: "siVercel", color: "#14141d" },
   { name: "Railway", slug: "siRailway", color: "#6b62f2" },
   { name: "Cloudflare", slug: "siCloudflare", color: "#F38020" },
@@ -49,11 +51,11 @@ export const tools: Tool[] = [
   { name: "GitHub", slug: "siGithub", color: "#14141d" },
   { name: "Git", slug: "siGit", color: "#F05032" },
   { name: "Cursor", slug: "siCursor", color: "#14141d" },
-  { name: "VS Code", slug: null, color: "#007ACC", mark: "VS" },
-  { name: "Orca", slug: null, color: "#6b62f2", mark: "Or" },
+  { name: "VS Code", slug: null, color: "#007ACC", logo: "/tool-logos/vscode.svg" },
+  { name: "Orca", slug: null, color: "#6b62f2", logo: "/tool-logos/orca.svg", logoBackground: "#14141d" },
   { name: "Figma", slug: "siFigma", color: "#F24E1E" },
   { name: "Notion", slug: "siNotion", color: "#14141d" },
-  { name: "Slack", slug: null, color: "#4A154B", mark: "#" },
+  { name: "Slack", slug: null, color: "#4A154B", logo: "/tool-logos/slack.svg" },
 
   // 서비스 · 연동
   { name: "Stripe", slug: "siStripe", color: "#635BFF" },
