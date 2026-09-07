@@ -47,12 +47,14 @@ export const serviceIntents: Record<string, {item: string; title: string}> = {
   "ai-automation-course": {item:"lecture",title:"AI 자동화 강의"},
 };
 export function contactForService(id: string): string {
-  const intent = serviceIntents[id];
+  const intent = Object.entries(serviceIntents).find(([key]) => key === id)?.[1];
   return intent ? `/contact?items=${intent.item}&service=${encodeURIComponent(id)}` : "/contact";
 }
+export function pricingForService(id: string): string { return contactForService(id).replace("/contact", "/pricing"); }
 export function resolveIntent(params: URLSearchParams) {
   const source = params.get("service") ?? "";
-  const intent = serviceIntents[source] ?? Object.values(serviceIntents).find((s) => s.title === source);
+  const entry = Object.entries(serviceIntents).find(([id, s]) => id === source || s.title === source);
+  const intent = entry?.[1];
   const ids = params.has("items") ? selectedItems((params.get("items") ?? "").split(",")).map((p) => p.id) : intent ? [intent.item] : [];
-  return { ids, topic: intent && ids.includes(intent.item) ? intent.title : "" };
+  return { ids, topic: intent && ids.includes(intent.item) ? intent.title : "", serviceId: intent && ids.includes(intent.item) ? entry![0] : "" };
 }

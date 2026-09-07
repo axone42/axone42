@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import ContactForm from "./ContactForm";
 import { Suspense } from "react";
+import { mailgunConfigured } from "@/lib/mailgun";
 
 export const metadata: Metadata = pageMetadata({
   title: "문의·무료 상담 신청",
@@ -33,7 +34,7 @@ export default function ContactPage() {
         <div className="container">
           <Reveal>
             <div className="contact-card">
-              <Suspense fallback={<p>상담 양식을 준비하고 있습니다.</p>}><ContactForm /></Suspense>
+              <Suspense fallback={<p>상담 양식을 준비하고 있습니다.</p>}><ContactForm mailAvailable={mailgunConfigured()} /></Suspense>
             </div>
           </Reveal>
         </div>

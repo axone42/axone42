@@ -5,7 +5,7 @@ import vm from "node:vm";
 import { createRequire } from "node:module";
 const require = createRequire(import.meta.url);
 const ts = require("typescript");
-function load(file, overrides = {}) {
+function load(file, overrides = {}, globals = {}) {
   const filename = new URL("../" + file, import.meta.url);
   const js = ts.transpileModule(fs.readFileSync(filename, "utf8"), {compilerOptions:{module:ts.ModuleKind.CommonJS,target:ts.ScriptTarget.ES2020}}).outputText;
   const module = {exports:{}};
@@ -13,7 +13,7 @@ function load(file, overrides = {}) {
     if (name in overrides) return overrides[name];
     if (name.startsWith("@/")) return load(name.slice(2)+".ts",overrides);
     return require(name);
-  },console:{log(){},warn(){},error(){}},URLSearchParams,AbortSignal,Buffer,fetch,setTimeout,clearTimeout}, {filename:file});
+  },console:{log(){},warn(){},error(){}},URLSearchParams,AbortSignal,Buffer,fetch,setTimeout,clearTimeout,...globals}, {filename:file});
   return module.exports;
 }
 const pricing = load("lib/pricing.ts");
@@ -46,6 +46,16 @@ test("all service entry points preserve exact intent, including legacy links",()
   assert.equal(pricing.resolveIntent(new URLSearchParams({service:"AI"})).ids.length,0);
   assert.equal(pricing.resolveIntent(new URLSearchParams({items:"website",service:"ai-automation-course"})).topic,"");
 });
+test("service pricing links preserve the exact course and tolerate empty or unknown selections",()=>{
+  for(const id of Object.keys(pricing.serviceIntents)){
+    const url=new URL(pricing.pricingForService(id),"http://localhost");
+    assert.equal(url.pathname,"/pricing");
+    assert.equal(pricing.resolveIntent(url.searchParams).serviceId,id);
+  }
+  assert.equal(pricing.resolveIntent(new URLSearchParams("items=&service=chatbot")).topic,"");
+  assert.equal(pricing.resolveIntent(new URLSearchParams("items=lecture,lecture,unknown&service=ai-automation-course")).ids.join(","),"lecture");
+  assert.equal(pricing.resolveIntent(new URLSearchParams("service=__proto__")).ids.length,0);
+});
 const valid = {name:"테스트 고객",email:"test@example.com",phone:"010-0000-0000",company:"테스트",message:"상담 양식 검증용 문의입니다.",agree:true,items:["website","automation","marketing"],estimate:"1원"};
 function route(sendMail) {return load("app/api/contact/route.ts",{"@/lib/mailgun":{sendMail}});}
 function request(body){return new Request("http://localhost/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});}
@@ -72,4 +82,21 @@ test("successful provider acceptance includes server-calculated costs and specif
   assert.match(mail.text,/초기 비용 5,000,000원/);assert.match(mail.text,/월 운영·대행료 1,700,000원/);assert.doesNotMatch(mail.text,/프로모션/);
   await api.POST(request({...valid,items:["lecture"],topic:"AI 자동화 강의"}));
   assert.match(mail.text,/AI 자동화 강의/);assert.doesNotMatch(mail.text,/AI 자동화 구축/);
+});
+test("project enquiries use the catalogue title and ignore fabricated project names",async()=>{
+  let mail;const api=route(async(input)=>{mail=input;return {ok:true,id:"mock"};});
+  const response=await api.POST(request({...valid,project:"ocr-extractor"}));
+  assert.equal(response.status,200);assert.match(mail.text,/관심 프로젝트: 영수증/);
+  await api.POST(request({...valid,project:"<img src=x onerror=alert(1)>"}));
+  assert.match(mail.text,/관심 프로젝트: -/);assert.doesNotMatch(mail.html,/onerror/);
+});
+test("analytics forwards only event identifiers and cannot interrupt a successful form action",()=>{
+  const sent=[];const events=[];
+  const browser={location:{pathname:"/contact"},dispatchEvent:e=>events.push(e),gtag:(...args)=>sent.push(args)};
+  const analytics=load("lib/analytics.ts",{}, {window:browser,process:{env:{NEXT_PUBLIC_GA_ID:"G-TEST12345"}},CustomEvent:class{constructor(type,init){this.type=type;this.detail=init.detail}}});
+  analytics.trackConversion("generate_lead",{project_id:"ocr-extractor",email:"private@example.com",message:"private message",service_id:"invalid@example.com"});
+  assert.equal(sent.length,1);assert.equal(sent[0][0],"event");assert.equal(sent[0][2].project_id,"ocr-extractor");
+  assert.doesNotMatch(JSON.stringify(sent),/private|invalid@/);assert.equal(events.length,1);
+  browser.gtag=()=>{throw new Error("provider blocked")};assert.doesNotThrow(()=>analytics.trackConversion("contact_submit"));
+  browser.location.pathname="/admin/projects";analytics.trackConversion("contact_start");assert.equal(events.length,2);
 });

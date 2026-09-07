@@ -1,190 +1,109 @@
 <div align="center">
 
-<img src=".github/assets/banner.svg" alt="AXONE — 기업의 AI 전환을 설계하고 실행합니다" width="100%" />
+<img src=".github/assets/banner.svg" alt="AXONE · 기업의 AI 전환을 설계하고 실행합니다" width="100%" />
 
-<br/>
+**에이엑스원(AXONE) · AI 업무 자동화, 기업형 챗봇, 웹·시스템 개발과 AX 컨설팅**
 
-**에이엑스원(AXONE)** 은 기업의 AI 전환(AX·AI Transformation)을 **설계하고 실행하는** 파트너입니다.<br/>
-_AXONE designs and executes enterprise AI Transformation — from strategy to build and operations._
-
-<br/>
-
-[![Website](https://img.shields.io/badge/axone.ai.kr-0a0a0a?style=flat-square&logo=vercel&logoColor=white)](https://axone.ai.kr)
-[![Next.js](https://img.shields.io/badge/Next.js_15-000000?style=flat-square&logo=nextdotjs&logoColor=white)](https://nextjs.org)
-[![React](https://img.shields.io/badge/React_19-20232a?style=flat-square&logo=react&logoColor=61dafb)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178c6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Claude](https://img.shields.io/badge/Anthropic_Claude-d97757?style=flat-square&logo=anthropic&logoColor=white)](https://www.anthropic.com)
-[![OpenAI](https://img.shields.io/badge/OpenAI_GPT-412991?style=flat-square)](https://openai.com)
-
-[홈페이지](https://axone.ai.kr) · [서비스](https://axone.ai.kr/services) · [자체 프로젝트](https://axone.ai.kr/projects) · [가격](https://axone.ai.kr/pricing) · [문의](https://axone.ai.kr/contact)
+[홈페이지](https://axone.ai.kr) · [서비스와 제공 범위](https://axone.ai.kr/services) · [가격](https://axone.ai.kr/pricing) · [데모](https://axone.ai.kr/projects) · [무료 상담](https://axone.ai.kr/contact)
 
 </div>
 
----
+## 이 저장소에서 확인할 수 있는 것
 
-## 소개 · About
+AXONE 공식 웹사이트의 소스코드입니다. 서비스 안내, 가격 계산, 상담 신청과 자체 제작 데모를 함께 제공합니다. 고객사 납품 실적이나 실제 매출·업무 개선 성과를 나타내는 저장소는 아닙니다.
 
-전략 수립부터 실제 구축과 운영까지 **한 팀이** 담당합니다. 컨설팅에서 끝나지 않고,
-AI 업무 자동화·챗봇·쇼핑몰·홈페이지·실무 교육까지 **한 곳에서** 이어집니다.
+- 서비스별 제공 범위, 산출물 예시와 착수 전에 합의할 운영 기준
+- 초기 비용과 월 운영비를 구분하는 견적 계산
+- 서비스·프로젝트 선택을 이어받는 상담 신청과 서버의 문의 검증
+- 공개 데모 19개의 사용 흐름과 문서화된 체험 범위
+- 검색엔진이 읽을 수 있는 서비스 상세, 구조화 데이터와 사이트맵
 
-> _One team owns the whole arc — strategy, build, and operations. We don't stop at consulting: AI automation, chatbots, commerce, websites, and hands-on training all live under one roof._
+## 프로젝트 공개 상태
 
-이 저장소는 AXONE의 **공식 마케팅 사이트**(`axone.ai.kr`) 소스코드이자, 우리가 일하는 방식을 보여주는 **포트폴리오**입니다.
+사이트의 표시와 같은 기준을 사용합니다. **데모 체험 가능**은 사용 흐름을 직접 조작할 수 있다는 뜻이며, 실제 고객 환경에 연결된 운영 서비스라는 뜻은 아닙니다.
 
-> _This repository is the source of AXONE's official marketing site — and a live portfolio of how we build._
+| 상태 | 프로젝트 | 확인 방법 |
+|---|---|---|
+| 데모 체험 가능 | 자동화·AI 앱·웹·커머스·생산성·주식·금융 데모 19개 | [프로젝트 목록](https://axone.ai.kr/projects)에서 각 데모의 체험 범위 확인 |
+| 소개 공개 · 체험 준비 | AI 블로그 포스팅 | 사이트에서 기능 소개 확인, 체험 링크 준비 중 |
+| 소개 공개 · 체험 준비 | 팀 캘린더 | 사이트에서 기능 소개 확인, 체험 링크 준비 중 |
+| 소개 공개 · 체험 준비 | 구글시트 → 텔레그램 리드 알림 | 사이트에서 기능 소개 확인, 체험 링크 준비 중 |
 
----
+공개 데모는 예시 데이터와 일부 외부 조회를 사용합니다. 실제 주문·결제·발송을 수행하지 않는 화면이 있으며, AI 생성 사진도 포함합니다. 적용 가능한 기능과 연동 범위는 각 데모 상단의 안내와 상담에서 확인합니다.
 
-## 우리가 하는 일 · What We Do
-
-| | 서비스 | Service | 한 줄 소개 |
-|---|---|---|---|
-| 🧭 | **AX 전략 컨설팅** | AX Strategy Consulting | AI 전환 로드맵 수립부터 프로젝트 수행까지 |
-| ⚙️ | **AI 업무 자동화** | AI Automation | 수집·분류·응답·리포트를 무인화 |
-| 💬 | **기업형 챗봇** | Enterprise Chatbots | 상태를 기억하는 상담 챗봇, 근거 기반 RAG 챗봇 |
-| 🛒 | **쇼핑몰·시스템 개발** | Commerce & Systems | 자사몰, ERP, 맞춤형 웹 프로그램 |
-| 🖥️ | **홈페이지 제작** | Website Production | 반응형·SEO·성능까지 갖춘 기업 홈페이지 |
-| 🎓 | **실무 교육** | Hands-on Training | 바이브코딩·AI 자동화 실무 강의 |
-
----
-
-## 자체 프로젝트 · In-house Projects
-
-직접 만들어 운영·공개하는 데모입니다. 각 데모는 사이트의 **Lab**에서 바로 체험할 수 있습니다.
-_Demos we build and run ourselves — try each live in the site's **Lab**._
-
-### 🟢 공개 · Live
-
-| 프로젝트 | Project | 설명 | 스택 |
-|---|---|---|---|
-| **AI 블로그 포스팅** | AI Blog Posting | 주제 입력 → 초안·SEO·발행까지 자동 | `Next.js` `GPT` `n8n` |
-| **팀 캘린더** | Team Calendar | 팀 일정·업무를 한 화면에서 공유·관리 | `Next.js` `Supabase` `TypeScript` |
-| **구글시트 → 텔레그램 리드 알림** | Sheets → Telegram Lead Alert | 메타 광고 리드 유입 즉시 텔레그램 알림 | `Meta Ads` `Sheets` `n8n` `Telegram` |
-
-### 🔬 Lab 데모 · Interactive Demos
-
-| 카테고리 | 대표 데모 |
+| 데모 종류 | 체험 링크 |
 |---|---|
-| **주식·금융** | [실시간 주식 대시보드](https://axone.ai.kr/lab/stock-dashboard) · [AI 뉴스 감성분석](https://axone.ai.kr/lab/stock-sentiment) · [전략 백테스팅](https://axone.ai.kr/lab/backtester) · [배당 트래커](https://axone.ai.kr/lab/dividend-tracker) |
-| **자동화** | [정부지원사업 파인더](https://axone.ai.kr/lab/gov-support-finder) · [n8n 템플릿 갤러리](https://axone.ai.kr/lab/n8n-templates) · [부동산 매물 스크래핑](https://axone.ai.kr/lab/realestate-scraper) · [영수증 OCR](https://axone.ai.kr/lab/ocr-extractor) |
-| **AI 앱** | [RAG 사내 지식 챗봇](https://axone.ai.kr/lab/rag-chatbot) · [AI 이력서 스크리너](https://axone.ai.kr/lab/resume-screener) · [LangGraph 에이전트 스타터](https://axone.ai.kr/lab/langgraph-starter) |
-| **웹·커머스** | [기업형 홈페이지](https://axone.ai.kr/lab/corporate-site) · [화장품 쇼핑몰](https://axone.ai.kr/lab/shop-cosmetics) · [의류 쇼핑몰](https://axone.ai.kr/lab/shop-fashion) |
-| **생산성·콘텐츠** | [개인 브랜딩 자동화](https://axone.ai.kr/lab/personal-branding) · [한글문서 생성 시스템](https://axone.ai.kr/lab/hwp-generator) |
+| 문서·업무 자동화 | [OCR 추출 시연](https://axone.ai.kr/lab/ocr-extractor) · [자동화 템플릿](https://axone.ai.kr/lab/n8n-templates) · [정부지원사업](https://axone.ai.kr/lab/gov-support-finder) |
+| AI 앱 | [사내 지식 챗봇](https://axone.ai.kr/lab/rag-chatbot) · [이력서 스크리너](https://axone.ai.kr/lab/resume-screener) · [에이전트 스타터](https://axone.ai.kr/lab/langgraph-starter) |
+| 웹·커머스 | [기업 홈페이지](https://axone.ai.kr/lab/corporate-site) · [화장품 쇼핑몰](https://axone.ai.kr/lab/shop-cosmetics) · [의류 쇼핑몰](https://axone.ai.kr/lab/shop-fashion) |
+| 생산성·콘텐츠 | [한글문서 초안](https://axone.ai.kr/lab/hwp-generator) · [개인 브랜딩](https://axone.ai.kr/lab/personal-branding) · [뉴스레터](https://axone.ai.kr/lab/ai-newsletter) |
+| 데이터·금융 | [부동산 매물](https://axone.ai.kr/lab/realestate-scraper) · [주식 대시보드](https://axone.ai.kr/lab/stock-dashboard) · [백테스팅](https://axone.ai.kr/lab/backtester) |
 
-> 전체 로드맵은 [axone.ai.kr/projects](https://axone.ai.kr/projects) 에서 확인하세요.
+## 구현에 사용한 기술
 
----
+| 기술 | 이 사이트에서의 역할 |
+|---|---|
+| Next.js 15 · React 19 · TypeScript | 페이지·데모 UI, 정적 서비스 상세와 서버 API |
+| CSS · SUIT Variable · Lucide | 반응형 화면, 한글 글꼴, 일관된 선형 아이콘 |
+| Anthropic SDK | 일부 AI 데모 API의 모델 연동 |
+| Mailgun | 상담 접수 메일 전달 |
+| Vercel | 프로덕션 배포 |
+| Simple Icons | 기술 도구 로고 |
 
-## 기술 스택 · Tech Stack
+Next.js의 정적 렌더링으로 서비스 내용을 초기 HTML에 제공하고, 가격과 문의 API는 같은 가격 데이터를 사용합니다. OCR 시연의 인식 테두리는 실제 텍스트 영역을 따라 그려 글꼴·줄바꿈 변화에 대응합니다.
 
-프로젝트 성격에 맞춰 **필요한 도구를 골라 조합**합니다. 아래는 AXONE이 실무에서 다루는 스택입니다.
-_We pick the right tools per project. Below is the stack AXONE works with in practice._
+PydanticAI, Claude Agent SDK, LangGraph 등 업무별 도입 기술 선택지는 [챗봇 서비스 안내](https://axone.ai.kr/services/chatbot)에서 확인할 수 있습니다. 이 저장소의 실제 의존성과 버전은 [package.json](package.json)에 명시되어 있습니다.
 
-**Frontend & Language**
+## 프로젝트 구조
 
-![Next.js](https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=nextdotjs&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=flat-square&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![Node.js](https://img.shields.io/badge/Node.js-5FA04E?style=flat-square&logo=nodedotjs&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS-663399?style=flat-square&logo=css&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
-
-**AI & LLM**
-
-![Anthropic Claude](https://img.shields.io/badge/Claude-D97757?style=flat-square&logo=anthropic&logoColor=white)
-![OpenAI](https://img.shields.io/badge/OpenAI_GPT-412991?style=flat-square)
-![Google Gemini](https://img.shields.io/badge/Gemini-8E75B2?style=flat-square&logo=googlegemini&logoColor=white)
-![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=flat-square&logo=langchain&logoColor=white)
-![LangGraph](https://img.shields.io/badge/LangGraph-1C3C3C?style=flat-square&logo=langgraph&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![RAG](https://img.shields.io/badge/RAG_·_Vector_DB-6b62f2?style=flat-square)
-
-**Automation & Data**
-
-![n8n](https://img.shields.io/badge/n8n-EA4B71?style=flat-square&logo=n8n&logoColor=white)
-![Supabase](https://img.shields.io/badge/Supabase-3FCF8E?style=flat-square&logo=supabase&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
-![Google Sheets](https://img.shields.io/badge/Sheets-34A853?style=flat-square&logo=googlesheets&logoColor=white)
-![Telegram](https://img.shields.io/badge/Telegram-26A5E4?style=flat-square&logo=telegram&logoColor=white)
-![Meta](https://img.shields.io/badge/Meta_Ads-0866FF?style=flat-square&logo=meta&logoColor=white)
-
-**Deployment & Infra**
-
-![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white)
-![Railway](https://img.shields.io/badge/Railway-0B0D0E?style=flat-square&logo=railway&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=flat-square)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=docker&logoColor=white)
-![Cloudflare](https://img.shields.io/badge/Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-2088FF?style=flat-square&logo=githubactions&logoColor=white)
-
-**Tooling & Design**
-
-![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)
-![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white)
-![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=flat-square)
-![Figma](https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=figma&logoColor=white)
-![Lucide](https://img.shields.io/badge/Lucide-F56565?style=flat-square&logo=lucide&logoColor=white)
-
-> 이 사이트(`axone.ai.kr`) 자체는 **Next.js 15 · React 19 · TypeScript · Anthropic Claude SDK**로 제작되어 **Vercel**에 배포됩니다.
-
----
-
-## 프로젝트 구조 · Structure
-
-```
-app/            # Next.js App Router — 페이지·API·Lab 데모
-  ├─ lab/       # 자체 프로젝트 인터랙티브 데모 (19개)
-  ├─ api/       # 문의 메일·Lab 백엔드 라우트
-  └─ ...        # about · services · pricing · projects · contact
-components/     # 재사용 UI (Nav · Footer · Mockup · AxoneMark ...)
-lib/            # 도메인 데이터 — projects.ts · site.ts · showcase.ts ...
-public/         # 정적 에셋 · llms.txt
+```text
+app/
+  services/[slug]/   서비스별 상세와 산출물 안내
+  guides/           AI 도입 가이드
+  lab/              자체 제작 데모 19개
+  api/contact/      입력 검증·견적 계산·문의 메일
+  llms.txt/         회사·서비스 데이터에서 생성하는 안내 파일
+components/         가격 계산·상담·공통 UI·전환 이벤트
+lib/                가격·서비스·프로젝트·산출물 데이터
+public/             이미지·아이콘·글꼴
+tests/             가격·문의 회귀 검사
+tooling/           글꼴 최적화 도구
+docs/              구현·검증·운영 기록
 ```
 
----
+## 로컬 실행과 검증
 
-## 로컬 실행 · Getting Started
+Node.js 24에서 빌드와 테스트를 확인했습니다.
 
 ```bash
-# 1. 의존성 설치
-npm install
-
-# 2. 환경 변수 설정 (.env.example 참고)
+npm ci
 cp .env.example .env.local
-
-# 3. 개발 서버 실행 → http://localhost:3000
 npm run dev
 ```
 
-주요 환경 변수는 [`.env.example`](.env.example)에 문서화되어 있습니다 (사이트 URL · 메일 발송 · 관리자 로그인).
+Windows PowerShell에서는 `Copy-Item .env.example .env.local`을 사용합니다. 환경 변수의 설명은 [.env.example](.env.example)을 참고하세요. Mailgun 설정이 없으면 작성한 문의를 이메일 초안으로 정리하고, 사용자가 메일 앱에서 발송하는 방식으로 안내합니다. 서버 접수는 발송 설정 후 활성화됩니다.
 
----
+```bash
+npm test
+npm run build
+```
 
-## 회사 정보 · Company
+문의 자동 검사는 메일 제공자를 대체해 수행하며 실제 메일을 보내지 않습니다.
 
-| | |
+## 상담 전환 측정
+
+서비스 선택, 데모 열람·조작, 상담 작성 시작·제출·접수 완료를 별도 이벤트로 구분합니다. Google Analytics 측정 ID를 `NEXT_PUBLIC_GA_ID`에 설정하면 GA4 전송이 활성화됩니다. **측정 ID가 없으면 외부 분석 서비스로 전송하지 않습니다.** 이름·이메일·전화·문의 내용은 분석 이벤트에 포함하지 않습니다.
+
+이벤트 정의와 연결 절차는 [상담 흐름 개선 기록](docs/customer-flow-review.md)을 참고하세요.
+
+## 회사 정보
+
+| 항목 | 내용 |
 |---|---|
-| **회사명** | 에이엑스원 (AXONE) |
-| **대표** | 이원희 |
-| **설립** | 2022. 07. 11. |
-| **분야** | AX 컨설팅 · AI 자동화 · 홈페이지 제작 · 시각 디자인 · 광고 대행 |
-| **소재지** | 서울특별시 영등포구 국회대로66길 17, 10층 |
-| **문의** | [axone042@gmail.com](mailto:axone042@gmail.com) · [axone.ai.kr/contact](https://axone.ai.kr/contact) |
+| 회사명 | 에이엑스원(AXONE) |
+| 대표 | 이원희 |
+| 설립 | 2022. 07. 11. |
+| 소재지 | 서울특별시 영등포구 국회대로66길 17, 10층 |
+| 문의 | [axone042@gmail.com](mailto:axone042@gmail.com) · [상담 신청](https://axone.ai.kr/contact) |
 
----
-
-<div align="center">
-
-**기업의 AI 전환, 어디서부터 시작할지 막막하다면 — 무료 진단부터.**<br/>
-_Not sure where to start with AI? Begin with a free diagnosis._
-
-[**→ 무료 상담 신청 (axone.ai.kr/contact)**](https://axone.ai.kr/contact)
-
-<br/>
-
-<sub>© 2022–2026 에이엑스원 (AXONE). All rights reserved.<br/>
-This repository is published for portfolio and reference purposes.</sub>
-
-</div>
+이 저장소는 포트폴리오·참고 목적으로 공개합니다. 글꼴·로고 등 외부 자산의 출처와 라이선스는 각 자산 디렉터리에 보관합니다.

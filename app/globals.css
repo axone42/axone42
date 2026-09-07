@@ -1432,3 +1432,19 @@ button.service-path { width:100%; text-align:left; font:inherit; color:var(--col
 .seo-service-index h2 { font-size:24px; color:var(--color-ink); }
 .seo-service-index ul { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
 @media(max-width:640px) { .seo-article { padding-top:32px; } .seo-callout { padding:22px; } .seo-example-grid,.seo-service-index ul { grid-template-columns:minmax(0,1fr); } }
+
+/* Delivery and inquiry context */
+.delivery-guide { margin: 64px 0; padding: 32px; border: 1px solid var(--color-hairline); border-radius: 22px; background: var(--color-tint); }
+.delivery-guide h2 { font-size: clamp(23px, 2.5vw, 30px); line-height: 1.4; margin: 0 0 16px; }
+.delivery-guide h3 { font-size: 18px; margin: 12px 0 10px; }
+.delivery-guide p { color: var(--color-ash); }
+.delivery-guide__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 28px; }
+.delivery-guide__grid svg { color: var(--color-dusk-violet); }
+.delivery-guide__examples { padding: 20px 24px; margin-top: 24px; background: #fff; border-radius: 14px; }
+.delivery-guide__examples ul { padding-left: 20px; }
+.delivery-guide__examples li { margin: 8px 0; }
+.delivery-guide__examples p, .delivery-guide__note { font-size: 14px; }
+.delivery-guide__note { margin: 24px 0 0; padding-top: 20px; border-top: 1px solid var(--color-hairline); }
+.contact-project { display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 16px; padding: 16px; margin: 16px 0; border-radius: 12px; background: var(--color-violet-soft); }
+.contact-project small { width: 100%; color: var(--color-ash); }
+@media (max-width: 768px) { .delivery-guide { padding: 24px; } .delivery-guide__grid { grid-template-columns: 1fr; gap: 12px; } }

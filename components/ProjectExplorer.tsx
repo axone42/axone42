@@ -3,6 +3,7 @@
 import { createPortal } from "react-dom";
 import { useCallback, useEffect, useState } from "react";
 import { projects, PROJECT_CATEGORIES, type Project } from "@/lib/projects";
+import { contactForProject } from "@/lib/project-inquiry";
 
 export default function ProjectExplorer() {
   const [active, setActive] = useState<Project | null>(null);
@@ -156,7 +157,7 @@ function ProjectModal({ p, onClose }: { p: Project; onClose: () => void }) {
               {p.demoUrl && (
                 <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="btn btn--primary">▶ 데모 체험</a>
               )}
-              <a href="/contact" className="btn btn--ghost">도입 문의</a>
+              <a href={contactForProject(p.id)} className="btn btn--ghost">도입 문의</a>
               {p.repoUrl && (
                 <a href={p.repoUrl} target="_blank" rel="noopener noreferrer" className="proj-link">GitHub ↗</a>
               )}

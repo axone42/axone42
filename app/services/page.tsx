@@ -7,6 +7,7 @@ import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ServiceExplorer from "@/components/ServiceExplorer";
 import { serviceGroups } from "@/lib/service-groups";
+import DeliveryGuide from "@/components/DeliveryGuide";
 
 export const metadata: Metadata = pageMetadata({
   title: "AI 자동화·컨설팅·챗봇·개발 서비스",
@@ -48,6 +49,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
+      <div className="container"><DeliveryGuide /></div>
       {/* CTA */}
       <section className="section">
         <div className="container">

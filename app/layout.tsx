@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import SiteFrame from "@/components/SiteFrame";
+import SiteAnalytics from "@/components/SiteAnalytics";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -80,6 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <JsonLd />
+        <SiteAnalytics />
         <SiteFrame nav={<Nav />} footer={<Footer />}>
           {children}
         </SiteFrame>

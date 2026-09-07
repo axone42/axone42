@@ -1,4 +1,5 @@
 "use client";
+import { trackConversion } from "@/lib/analytics";
 
 import Link from "next/link";
 import { createPortal } from "react-dom";
@@ -51,7 +52,7 @@ export default function ServiceExplorer() {
             key={svc.id}
             type="button"
             className="card card--btn"
-            onClick={() => open(svc.id)}
+            onClick={() => { open(svc.id); trackConversion("service_select", { service_id: svc.id, source: "services" }); }}
             aria-haspopup="dialog"
           >
             {svc.tags && (

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { sendMail } from "@/lib/mailgun";
 import { estimateText, selectedItems, serviceIntents } from "@/lib/pricing";
 import { validateContact } from "@/lib/contact-validation";
+import { inquiryProject } from "@/lib/project-inquiry";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -17,6 +18,7 @@ type ContactPayload = {
   agree?: boolean;
   items?: string[];
   topic?: string;
+  project?: string;
   // 허니팟 (사람은 비워둠, 봇은 채움)
   company_website?: string;
 };
@@ -75,6 +77,7 @@ export async function POST(request: Request) {
   const company = read(data.company, 200);
   const ids = Array.isArray(data.items) ? data.items.filter((id): id is string => typeof id === "string") : [];
   const chosen = selectedItems(ids);
+  const project = inquiryProject(data.project);
   const topic = Object.values(serviceIntents).find((s) => s.title === data.topic && chosen.some((p) => p.id === s.item))?.title;
   const service = [topic, ...chosen.map((p) => p.name)].filter(Boolean).join(" · ") || "무료 상담 · 서비스 미정";
   // 견적은 클라이언트가 보내온 합계 대신 서버의 기준 금액으로 계산합니다.
@@ -95,6 +98,7 @@ export async function POST(request: Request) {
     `연락처: ${phone || "-"}`,
     `회사/소속: ${company || "-"}`,
     `관심 서비스: ${service}`,
+    `관심 프로젝트: ${project?.title || "-"}`,
     `예상 견적: ${estimate || "-"}`,
     ``,
     `문의 내용:`,
@@ -112,6 +116,7 @@ export async function POST(request: Request) {
         <tr><td style="padding:4px 12px 4px 0;color:#888">연락처</td><td>${esc(phone) || "-"}</td></tr>
         <tr><td style="padding:4px 12px 4px 0;color:#888">회사/소속</td><td>${esc(company) || "-"}</td></tr>
         <tr><td style="padding:4px 12px 4px 0;color:#888">관심 서비스</td><td>${esc(service)}</td></tr>
+        <tr><td style="padding:4px 12px 4px 0;color:#888">관심 프로젝트</td><td>${esc(project?.title || "-")}</td></tr>
         <tr><td style="padding:4px 12px 4px 0;color:#888">예상 견적</td><td>${esc(estimate) || "-"}</td></tr>
       </table>
       <p style="margin:16px 0 4px;color:#888">문의 내용</p>

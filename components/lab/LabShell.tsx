@@ -2,6 +2,8 @@ import Link from "next/link";
 import AxoneMark from "@/components/AxoneMark";
 import PageSeo from "@/components/PageSeo";
 import { absoluteUrl } from "@/lib/seo";
+import { projects } from "@/lib/projects";
+import { contactForProject } from "@/lib/project-inquiry";
 import "./lab.css";
 
 /**
@@ -28,6 +30,8 @@ export default function LabShell({
   children: React.ReactNode;
   scope?: string;
 }) {
+  const project = projects.find(p => p.demoUrl === path);
+  const contactHref = project ? contactForProject(project.id) : "/contact";
   return (
     <div className="labx">
       {/* 슬림 데모 바 (sticky) */}
@@ -42,7 +46,7 @@ export default function LabShell({
         </div>
         <div className="labx__bar-right">
           <Link href="/projects" className="labx__bar-link">← 프로젝트 목록</Link>
-          <Link href="/contact" className="labx__cta-sm">도입 문의 →</Link>
+          <Link href={contactHref} className="labx__cta-sm">도입 문의 →</Link>
         </div>
       </div>
 
@@ -69,7 +73,7 @@ export default function LabShell({
         <span className="labx__foot-note">
           <AxoneMark size={16} /> 에이엑스원(AXONE) 자체 제작 데모 · 예시 데이터로 동작하며 실제 도입 시 귀사 환경에 맞춰 구축됩니다.
         </span>
-        <Link href="/contact" className="labx__cta-sm">도입 희망 시 문의하기</Link>
+        <Link href={contactHref} className="labx__cta-sm">도입 희망 시 문의하기</Link>
       </div>
     </div>
   );

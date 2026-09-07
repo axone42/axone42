@@ -30,6 +30,7 @@ export default function Footer() {
             <p className="footer__heading">회사</p>
             <Link href="/guides/ai-adoption">AI 도입 가이드</Link>
             <Link href="/about">회사소개</Link>
+            <a href="https://github.com/axone42/axone42" target="_blank" rel="noopener noreferrer">구현 코드·기술 설명 ↗</a>
             <Link href="/services">전체 서비스</Link>
             <Link href="/projects">자체 프로젝트</Link>
             <Link href="/contact">문의하기</Link>

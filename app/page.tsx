@@ -31,6 +31,15 @@ export default function Home() {
         </div>
       </div>
     </section>
+    <section className="section" id="services"><div className="container">
+      <Reveal><p className="eyebrow">필요한 변화부터</p><h2 className="section-title">지금 해결하고 싶은 일은 무엇인가요?</h2></Reveal>
+      <ServicePaths />
+    </div></section>
+    <section className="section section--tinted" id="demos"><div className="container">
+      <Reveal><p className="eyebrow">직접 사용해 보세요</p><h2 className="section-title">설명보다 먼저, 동작하는 화면</h2><p className="section-lead">AXONE이 만든 데모로 사용 흐름을 확인하세요. 각 데모의 체험 범위를 함께 안내합니다.</p></Reveal>
+      <CaseStudies />
+      <div className="section-action"><Link href="/projects" className="btn btn--ghost">전체 데모와 프로젝트 보기 →</Link></div>
+    </div></section>
     <section className="section--tight">
       <div className="container">
         <Reveal>
@@ -41,15 +50,6 @@ export default function Home() {
         <TechStack />
       </div>
     </section>
-    <section className="section" id="services"><div className="container">
-      <Reveal><p className="eyebrow">필요한 변화부터</p><h2 className="section-title">지금 해결하고 싶은 일은 무엇인가요?</h2></Reveal>
-      <ServicePaths />
-    </div></section>
-    <section className="section section--tinted" id="demos"><div className="container">
-      <Reveal><p className="eyebrow">직접 사용해 보세요</p><h2 className="section-title">설명보다 먼저, 동작하는 화면</h2><p className="section-lead">AXONE이 만든 데모로 사용 흐름을 확인하세요. 각 데모의 체험 범위를 함께 안내합니다.</p></Reveal>
-      <CaseStudies />
-      <div className="section-action"><Link href="/projects" className="btn btn--ghost">전체 데모와 프로젝트 보기 →</Link></div>
-    </div></section>
     <section className="section"><div className="container consultation-split">
       <div><p className="eyebrow">상담부터 실행까지</p><h2 className="section-title">작게 확인하고,<br />필요한 범위를 정합니다</h2><p className="section-lead">어떤 도구를 쓸지보다 어떤 일이 달라져야 하는지 먼저 이야기합니다.</p><Link href="/pricing" className="card__link">서비스별 비용과 범위 확인 →</Link></div>
       <ol className="engagement-steps">

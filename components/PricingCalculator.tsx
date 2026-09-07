@@ -1,15 +1,40 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
-import { selectedItems } from "@/lib/pricing";
+import { Suspense, useCallback, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { selectedItems, resolveIntent } from "@/lib/pricing";
 import ServicePicker from "./ServicePicker";
 import EstimateSummary from "./EstimateSummary";
+import { trackConversion } from "@/lib/analytics";
+function PricingSelection({ onChange }: { onChange: (query: string) => void }) {
+  const params = useSearchParams();
+  const query = params.toString();
+  useEffect(() => onChange(query), [query, onChange]);
+  return null;
+}
 export default function PricingCalculator() {
+  const [query, setQuery] = useState("");
   const [ids, setIds] = useState<string[]>([]);
-  const toggle = (id: string) => setIds((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
+  const syncSelection = useCallback((next: string) => {
+    setQuery(next); setIds(resolveIntent(new URLSearchParams(next)).ids);
+  }, []);
+  const selectionParams = (selected: string[]) => {
+    const next = new URLSearchParams(query);
+    next.set("items", selected.join(","));
+    const intent = resolveIntent(next);
+    if (intent.serviceId) next.set("service", intent.serviceId); else next.delete("service");
+    return next;
+  };
+  const toggle = (id: string) => {
+    trackConversion(ids.includes(id) ? "service_deselect" : "service_select", { service_id: id, source: "pricing" });
+    const next = ids.includes(id) ? ids.filter(x => x !== id) : [...ids, id];
+    setIds(next);
+    window.history.replaceState(null, "", `/pricing?${selectionParams(next)}${window.location.hash}`);
+  };
   const chosen = selectedItems(ids);
-  const href = ids.length ? `/contact?items=${ids.join(",")}` : "/contact";
+  const href = `/contact?${new URLSearchParams([...selectionParams(ids)].filter(([key]) => ["items", "service", "project"].includes(key)))}`;
   return <>
+    <Suspense fallback={null}><PricingSelection onChange={syncSelection} /></Suspense>
     <div className="pricing">
       <ServicePicker ids={ids} onToggle={toggle} showScope />
       <aside className="pricing__summary" id="estimate"><div className="pricing__summary-inner">

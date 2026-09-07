@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { serviceGroups } from "@/lib/service-groups";
+import { trackConversion } from "@/lib/analytics";
 
 type Group = (typeof serviceGroups)[number];
 const introductions: Record<string, { lead: string; examples: string[]; offerings: string; next: string }> = {
@@ -49,7 +50,7 @@ export default function ServicePaths() {
     <div className="service-paths">
       {serviceGroups.map((group, i) => (
         <button className="service-path" type="button" key={group.id} aria-haspopup="dialog"
-          onClick={(event) => { trigger.current = event.currentTarget; setActive(group); }}>
+          onClick={(event) => { trigger.current = event.currentTarget; setActive(group); trackConversion("service_select", { service_id: group.id, source: "home" }); }}>
           <span className="service-path__number">0{i + 1}</span>
           <span className="eyebrow">{group.label}</span>
           <span className="service-path__title">{group.title}</span>

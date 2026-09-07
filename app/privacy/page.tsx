@@ -2,6 +2,7 @@ import PageSeo from "@/components/PageSeo";
 import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
+import { gaId } from "@/lib/analytics";
 
 export const metadata: Metadata = pageMetadata({
   title: "개인정보처리방침",
@@ -26,7 +27,7 @@ export default function PrivacyPage() {
           <p>회사는 상담·문의 처리를 위해 다음 항목을 수집합니다.</p>
           <ul>
             <li>필수: 이름, 이메일, 문의 내용</li>
-            <li>선택: 회사/소속, 관심 서비스</li>
+            <li>선택: 연락처, 회사/소속, 관심 서비스·프로젝트</li>
             <li>자동 수집: 접속 IP(스팸 방지 목적)</li>
           </ul>
 
@@ -65,7 +66,8 @@ export default function PrivacyPage() {
             <li>주소: {site.address}</li>
           </ul>
 
-          <p className="legal__date">본 방침은 2026년 8월 6일부터 적용됩니다.</p>
+          {gaId && <><h2>8. 사이트 이용 통계</h2><p>회사는 Google Analytics 4를 사용해 페이지 조회, 서비스 선택, 데모 조작과 상담 접수 단계의 이용 통계를 확인합니다. Google Analytics는 쿠키를 사용하며, 문의 양식에 입력한 이름·이메일·연락처·문의 내용은 분석 이벤트에 포함하지 않습니다. 광고 개인화 기능은 사용하지 않습니다.</p><p>Google의 데이터 처리에 관한 내용은 <a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer">Google 안내</a>에서 확인할 수 있습니다.</p></>}
+          <p className="legal__date">적용일: 2026년 8월 6일 · 항목 안내 수정: 2026년 9월 7일</p>
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import PricingCalculator from "@/components/PricingCalculator";
+import DeliveryGuide from "@/components/DeliveryGuide";
 
 export const metadata: Metadata = pageMetadata({
   title: "가격 · 조합형 견적",
@@ -41,6 +42,7 @@ export default function PricingPage() {
         </div>
       </section>
 
+      <div className="container"><DeliveryGuide /></div>
       {/* CTA */}
       <section className="section">
         <div className="container">

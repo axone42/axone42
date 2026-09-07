@@ -98,6 +98,7 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <div className="container section--tight"><a className="card__link" href="https://github.com/axone42/axone42" target="_blank" rel="noopener noreferrer">웹사이트 구현 코드와 기술 설명 보기 ↗</a></div>
       {/* CTA */}
       <section className="section">
         <div className="container">
