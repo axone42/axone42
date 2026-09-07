@@ -1,0 +1,10 @@
+{
+  "display_information": {
+    "name": "AXONE 상담 알림",
+    "description": "홈페이지 상담과 Gmail 문의의 접수 알림",
+    "background_color": "#6555c5"
+  },
+  "features": { "bot_user": { "display_name": "AXONE 상담 알림", "always_online": false } },
+  "oauth_config": { "scopes": { "bot": ["incoming-webhook"] } },
+  "settings": { "org_deploy_enabled": false, "socket_mode_enabled": false, "token_rotation_enabled": false }
+}

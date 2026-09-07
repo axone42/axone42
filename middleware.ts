@@ -15,7 +15,7 @@ export function middleware(req: NextRequest) {
 
   const url = req.nextUrl.clone();
   url.pathname = "/admin/login";
-  url.searchParams.set("from", pathname);
+  url.searchParams.set("from", pathname + req.nextUrl.search);
   return NextResponse.redirect(url);
 }
 

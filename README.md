@@ -46,7 +46,9 @@ AXONE 공식 웹사이트의 소스코드입니다. 서비스 안내, 가격 계
 | Next.js 15 · React 19 · TypeScript | 페이지·데모 UI, 정적 서비스 상세와 서버 API |
 | CSS · SUIT Variable · Lucide | 반응형 화면, 한글 글꼴, 일관된 선형 아이콘 |
 | Anthropic SDK | 일부 AI 데모 API의 모델 연동 |
-| Mailgun | 상담 접수 메일 전달 |
+| Neon PostgreSQL | 상담 접수·처리 상태·Slack 전송 이력 저장 |
+| Slack · Gmail | 상담 알림·메일 문의 연동 (계정 연결 후 활성화) |
+| Mailgun | 선택적인 상담 접수 메일 알림 |
 | Vercel | 프로덕션 배포 |
 | Simple Icons | 기술 도구 로고 |
 
@@ -61,13 +63,17 @@ app/
   services/[slug]/   서비스별 상세와 산출물 안내
   guides/           AI 도입 가이드
   lab/              자체 제작 데모 19개
-  api/contact/      입력 검증·견적 계산·문의 메일
+  api/contact/      입력 검증·견적 계산·DB 상담 접수
+  admin/inquiries/  상담 접수함·처리 상태·내부 메모
+  api/integrations/ Gmail 문의 수신 API
   llms.txt/         회사·서비스 데이터에서 생성하는 안내 파일
 components/         가격 계산·상담·공통 UI·전환 이벤트
 lib/                가격·서비스·프로젝트·산출물 데이터
 public/             이미지·아이콘·글꼴
 tests/             가격·문의 회귀 검사
 tooling/           글꼴 최적화 도구
+database/          상담 DB 마이그레이션
+integrations/gmail/ Gmail 자동 접수용 Apps Script
 docs/              구현·검증·운영 기록
 ```
 
@@ -81,14 +87,18 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Windows PowerShell에서는 `Copy-Item .env.example .env.local`을 사용합니다. 환경 변수의 설명은 [.env.example](.env.example)을 참고하세요. Mailgun 설정이 없으면 작성한 문의를 이메일 초안으로 정리하고, 사용자가 메일 앱에서 발송하는 방식으로 안내합니다. 서버 접수는 발송 설정 후 활성화됩니다.
+Windows PowerShell에서는 `Copy-Item .env.example .env.local`을 사용합니다. 환경 변수의 설명은 [.env.example](.env.example)을 참고하세요. 상담 접수에는 `DATABASE_URL`과 DB 마이그레이션이 필요합니다. DB에 저장되면 접수 완료를 반환하며 Slack·메일 알림 실패는 접수를 취소하지 않습니다. [상담 운영·계정 연결 안내](docs/inquiry-operations.md)를 참고하세요.
+
+```bash
+node --env-file=.env.local tooling/migrate-inquiries.mjs
+```
 
 ```bash
 npm test
 npm run build
 ```
 
-문의 자동 검사는 메일 제공자를 대체해 수행하며 실제 메일을 보내지 않습니다.
+문의 자동 검사는 DB·Slack·메일 제공자를 대체해 실패 처리와 인증을 확인하며 실제 알림을 보내지 않습니다.
 
 ## 상담 전환 측정
 

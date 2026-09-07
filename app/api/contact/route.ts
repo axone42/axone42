@@ -3,6 +3,10 @@ import { sendMail } from "@/lib/mailgun";
 import { estimateText, selectedItems, serviceIntents } from "@/lib/pricing";
 import { validateContact } from "@/lib/contact-validation";
 import { inquiryProject } from "@/lib/project-inquiry";
+import { after } from "next/server";
+import { randomUUID } from "node:crypto";
+import { saveInquiry, InquiryConflict } from "@/lib/inquiries";
+import { notifyInquiry } from "@/lib/slack";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -88,7 +92,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "입력 내용을 확인해 주세요.", fieldErrors }, { status: 422 });
   }
 
-  const ticketId = `AX-${Date.now().toString(36).toUpperCase()}`;
+  const requestKey = request.headers.get("idempotency-key") || randomUUID();
+  if (!/^[0-9a-f-]{36}$/i.test(requestKey)) return NextResponse.json({ ok: false, error: "잘못된 요청 번호입니다." }, { status: 400 });
+  let saved;
+  try {
+    saved = await saveInquiry({ source: "website", externalId: requestKey, name, email, phone, company,
+      service, project: project?.title || "", estimate, message, consent: true });
+  } catch (error) {
+    if (error instanceof InquiryConflict) return NextResponse.json({ ok: false, error: "요청 내용이 변경되었습니다. 새로고침 후 다시 신청해 주세요." }, { status: 409 });
+    console.error("[contact] database save failed");
+    return NextResponse.json({ ok: false, error: "상담을 접수하지 못했습니다. 입력 내용은 유지됩니다. 잠시 후 다시 시도하거나 이메일로 문의해 주세요." }, { status: 503 });
+  }
+  const ticketId = saved.inquiry.ticket_id;
 
   const text = [
     `[AXONE 신규 문의] ${ticketId}`,
@@ -104,7 +119,6 @@ export async function POST(request: Request) {
     `문의 내용:`,
     message,
     ``,
-    `IP: ${ip}`,
   ].join("\n");
 
   const html = `
@@ -121,25 +135,16 @@ export async function POST(request: Request) {
       </table>
       <p style="margin:16px 0 4px;color:#888">문의 내용</p>
       <div style="white-space:pre-wrap;border-left:3px solid #6b62f2;padding-left:12px">${esc(message)}</div>
-      <p style="margin-top:16px;color:#aaa;font-size:12px">IP ${esc(ip)}</p>
     </div>`;
 
-  const result = await sendMail({
-    subject: `[AXONE 문의] ${service} — ${name}`,
-    text,
-    html,
-    replyTo: email,
+  // Durable acceptance precedes all notifications. Failed Slack sends remain in the DB retry queue.
+  after(async () => {
+    try { await notifyInquiry(saved.inquiry.id); } catch { console.error("[contact] Slack delivery deferred"); }
+    if (saved.created) {
+      try { await sendMail({ subject: `[AXONE 문의] ${service} — ${name}`, text, html, replyTo: email }); }
+      catch { console.error("[contact] optional email notification failed"); }
+    }
   });
-
-  if (!result.ok) {
-    // 메일 발송은 실패했지만 사용자에겐 접수 실패로 안내
-    return NextResponse.json(
-      { ok: false, error: "상담을 접수하지 못했습니다. 입력 내용은 유지됩니다. 잠시 후 다시 시도하거나 이메일로 문의해 주세요." },
-      { status: "skipped" in result ? 503 : 502 }
-    );
-  }
-
-  console.log(`[contact] ${ticketId} 메일 서비스 전달 완료`);
 
   return NextResponse.json({
     ok: true,

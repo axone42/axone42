@@ -122,6 +122,7 @@ export default function AdminProjectsPage() {
   return (
     <div className="container" style={{ paddingTop: 32, paddingBottom: 80, maxWidth: 900 }}>
       <p className="eyebrow">Admin</p>
+      <a href="/admin/inquiries" className="btn btn--ghost" style={{ marginBottom: 16 }}>상담 접수함으로 이동</a>
       <h1 className="page-hero__title" style={{ fontSize: 40, margin: "8px 0 12px" }}>자체 프로젝트 관리</h1>
       <div className="admin-banner">
         편집 내용은 이 브라우저에 자동 저장됩니다. <b>라이브 사이트에 반영하려면</b> 아래

@@ -1,0 +1,32 @@
+CREATE TABLE IF NOT EXISTS inquiries (
+  id uuid PRIMARY KEY,
+  ticket_id text NOT NULL UNIQUE,
+  source text NOT NULL CHECK (source IN ('website', 'gmail')),
+  external_id text NOT NULL,
+  payload_hash text NOT NULL,
+  name text NOT NULL,
+  email text NOT NULL,
+  phone text NOT NULL DEFAULT '',
+  company text NOT NULL DEFAULT '',
+  service text NOT NULL DEFAULT '',
+  project text NOT NULL DEFAULT '',
+  estimate text NOT NULL DEFAULT '',
+  message text NOT NULL,
+  subject text NOT NULL DEFAULT '',
+  received_at timestamptz NOT NULL DEFAULT now(),
+  created_at timestamptz NOT NULL DEFAULT now(),
+  updated_at timestamptz NOT NULL DEFAULT now(),
+  version integer NOT NULL DEFAULT 1,
+  consent_at timestamptz,
+  status text NOT NULL DEFAULT 'new' CHECK (status IN ('new', 'in_progress', 'closed')),
+  note text NOT NULL DEFAULT '',
+  slack_status text NOT NULL DEFAULT 'pending' CHECK (slack_status IN ('pending', 'sending', 'sent', 'failed')),
+  slack_attempts integer NOT NULL DEFAULT 0,
+  slack_next_attempt_at timestamptz NOT NULL DEFAULT now(),
+  slack_claim uuid,
+  slack_sent_at timestamptz,
+  slack_error text,
+  UNIQUE (source, external_id)
+);
+CREATE INDEX IF NOT EXISTS inquiries_created_idx ON inquiries (created_at DESC, id DESC);
+CREATE INDEX IF NOT EXISTS inquiries_slack_idx ON inquiries (slack_status, slack_next_attempt_at);

@@ -11,9 +11,9 @@ function load(file, overrides = {}, globals = {}) {
   const module = {exports:{}};
   vm.runInNewContext(js, {module,exports:module.exports,require:(name) => {
     if (name in overrides) return overrides[name];
-    if (name.startsWith("@/")) return load(name.slice(2)+".ts",overrides);
+    if (name.startsWith("@/")) return load(name.slice(2)+".ts",overrides,globals);
     return require(name);
-  },console:{log(){},warn(){},error(){}},URLSearchParams,AbortSignal,Buffer,fetch,setTimeout,clearTimeout,...globals}, {filename:file});
+  },console:{log(){},warn(){},error(){}},process,URL,URLSearchParams,AbortSignal,Buffer,fetch,setTimeout,clearTimeout,...globals}, {filename:file});
   return module.exports;
 }
 const pricing = load("lib/pricing.ts");
@@ -57,14 +57,29 @@ test("service pricing links preserve the exact course and tolerate empty or unkn
   assert.equal(pricing.resolveIntent(new URLSearchParams("service=__proto__")).ids.length,0);
 });
 const valid = {name:"테스트 고객",email:"test@example.com",phone:"010-0000-0000",company:"테스트",message:"상담 양식 검증용 문의입니다.",agree:true,items:["website","automation","marketing"],estimate:"1원"};
-function route(sendMail) {return load("app/api/contact/route.ts",{"@/lib/mailgun":{sendMail}});}
+function route(sendMail, save = async input => ({inquiry:{id:'00000000-0000-4000-8000-000000000001',ticket_id:'AX-TEST',...input},created:true}), notify = async()=>true) {
+  const tasks=[];
+  const api=load("app/api/contact/route.ts",{
+    "next/server":{...require('next/server'),after:fn=>tasks.push(fn)},
+    "@/lib/mailgun":{sendMail},
+    "@/lib/inquiries":{saveInquiry:save,InquiryConflict:class extends Error{}},
+    "@/lib/slack":{notifyInquiry:notify},
+  });
+  return {async POST(req) { const res=await api.POST(req); for(const fn of tasks.splice(0)) await fn(); return res; }};
+}
 function request(body){return new Request("http://localhost/api/contact",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});}
-test("unconfigured or failed mail cannot become a successful enquiry",async()=>{
-  for(const [result,status] of [[{ok:false,skipped:true},503],[{ok:false,error:"provider unavailable"},502]]){
-    const response=await route(async()=>result).POST(request(valid));
-    assert.equal(response.status,status);
-    assert.equal((await response.json()).ok,false);
+test("DB acceptance succeeds even when optional mail and Slack fail",async()=>{
+  for(const result of [{ok:false,skipped:true},{ok:false,error:"provider unavailable"}]){
+    let persisted=false;
+    const response=await route(async()=>result,async input=>{persisted=true;return {inquiry:{id:'test',ticket_id:'AX-SAVED',...input},created:true}},async()=>{throw new Error('Slack down')}).POST(request(valid));
+    assert.equal(response.status,200);
+    assert.equal((await response.json()).ticketId,'AX-SAVED');assert.equal(persisted,true);
   }
+});
+test("DB failure cannot produce success or notifications",async()=>{
+  let calls=0;
+  const response=await route(async()=>{calls++},async()=>{throw new Error('DB unavailable')},async()=>{calls++}).POST(request(valid));
+  assert.equal(response.status,503);assert.equal((await response.json()).ok,false);assert.equal(calls,0);
 });
 test("malformed and incomplete enquiries never call mail",async()=>{
   let calls=0;const api=route(async()=>{calls++;return {ok:true,id:"test"};});
@@ -74,7 +89,7 @@ test("malformed and incomplete enquiries never call mail",async()=>{
   }
   assert.equal(calls,0);
 });
-test("successful provider acceptance includes server-calculated costs and specific course intent",async()=>{
+test("saved enquiries include server-calculated costs and specific course intent",async()=>{
   let mail;
   const api=route(async(input)=>{mail=input;return {ok:true,id:"mock-provider-id"};});
   const response=await api.POST(request(valid));

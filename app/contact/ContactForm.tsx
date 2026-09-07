@@ -24,17 +24,18 @@ function formatPhone(value: string): string {
   return `${d.slice(0, 3)}-${d.slice(3, 7)}-${d.slice(7, 11)}`;
 }
 
-export default function ContactForm({ mailAvailable = true }: { mailAvailable?: boolean }) {
+export default function ContactForm() {
   const params = useSearchParams();
   const [ids, setIds] = useState<string[]>([]);
   const [topic, setTopic] = useState("");
   const [projectId, setProjectId] = useState("");
   const [phone, setPhone] = useState("");
   const [errors, setErrors] = useState<ContactErrors>({});
-  const [status, setStatus] = useState<{state:"idle"|"loading"|"ok"|"error"|"draft"; message?:string}>({state:"idle"});
+  const [status, setStatus] = useState<{state:"idle"|"loading"|"ok"|"error"; message?:string}>({state:"idle"});
   const [emailDraft, setEmailDraft] = useState("");
   const submitting = useRef(false);
   const started = useRef(false);
+  const requestIdentity = useRef({ payload: "", key: "" });
   useEffect(() => {
     const intent = resolveIntent(new URLSearchParams(params.toString()));
     setIds(intent.ids); setTopic(intent.topic);
@@ -81,20 +82,18 @@ export default function ContactForm({ mailAvailable = true }: { mailAvailable?: 
       `관심 프로젝트: ${project?.title || "-"}`, `예상 비용: ${estimateText(ids) || "상담 후 안내"}`, "", "문의 내용:", payload.message,
     ].join("\n");
     setEmailDraft(`mailto:${site.email}?subject=${encodeURIComponent(`[AXONE 상담] ${project?.title || topic || "무료 상담"}`)}&body=${encodeURIComponent(emailBody)}`);
-    if (!mailAvailable) {
-      trackConversion("email_draft", analyticsContext);
-      setStatus({state:"draft",message:"문의 내용을 이메일로 정리했습니다. 아래 버튼으로 메일 앱을 열고 전송을 완료해 주세요. 아직 상담이 접수된 상태는 아닙니다."});
-      return;
-    }
+    const serialized = JSON.stringify(payload);
+    if (requestIdentity.current.payload !== serialized) requestIdentity.current = { payload: serialized, key: crypto.randomUUID() };
     submitting.current = true;
     trackConversion("contact_submit", analyticsContext);
     setStatus({state:"loading"});
     try {
-      const res = await fetch("/api/contact", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+      const res = await fetch("/api/contact", {method:"POST",headers:{"Content-Type":"application/json", "Idempotency-Key": requestIdentity.current.key},body:serialized});
       const json = await res.json();
       if (res.ok && json.ok) {
         if (json.ticketId !== "AX-OK") trackConversion("generate_lead", analyticsContext);
         started.current = false;
+        requestIdentity.current = { payload: "", key: "" };
         setStatus({state:"ok",message:`${json.message} (접수번호 ${json.ticketId})`});
         form.reset(); setPhone(""); setIds([]); setTopic(""); setProjectId("");
       } else {
@@ -106,7 +105,7 @@ export default function ContactForm({ mailAvailable = true }: { mailAvailable?: 
     finally { submitting.current = false; }
   }
   return <div className="contact-layout">
-    <form onSubmit={handleSubmit} onChangeCapture={() => { setEmailDraft(""); if (status.state === "draft") setStatus({state:"idle"}); if (!started.current) { started.current = true; trackConversion("contact_start", analyticsContext); } }} noValidate className="contact-main">
+    <form onSubmit={handleSubmit} onChangeCapture={() => { setEmailDraft(""); if (!started.current) { started.current = true; trackConversion("contact_start", analyticsContext); } }} noValidate className="contact-main">
       <fieldset disabled={status.state === "loading"} className="contact-fields">
         <div className="contact-interest">
           <h2>어떤 도움이 필요하신가요?</h2>
@@ -118,7 +117,6 @@ export default function ContactForm({ mailAvailable = true }: { mailAvailable?: 
           </details>
           {chosen.length > 0 && <details className="contact-choice"><summary>예상 비용 확인 · 초기비와 월비</summary><EstimateSummary ids={ids} /></details>}
         </div>
-        {!mailAvailable && <p className="form-note">현재 이메일로 상담을 받고 있습니다. 아래 내용을 작성하면 메일에 담을 내용을 정리해 드립니다. 메일 앱에서 보내기를 눌러 접수를 완료해 주세요.</p>}
         <div className="form-grid">
           <div className="field"><label htmlFor="name">이름 *</label><input id="name" name="name" autoComplete="name" placeholder="홍길동" maxLength={100} required aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} />{errorFor("name")}</div>
           <div className="field"><label htmlFor="email">이메일 *</label><input id="email" name="email" type="email" autoComplete="email" placeholder="you@company.com" maxLength={254} required aria-invalid={!!errors.email} aria-describedby={errors.email ? "email-error" : undefined} />{errorFor("email")}</div>
@@ -129,10 +127,9 @@ export default function ContactForm({ mailAvailable = true }: { mailAvailable?: 
         <div aria-hidden style={{position:"absolute",left:"-9999px",width:1,height:1,overflow:"hidden"}}><label htmlFor="company_website">Company Website</label><input id="company_website" name="company_website" tabIndex={-1} autoComplete="off" /></div>
         <label className="consent"><input id="agree" type="checkbox" name="agree" required aria-invalid={!!errors.agree} aria-describedby={errors.agree ? "agree-error" : undefined} /><span><Link href="/privacy" target="_blank" className="consent__link">개인정보 수집·이용</Link>에 동의합니다. (상담 목적, 이름·연락처·이메일·문의 내용, 3년 보관) *</span></label>
         {errorFor("agree")}
-        <button type="submit" className="btn btn--primary contact-submit">{status.state === "loading" ? "접수 중…" : mailAvailable ? "무료 상담 신청" : "이메일 상담 내용 정리하기"}</button>
+        <button type="submit" className="btn btn--primary contact-submit">{status.state === "loading" ? "접수 중…" : "무료 상담 신청"}</button>
       </fieldset>
       {status.state === "error" && <div className="form-feedback form-feedback--error" role="alert"><p>{status.message}</p><a href={emailDraft || `mailto:${site.email}`}>이메일로 문의하기 →</a></div>}
-      {status.state === "draft" && <div className="form-feedback" role="status"><p>{status.message}</p><a className="btn btn--primary" href={emailDraft}>이메일 작성 화면 열기 →</a><p>메일 앱을 사용하지 않는다면 위 내용을 복사해 {site.email}으로 보내 주세요.</p></div>}
       {status.state === "ok" && <div className="form-feedback" role="status">{status.message}</div>}
       <p className="form-note">상담 신청만으로 비용이 발생하지 않습니다. 유료 작업은 범위와 견적에 동의하신 후 시작합니다.</p>
     </form>

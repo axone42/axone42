@@ -20,8 +20,8 @@ export default function AdminLoginPage() {
       const json = await res.json();
       if (res.ok && json.ok) {
         const params = new URLSearchParams(window.location.search);
-        const from = params.get("from") || "/admin/projects";
-        window.location.href = from.startsWith("/admin") ? from : "/admin/projects";
+        const from = params.get("from") || "/admin/inquiries";
+        window.location.href = from.startsWith("/admin/") ? from : "/admin/inquiries";
       } else {
         setError(json.error ?? "로그인에 실패했습니다.");
       }
@@ -37,7 +37,7 @@ export default function AdminLoginPage() {
       <form className="admin-login__card" onSubmit={handleSubmit}>
         <span className="nav__logo" aria-hidden style={{ width: 40, height: 40, borderRadius: 12 }} />
         <h1 className="admin-login__title">관리자 로그인</h1>
-        <p className="admin-login__sub">에이엑스원(AXONE) 프로젝트 관리</p>
+        <p className="admin-login__sub">에이엑스원(AXONE) 상담·프로젝트 관리</p>
         <div className="field" style={{ marginTop: 8 }}>
           <label htmlFor="pw">비밀번호</label>
           <input
