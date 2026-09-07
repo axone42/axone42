@@ -3,7 +3,7 @@ import Reveal from "@/components/Reveal";
 import CaseStudies from "@/components/CaseStudies";
 import TechStack from "@/components/TechStack";
 import Faq from "@/components/Faq";
-import { serviceGroups } from "@/lib/service-groups";
+import ServicePaths from "@/components/ServicePaths";
 
 export default function Home() {
   return <>
@@ -40,9 +40,7 @@ export default function Home() {
     </section>
     <section className="section" id="services"><div className="container">
       <Reveal><p className="eyebrow">필요한 변화부터</p><h2 className="section-title">지금 해결하고 싶은 일은 무엇인가요?</h2></Reveal>
-      <div className="service-paths">{serviceGroups.map((group,i) => <Link className="service-path" href={`/services#${group.id}`} key={group.id}>
-        <span className="service-path__number">0{i+1}</span><p className="eyebrow">{group.label}</p><h3>{group.title}</h3><p>{group.description}</p><span className="card__link">관련 서비스 보기 →</span>
-      </Link>)}</div>
+      <ServicePaths />
     </div></section>
     <section className="section section--tinted" id="demos"><div className="container">
       <Reveal><p className="eyebrow">직접 사용해 보세요</p><h2 className="section-title">설명보다 먼저, 동작하는 화면</h2><p className="section-lead">AXONE이 만든 데모로 사용 흐름을 확인하세요. 각 데모의 체험 범위를 함께 안내합니다.</p></Reveal>
