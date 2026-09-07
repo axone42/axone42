@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
-import TechStack from "@/components/TechStack";
 
 export const metadata: Metadata = {
   title: "회사소개 — AI 트랜스포메이션 파트너",
@@ -64,7 +63,6 @@ export default function AboutPage() {
       </section>
 
       <div className="container"><div className="glow-strip" /></div>
-      <section className="section--tight"><div className="container"><details className="technology-details"><summary>프로젝트에 맞춰 선택하는 기술과 도구</summary><p>기존 시스템과 운영 환경에 맞춰 필요한 도구를 조합합니다.</p><TechStack /></details></div></section>
 
       {/* Company info + categories */}
       <section className="section">

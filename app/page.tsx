@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import CaseStudies from "@/components/CaseStudies";
+import TechStack from "@/components/TechStack";
 import Faq from "@/components/Faq";
 import { serviceGroups } from "@/lib/service-groups";
 
@@ -25,6 +26,16 @@ export default function Home() {
           <div className="workflow-preview__connector" aria-hidden>↓</div>
           <div className="workflow-preview__result"><b>답변 초안 작성 → 담당자 확인</b><p>자동 처리와 사람이 확인할 단계를 함께 설계합니다.</p></div>
         </div>
+      </div>
+    </section>
+    <section className="section--tight">
+      <div className="container">
+        <Reveal>
+          <p className="eyebrow" style={{ textAlign: "center", marginBottom: 24 }}>
+            우리가 사용하는 기술 스택
+          </p>
+        </Reveal>
+        <TechStack />
       </div>
     </section>
     <section className="section" id="services"><div className="container">
