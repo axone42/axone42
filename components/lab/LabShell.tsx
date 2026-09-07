@@ -1,5 +1,7 @@
 import Link from "next/link";
 import AxoneMark from "@/components/AxoneMark";
+import PageSeo from "@/components/PageSeo";
+import { absoluteUrl } from "@/lib/seo";
 import "./lab.css";
 
 /**
@@ -8,6 +10,7 @@ import "./lab.css";
  * 얇은 상단 데모 바(AXONE 마크 + 프로젝트명 + 도입 문의)만 얹고 본문은 전체폭으로 채웁니다.
  */
 export default function LabShell({
+  path,
   category,
   title,
   en,
@@ -16,6 +19,7 @@ export default function LabShell({
   children,
   scope,
 }: {
+  path: string;
   category: string;
   title: string;
   en: string;
@@ -33,7 +37,7 @@ export default function LabShell({
             <AxoneMark size={24} />
           </Link>
           <span className="labx__demo-pill">DEMO</span>
-          <span className="labx__bar-title">{title}</span>
+          <h1 className="labx__bar-title">{title}</h1>
           <span className="labx__bar-cat">{category}</span>
         </div>
         <div className="labx__bar-right">
@@ -42,6 +46,9 @@ export default function LabShell({
         </div>
       </div>
 
+      <PageSeo path={path} title={title} description={tagline} parent={{ path: "/projects", title: "자체 프로젝트" }} entities={[
+        { "@type": "CreativeWork", "@id": `${absoluteUrl(path)}#demo`, name: title, description: tagline, url: absoluteUrl(path), genre: "자체 제작 인터랙티브 데모", creator: { "@id": absoluteUrl("/#organization") }, inLanguage: "ko-KR" },
+      ]} />
       {tagline && (
         <p className="labx__subline">
           <b>{en}</b> · {tagline}
@@ -55,7 +62,7 @@ export default function LabShell({
 
       <div className="labx__scope"><b>체험 범위</b><span>{scope ?? "사용 흐름을 살펴보는 자체 제작 데모입니다. 예시 데이터와 일부 외부 조회를 사용하며, 실제 주문·발송·외부 시스템 저장은 수행하지 않습니다. 실제 도입 범위는 상담에서 확정합니다."}</span></div>
       {/* 데모 본체 — 전체폭 */}
-      <div className="labx__stage">{children}</div>
+      <main className="labx__stage"><h2 className="visually-hidden">{title} 체험 화면</h2>{children}</main>
 
       {/* 미니 푸터 */}
       <div className="labx__foot">

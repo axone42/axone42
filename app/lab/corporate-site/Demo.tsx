@@ -349,10 +349,10 @@ function HomePage({
         </div>
 
         <div className="fr-hero__inner">
-          <h1 className="fr-wordmark">
+          <h2 className="fr-wordmark">
             {WORDMARK}
             <span className="fr-wordmark__reg">®</span>
-          </h1>
+          </h2>
           <p className="fr-hero__tag">
             A small creative studio making films, titles and moving images that
             behave like cinema — white type, black room, one red note.

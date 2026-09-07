@@ -1,0 +1,210 @@
+{
+  "/lab-img/fashion/hero.webp": {
+    "width": 1024,
+    "height": 1536
+  },
+  "/lab-img/fashion/p1.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/fashion/p2.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/fashion/p3.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/fashion/p4.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/fashion/p5.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/fashion/p6.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/fashion/p7.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/fashion/p8.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/fashion/p9.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/fashion/p10.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/cosmetics/p1.webp": {
+    "width": 900,
+    "height": 900
+  },
+  "/lab-img/cosmetics/p2.webp": {
+    "width": 900,
+    "height": 900
+  },
+  "/lab-img/cosmetics/p3.webp": {
+    "width": 900,
+    "height": 900
+  },
+  "/lab-img/cosmetics/p4.webp": {
+    "width": 900,
+    "height": 900
+  },
+  "/lab-img/cosmetics/p5.webp": {
+    "width": 900,
+    "height": 900
+  },
+  "/lab-img/cosmetics/p6.webp": {
+    "width": 900,
+    "height": 900
+  },
+  "/lab-img/cosmetics/p7.webp": {
+    "width": 900,
+    "height": 900
+  },
+  "/lab-img/cosmetics/p8.webp": {
+    "width": 900,
+    "height": 900
+  },
+  "/lab-img/cosmetics/p9.webp": {
+    "width": 900,
+    "height": 900
+  },
+  "/lab-img/cosmetics/p10.webp": {
+    "width": 900,
+    "height": 900
+  },
+  "/lab-img/cosmetics/hero.webp": {
+    "width": 1400,
+    "height": 933
+  },
+  "/lab-img/corporate/p1.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/p2.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/p3.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/p4.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/p5.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/p6.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/p7.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/p8.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/p9.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/p10.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/p11.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/p12.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/corporate/t1.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/corporate/t2.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/corporate/t3.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/corporate/t4.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/corporate/t5.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/corporate/t6.webp": {
+    "width": 900,
+    "height": 1350
+  },
+  "/lab-img/corporate/hero.webp": {
+    "width": 1400,
+    "height": 933
+  },
+  "/lab-img/realestate/p1.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/realestate/p2.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/realestate/p3.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/realestate/listing-L1.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/realestate/listing-L2.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/realestate/listing-L3.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/realestate/listing-L4.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/realestate/listing-L5.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/realestate/listing-L6.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/realestate/listing-L7.webp": {
+    "width": 900,
+    "height": 600
+  },
+  "/lab-img/realestate/listing-L8.webp": {
+    "width": 900,
+    "height": 600
+  }
+}

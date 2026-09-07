@@ -1,18 +1,23 @@
+import PageSeo from "@/components/PageSeo";
+import { projects } from "@/lib/projects";
+import { absoluteUrl } from "@/lib/seo";
+import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ProjectExplorer from "@/components/ProjectExplorer";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "자체 프로젝트",
   description:
     "AXONE 자체 제작 프로젝트. 업무 자동화·AI 앱·웹사이트 데모를 직접 사용하고 체험 범위와 구현 내용을 확인하세요.",
   alternates: { canonical: "/projects" },
-};
+});
 
 export default function ProjectsPage() {
   return (
     <>
+      <PageSeo path="/projects" title="자체 프로젝트" type="CollectionPage" entities={[{ "@type": "ItemList", name: "체험 가능한 자체 제작 데모", itemListElement: projects.filter(p => p.demoUrl).map((p, i) => ({ "@type": "ListItem", position: i + 1, name: p.title, url: absoluteUrl(p.demoUrl!) })) }]} />
       <section className="page-hero">
         <div className="container">
           <Reveal>

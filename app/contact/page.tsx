@@ -1,18 +1,21 @@
+import PageSeo from "@/components/PageSeo";
+import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import ContactForm from "./ContactForm";
 import { Suspense } from "react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "문의·무료 상담 신청",
   description:
-    "AI 자동화·AX 컨설팅·챗봇·홈페이지 개발·교육 무료 상담. 업무 상황을 남겨주시면 영업일 기준 1~2일 내 연락드립니다. — 에이엑스원(AXONE).",
+    "AI 자동화·AX 컨설팅·챗봇·홈페이지 개발·교육 무료 상담. 업무 상황을 남겨주시면 영업일 기준 1~2일 내 연락드립니다. · 에이엑스원(AXONE).",
   alternates: { canonical: "/contact" },
-};
+});
 
 export default function ContactPage() {
   return (
     <>
+      <PageSeo path="/contact" title="문의·무료 상담 신청" type="ContactPage" />
       <section className="page-hero">
         <div className="container">
           <Reveal>

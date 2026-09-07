@@ -10,7 +10,7 @@ export const site = {
   bizNumber: "624-21-01756",
   established: "2022-07-11",
   address:
-    "경기도 부천시 원미구 부천로3번길 48, 7층 725호 (심곡동, 심곡동 피노키오 상가)",
+    "서울특별시 영등포구 국회대로66길 17, 10층",
   email: "axone042@gmail.com",
   categories: [
     "정보통신업 · 컴퓨터 프로그래밍 서비스업",
@@ -25,6 +25,7 @@ export const site = {
     { href: "/services", label: "서비스" },
     { href: "/pricing", label: "가격" },
     { href: "/projects", label: "자체프로젝트" },
+    { href: "/guides/ai-adoption", label: "도입 가이드" },
     { href: "/about", label: "회사소개" },
   ],
 };

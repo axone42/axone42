@@ -1,14 +1,16 @@
+import PageSeo from "@/components/PageSeo";
+import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
-  title: "회사소개 — AI 트랜스포메이션 파트너",
+export const metadata: Metadata = pageMetadata({
+  title: "회사소개 · AI 트랜스포메이션 파트너",
   description:
-    "AI 전환 파트너 에이엑스원(AXONE). 대표 이원희, 경기 부천 소재. 컨설팅부터 개발·운영·교육까지 실행하는 AX 전문 기업의 소개와 사업자 정보·등록 업종.",
+    "AI 전환 파트너 에이엑스원(AXONE). 대표 이원희, 서울 영등포구 소재. 컨설팅부터 개발·운영·교육까지 실행하는 AX 전문 기업의 소개와 사업자 정보·등록 업종.",
   alternates: { canonical: "/about" },
-};
+});
 
 const values = [
   { icon: "🎯", title: "실행까지 책임", body: "컨설팅으로 끝내지 않습니다. 기획·개발 역량으로 실제 도입까지 완주합니다." },
@@ -28,6 +30,7 @@ const infoRows = [
 export default function AboutPage() {
   return (
     <>
+      <PageSeo path="/about" title="회사소개 · AI 트랜스포메이션 파트너" type="AboutPage" />
       <section className="page-hero">
         <div className="container">
           <Reveal>
@@ -99,7 +102,7 @@ export default function AboutPage() {
         <div className="container">
           <Reveal className="cta-band">
             <h2 className="cta-band__title">함께 만들어 보시겠어요?</h2>
-            <p className="cta-band__sub">AI 자동화, 컨설팅, 제작, 교육 — 무엇이든 편하게 문의해 주세요.</p>
+            <p className="cta-band__sub">AI 자동화, 컨설팅, 제작, 교육 · 무엇이든 편하게 문의해 주세요.</p>
             <div className="cta-band__actions">
               <Link href="/contact" className="btn btn--primary">문의하기</Link>
               <Link href="/services" className="btn btn--ghost">서비스 보기</Link>

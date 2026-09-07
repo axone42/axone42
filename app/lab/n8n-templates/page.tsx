@@ -1,17 +1,19 @@
+import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import LabShell from "@/components/lab/LabShell";
 import Demo from "./Demo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "n8n 워크플로우 템플릿 갤러리 데모",
   description:
     "실무 자동화 구현 예시를 카테고리와 검색으로 살펴보는 AXONE 워크플로우 갤러리 데모.",
   alternates: { canonical: "/lab/n8n-templates" },
-};
+});
 
 export default function Page() {
   return (
     <LabShell
+      path="/lab/n8n-templates"
       category="자동화"
       title="n8n 워크플로우 템플릿 갤러리"
       en="n8n Workflow Template Gallery"

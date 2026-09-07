@@ -19,7 +19,7 @@
   font-family: var(--font-geist); font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
   color: #fff; background: var(--color-dusk-violet); border-radius: 20px; padding: 3px 9px;
 }
-.labx__bar-title { font-family: var(--font-geist); font-weight: 800; font-size: 15px; color: var(--color-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.labx__bar-title { margin: 0; font-family: var(--font-geist); font-weight: 800; font-size: 15px; color: var(--color-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .labx__bar-cat { font-size: 12px; color: var(--color-slate); border-left: 1px solid var(--color-hairline-strong); padding-left: 10px; }
 .labx__bar-right { display: flex; align-items: center; gap: 10px; flex: 0 0 auto; }
 .labx__bar-link { font-size: 13px; color: var(--color-ash); text-decoration: none; }

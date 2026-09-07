@@ -33,6 +33,7 @@ export default function ProjectExplorer() {
   return (
     <>
       <section className="section--tight"><div className="container">
+        <h2 className="visually-hidden">자체 제작 프로젝트 목록</h2>
         <div className="project-filters" aria-label="프로젝트 필터">
           <div className="filterbar" aria-label="분야">{["전체", ...PROJECT_CATEGORIES].map((cat) => <button type="button" key={cat} className={`filter-chip${category === cat ? " is-active" : ""}`} aria-pressed={category === cat} onClick={() => setCategory(cat)}>{cat}</button>)}</div>
           <div className="filterbar" aria-label="체험 가능 여부">{["전체", "데모 체험", "소개·예정"].map((value) => <button type="button" key={value} className={`filter-chip${availability === value ? " is-active" : ""}`} aria-pressed={availability === value} onClick={() => setAvailability(value)}>{value}</button>)}</div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./font-subset.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
@@ -11,10 +12,10 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
   title: {
     default: "에이엑스원(AXONE) | AI 자동화·AX 컨설팅 파트너",
-    template: `%s | ${site.nameEn}`,
+    template: `%s | ${site.name}(${site.nameEn})`,
   },
   description:
-    "기업의 AI 전환(AX)을 설계하고 실행합니다. n8n 기반 AI 자동화 운영, AX 컨설팅, 챗봇·쇼핑몰·ERP 개발, 홈페이지 제작, 실무 교육까지 — 에이엑스원(AXONE).",
+    "기업의 AI 전환(AX)을 설계하고 실행합니다. n8n 기반 AI 자동화 운영, AX 컨설팅, 챗봇·쇼핑몰·ERP 개발, 홈페이지 제작, 실무 교육까지 제공하는 에이엑스원(AXONE).",
   applicationName: `${site.name}(${site.nameEn})`,
   keywords: [
     "AX컨설팅",
@@ -32,12 +33,18 @@ export const metadata: Metadata = {
     type: "website",
     siteName: `${site.name}(${site.nameEn})`,
     url: site.url,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "에이엑스원 AI 자동화·AX 컨설팅 서비스" }],
     locale: "ko_KR",
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.name}(${site.nameEn})`,
     description: site.description,
+    images: ["/opengraph-image"],
+  },
+  icons: {
+    icon: [{ url: "/favicon.ico", sizes: "32x32 48x48", type: "image/x-icon" }, { url: "/icon.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
   },
   robots: {
     index: true,
@@ -65,14 +72,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <link
           rel="preload"
-          href="/fonts/suit/SUIT-Variable.woff2"
+          href="/fonts/suit/AXONE-Web-Sans.woff2"
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
       </head>
       <body>
-        <SiteFrame nav={<Nav />} footer={<Footer />} jsonLd={<JsonLd />}>
+        <JsonLd />
+        <SiteFrame nav={<Nav />} footer={<Footer />}>
           {children}
         </SiteFrame>
       </body>

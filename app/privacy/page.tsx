@@ -1,14 +1,18 @@
+import PageSeo from "@/components/PageSeo";
+import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "개인정보처리방침",
   description: `${site.name}(${site.nameEn})의 개인정보 수집·이용·보관 및 이용자 권리 안내.`,
   alternates: { canonical: "/privacy" },
-};
+});
 
 export default function PrivacyPage() {
   return (
+    <>
+    <PageSeo path="/privacy" title="개인정보처리방침" />
     <section className="page-hero">
       <div className="container" style={{ maxWidth: 820 }}>
         <p className="eyebrow">Privacy</p>
@@ -65,5 +69,6 @@ export default function PrivacyPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }

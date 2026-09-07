@@ -4,6 +4,9 @@ import CaseStudies from "@/components/CaseStudies";
 import TechStack from "@/components/TechStack";
 import Faq from "@/components/Faq";
 import ServicePaths from "@/components/ServicePaths";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: "AI 업무 자동화·AX 컨설팅·챗봇 개발", description: "에이엑스원(AXONE)은 반복 업무 자동화, 기업형 챗봇과 웹·시스템 개발, AX 컨설팅·교육을 제공합니다. 서비스별 비용과 직접 체험할 수 있는 데모를 확인하고 무료 상담을 신청하세요.", alternates: { canonical: "/" } });
 
 export default function Home() {
   return <>
@@ -11,7 +14,7 @@ export default function Home() {
       <div className="hero-inner hero-inner--split">
         <div className="hero-content">
           <span className="hero__badge">AXONE · AI 업무 전환 파트너</span>
-          <h1 className="hero__title">반복 업무는 줄이고,<br />중요한 일에 집중하세요</h1>
+          <h1 className="hero__title">AI로 반복 업무는 줄이고,<br />중요한 일에 집중하세요</h1>
           <p className="hero__sub">매일 옮기는 엑셀, 반복되는 고객 문의.<br />업무에 맞는 AI 자동화와 웹·시스템을 설계하고 만듭니다.</p>
           <div className="hero__actions"><Link href="/contact" className="btn btn--light">내 업무 무료 상담</Link><Link href="#demos" className="btn btn--ghost">결과물 먼저 체험하기 ↓</Link></div>
           <p className="hero__note">서비스를 몰라도 괜찮습니다. 현재 쓰는 도구와 업무부터 알려주세요.</p>
@@ -55,7 +58,7 @@ export default function Home() {
         <li><span>03</span><div><h3>구축·확인·운영</h3><p>실제 업무에 적용해 확인하고, 합의한 범위에 따라 인수인계와 운영을 진행합니다.</p></div></li>
       </ol>
     </div></section>
-    <section className="section"><div className="container"><Reveal><p className="eyebrow">자주 묻는 질문</p><h2 className="section-title">맡기기 전에 궁금한 점</h2></Reveal><div style={{marginTop:32}}><Faq /></div></div></section>
+    <section className="section"><div className="container"><Reveal><p className="eyebrow">자주 묻는 질문</p><h2 className="section-title">맡기기 전에 궁금한 점</h2></Reveal><div style={{marginTop:32}}><Faq /></div><p className="section-action"><Link href="/guides/ai-adoption" className="card__link">AI 자동화·챗봇·컨설팅 선택 기준과 준비할 자료 →</Link></p></div></section>
     <section className="section"><div className="container"><div className="cta-band"><h2 className="cta-band__title">매일 반복하는 업무 하나부터</h2><p className="cta-band__sub">지금 쓰는 도구와 줄이고 싶은 일을 알려주세요. 함께 시작점을 찾겠습니다.</p><div className="cta-band__actions"><Link href="/contact" className="btn btn--primary">무료 상담 신청</Link><Link href="/pricing" className="btn btn--ghost">예상 비용 확인</Link></div></div></div></section>
   </>;
 }

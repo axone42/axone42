@@ -1,5 +1,5 @@
 import { site } from "@/lib/site";
-import { services } from "@/lib/services";
+import StructuredData from "@/components/StructuredData";
 
 export default function JsonLd() {
   const base = site.url.replace(/\/$/, "");
@@ -13,7 +13,7 @@ export default function JsonLd() {
         name: `${site.name}(${site.nameEn})`,
         alternateName: site.nameEn,
         url: base,
-        logo: { "@type": "ImageObject", url: `${base}/icon.svg` },
+        logo: { "@type": "ImageObject", url: `${base}/icon-512.png`, width: 512, height: 512 },
         email: site.email,
         contactPoint: {
           "@type": "ContactPoint",
@@ -27,9 +27,9 @@ export default function JsonLd() {
         address: {
           "@type": "PostalAddress",
           addressCountry: "KR",
-          addressLocality: "부천시",
-          addressRegion: "경기도",
-          streetAddress: "원미구 부천로3번길 48, 7층 725호",
+          addressLocality: "영등포구",
+          addressRegion: "서울특별시",
+          streetAddress: "국회대로66길 17, 10층",
         },
         description: site.description,
       },
@@ -41,21 +41,8 @@ export default function JsonLd() {
         publisher: { "@id": `${base}/#organization` },
         inLanguage: "ko-KR",
       },
-      ...services.map((s) => ({
-        "@type": "Service",
-        name: s.title,
-        description: s.summary,
-        provider: { "@id": `${base}/#organization` },
-        areaServed: "KR",
-        url: `${base}/services#${s.id}`,
-      })),
     ],
   };
 
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-    />
-  );
+  return <StructuredData data={data} />;
 }

@@ -1,19 +1,24 @@
+import PageSeo from "@/components/PageSeo";
+import { services } from "@/lib/services";
+import { serviceCatalogSchema } from "@/lib/service-seo";
+import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import ServiceExplorer from "@/components/ServiceExplorer";
 import { serviceGroups } from "@/lib/service-groups";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "AI 자동화·컨설팅·챗봇·개발 서비스",
   description:
     "업무 자동화, 웹·시스템 구축, 컨설팅·교육. 해결하고 싶은 문제에 맞춰 AXONE의 12개 서비스와 자동화 구현 예시를 확인하세요.",
   alternates: { canonical: "/services" },
-};
+});
 
 export default function ServicesPage() {
   return (
     <>
+      <PageSeo path="/services" title="AI 자동화·컨설팅·챗봇·개발 서비스" type="CollectionPage" entities={[serviceCatalogSchema]} />
       {/* Page hero */}
       <section className="page-hero">
         <div className="container">
@@ -39,6 +44,7 @@ export default function ServicesPage() {
       <section className="section--tight">
         <div className="container">
           <ServiceExplorer />
+          <section className="seo-service-index"><h2>서비스별 제공 범위와 비용</h2><p>각 서비스의 상세 안내에서 진행 절차와 도입 전에 준비할 내용을 확인하세요.</p><ul>{services.map(s => <li key={s.id}><Link href={`/services/${s.id}`}>{s.title} →</Link></li>)}</ul></section>
         </div>
       </section>
 

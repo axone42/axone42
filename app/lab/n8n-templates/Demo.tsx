@@ -455,7 +455,7 @@ export default function Demo() {
         {/* 히어로 / 서브 헤더 */}
         <div className="n8t-hero">
           <div>
-            <h1 className="n8t-hero__h">우리 업무에 맞는 자동화 흐름 찾기</h1>
+            <h2 className="n8t-hero__h">우리 업무에 맞는 자동화 흐름 찾기</h2>
             <p className="n8t-hero__p">업무별 구현 예시를 검색하고 검토 목록에 담아보세요. 실제 n8n 연결이나 JSON 임포트는 수행하지 않습니다.</p>
           </div>
           <div className="n8t-hero__badges">

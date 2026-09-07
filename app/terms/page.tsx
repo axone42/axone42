@@ -1,14 +1,18 @@
+import PageSeo from "@/components/PageSeo";
+import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import { site } from "@/lib/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "이용약관",
-  description: `${site.name}(${site.nameEn}) 서비스 이용약관 — 서비스 제공·이용자 의무·지식재산권·책임 등.`,
+  description: `${site.name}(${site.nameEn}) 서비스 이용약관 · 서비스 제공·이용자 의무·지식재산권·책임 등.`,
   alternates: { canonical: "/terms" },
-};
+});
 
 export default function TermsPage() {
   return (
+    <>
+    <PageSeo path="/terms" title="이용약관" />
     <section className="page-hero">
       <div className="container" style={{ maxWidth: 820 }}>
         <p className="eyebrow">Terms</p>
@@ -85,5 +89,6 @@ export default function TermsPage() {
         </div>
       </div>
     </section>
+    </>
   );
 }

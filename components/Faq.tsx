@@ -1,32 +1,13 @@
-"use client";
+import { faqs, type Faq as FaqItem } from "@/lib/faq";
+import StructuredData from "@/components/StructuredData";
+import { absoluteUrl } from "@/lib/seo";
 
-import { useState } from "react";
-import { faqs } from "@/lib/faq";
-
-export default function Faq() {
-  const [open, setOpen] = useState<number | null>(0);
-
-  return (
-    <div className="faq">
-      {faqs.map((f, i) => {
-        const isOpen = open === i;
-        return (
-          <div className={`faq__item${isOpen ? " is-open" : ""}`} key={f.q}>
-            <button
-              type="button"
-              className="faq__q"
-              aria-expanded={isOpen}
-              onClick={() => setOpen(isOpen ? null : i)}
-            >
-              <span>{f.q}</span>
-              <span className="faq__icon" aria-hidden>{isOpen ? "−" : "+"}</span>
-            </button>
-            <div className="faq__a" hidden={!isOpen}>
-              <p>{f.a}</p>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-  );
+export default function Faq({ items = faqs, path = "/" }: { items?: FaqItem[]; path?: string }) {
+  return <>
+    <StructuredData data={{ "@context": "https://schema.org", "@type": "FAQPage", "@id": `${absoluteUrl(path)}#faq`, mainEntity: items.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }} />
+    <div className="faq">{items.map((f, i) => <details className="faq__item" key={f.q} name={`faq-${path}`} open={i === 0}>
+      <summary className="faq__q"><h3>{f.q}</h3><span className="faq__icon" aria-hidden /></summary>
+      <div className="faq__a"><p>{f.a}</p></div>
+    </details>)}</div>
+  </>;
 }

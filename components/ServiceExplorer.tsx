@@ -135,6 +135,7 @@ function ServiceModal({ service, onClose }: { service: Service; onClose: () => v
         )}
 
         <p className="modal__desc">{service.description}</p>
+        <Link className="card__link" href={`/services/${service.id}`}>제공 범위·비용·진행 절차 자세히 보기 →</Link>
 
         {/* 후킹 배너 */}
         {service.hook && <div className="hook-banner">{service.hook}</div>}

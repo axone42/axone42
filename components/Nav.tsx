@@ -22,7 +22,7 @@ export default function Nav() {
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`nav__link${pathname === item.href ? " is-active" : ""}`}
+                className={`nav__link${pathname === item.href || (item.href !== "/" && pathname.startsWith(`${item.href}/`)) ? " is-active" : ""}`}
                 onClick={() => setOpen(false)}
               >
                 {item.label}

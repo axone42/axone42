@@ -1,18 +1,21 @@
+import PageSeo from "@/components/PageSeo";
+import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 import PricingCalculator from "@/components/PricingCalculator";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "가격 · 조합형 견적",
   description:
-    "필요한 서비스를 골라 조합하면 예상 시작가가 계산됩니다. AX 컨설팅·챗봇·개발·자동화·디자인·교육까지 — 에이엑스원(AXONE) 맞춤 견적.",
+    "필요한 서비스를 골라 조합하면 예상 시작가가 계산됩니다. AX 컨설팅·챗봇·개발·자동화·디자인·교육까지 · 에이엑스원(AXONE) 맞춤 견적.",
   alternates: { canonical: "/pricing" },
-};
+});
 
 export default function PricingPage() {
   return (
     <>
+      <PageSeo path="/pricing" title="가격 · 조합형 견적" />
       <section className="page-hero">
         <div className="container">
           <Reveal>

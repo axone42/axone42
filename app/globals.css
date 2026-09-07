@@ -2,14 +2,6 @@
    AXONE — Light theme (frosted glass on white)
    ========================================================= */
 
-@font-face {
-  font-family: 'SUIT Variable';
-  src: url('/fonts/suit/SUIT-Variable.woff2') format('woff2');
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-}
-
 :root {
   /* Colors */
   --color-void-canvas: #ffffff;   /* page background */
@@ -397,7 +389,7 @@ p, li, span, a { overflow-wrap: break-word; }
   font-family: var(--font-geist); font-weight: 700; font-size: 17px; color: var(--color-ink);
 }
 .footer__desc { font-size: 14px; color: var(--color-slate); max-width: 300px; }
-.footer__col h4 {
+.footer__col .footer__heading {
   font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--color-slate); margin: 0 0 14px; font-weight: 700;
 }
@@ -885,7 +877,7 @@ p, li, span, a { overflow-wrap: break-word; }
   background: var(--color-snow-white);
   transition: border-color .18s ease, background .18s ease;
 }
-.faq__item.is-open { border-color: rgba(107,98,242,0.4); background: #fbfaff; }
+.faq__item[open] { border-color: rgba(107,98,242,0.4); background: #fbfaff; }
 .faq__q {
   width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
   background: transparent; border: none; cursor: pointer; text-align: left;
@@ -897,7 +889,12 @@ p, li, span, a { overflow-wrap: break-word; }
   display: inline-flex; align-items: center; justify-content: center;
   border: 1px solid var(--color-hairline-strong); color: var(--color-slate); font-size: 16px;
 }
-.faq__item.is-open .faq__icon { color: var(--color-dusk-violet); border-color: rgba(107,98,242,0.5); }
+.faq__item[open] .faq__icon { color: var(--color-dusk-violet); border-color: rgba(107,98,242,0.5); }
+.faq__q { list-style: none; }
+.faq__q::-webkit-details-marker { display: none; }
+.faq__q h3 { margin: 0; font: inherit; }
+.faq__icon::before { content: "+"; }
+.faq__item[open] .faq__icon::before { content: "−"; }
 .faq__a { padding: 0 22px 20px; }
 .faq__a p { margin: 0; font-size: 15px; color: var(--color-ash); line-height: 1.6; }
 
@@ -1396,3 +1393,42 @@ button.service-path { width:100%; text-align:left; font:inherit; color:var(--col
   .service-intro__examples { padding:18px; }
   .service-intro__actions { flex-direction:column; }
 }
+
+/* Searchable service and guidance content */
+.visually-hidden { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.seo-breadcrumb { width:100%; max-width:1200px; margin:20px auto 0; padding:0 24px; font-size:13px; color:var(--color-slate); }
+.seo-breadcrumb ol { display:flex; flex-wrap:wrap; gap:6px 10px; list-style:none; margin:0; padding:0; }
+.seo-breadcrumb li+li::before { content:'/'; padding-right:10px; opacity:.5; }
+.seo-breadcrumb a:hover { color:var(--color-dusk-violet); }
+.labx .seo-breadcrumb { margin:10px 0; max-width:none; padding:0 18px; font-size:12px; }
+.seo-article { max-width:940px; padding-top:48px; padding-bottom:80px; }
+.seo-article h1 { margin:0 0 24px; color:var(--color-ink); font-size:clamp(30px,4.5vw,46px); line-height:1.3; letter-spacing:-.025em; }
+.seo-article h2 { font-size:clamp(22px,3vw,28px); line-height:1.4; color:var(--color-ink); margin:0 0 18px; }
+.seo-article h3 { font-size:18px; line-height:1.5; color:var(--color-ink); }
+.seo-article section { margin-top:44px; scroll-margin-top:120px; }
+.seo-article p { line-height:1.8; }
+.seo-article .seo-lead { font-size:19px; }
+.seo-article ul { list-style:disc; padding-left:24px; }
+.seo-article li { margin:10px 0; }
+.seo-article a:not(.btn), .seo-service-index a { color:#5149ad; text-decoration:underline; text-underline-offset:4px; }
+.seo-byline { font-size:13px; color:var(--color-slate); }
+.seo-callout { background:var(--color-tint); border:1px solid var(--color-hairline); border-radius:20px; padding:28px; }
+.seo-price { font-size:23px; font-weight:700; color:var(--color-ink); }
+.seo-actions, .seo-links { display:flex; flex-wrap:wrap; gap:14px; margin-top:30px; }
+.seo-actions .btn { white-space:normal; text-align:center; }
+.seo-process { padding-left:24px; }
+.seo-process h3 { margin-bottom:4px; }
+.seo-process p { margin-top:0; }
+.seo-example-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.seo-example-grid>div { padding:20px; border:1px solid var(--color-hairline); border-radius:16px; }
+.seo-example-grid h3 { margin-top:0; }
+.seo-toc { display:flex; flex-direction:column; gap:10px; margin:32px 0; }
+.seo-table-wrap { overflow:auto; border:1px solid var(--color-hairline); border-radius:14px; }
+.seo-table-wrap table { border-collapse:collapse; width:100%; min-width:600px; font-size:14px; }
+.seo-table-wrap caption { padding:14px; text-align:left; font-weight:600; }
+.seo-table-wrap th,.seo-table-wrap td { border-top:1px solid var(--color-hairline); text-align:left; vertical-align:top; padding:15px; }
+.seo-table-wrap th { background:var(--color-tint); }
+.seo-service-index { margin-top:48px; padding:28px; border:1px solid var(--color-hairline); border-radius:20px; }
+.seo-service-index h2 { font-size:24px; color:var(--color-ink); }
+.seo-service-index ul { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+@media(max-width:640px) { .seo-article { padding-top:32px; } .seo-callout { padding:22px; } .seo-example-grid,.seo-service-index ul { grid-template-columns:minmax(0,1fr); } }
