@@ -1325,3 +1325,5 @@
   .fr-award { grid-template-columns: 60px 1fr; gap: 12px; }
   .fr-showreel__cell { width: 72vw; }
 }
+
+.fr-hero__photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:.68; }

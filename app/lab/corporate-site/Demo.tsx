@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import "./site.css";
+import DemoPhoto from "@/components/lab/DemoPhoto";
 
 type PageKey = "work" | "studio" | "services" | "contact";
 
@@ -119,24 +120,9 @@ const STATS = [
 /* reusable Photo: duotone CSS sample by default; swaps to the real image only
    after it actually loads (avoids broken-image icons on the static-prerendered page). */
 function Photo({ slug, variant }: { slug: string; variant: number }) {
-  const src = `/lab-img/corporate/${slug}.png`;
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    let alive = true;
-    const img = new window.Image();
-    img.onload = () => { if (alive) setLoaded(true); };
-    img.onerror = () => { if (alive) setLoaded(false); };
-    img.src = src;
-    return () => { alive = false; };
-  }, [src]);
-  if (loaded) {
-    return <img className="fr-photo" src={src} alt="" />;
-  }
-  return (
-    <div className={`fr-photo-css fr-photo-css--${variant % 6}`} aria-hidden>
-      <div className="fr-photo-css__grain" />
-    </div>
-  );
+  const subject = PROJECTS.find((p) => p.slug === slug)?.name ?? TEAM.find((m) => m.slug === slug)?.name ?? "Studio";
+  return <DemoPhoto src={`/lab-img/corporate/${slug}.webp`} alt={`${subject} — AI 생성 예시 이미지`} className="fr-photo"
+    fallback={<div className={`fr-photo-css fr-photo-css--${variant % 6}`} aria-hidden><div className="fr-photo-css__grain" /></div>} />;
 }
 
 export default function Demo() {
@@ -355,7 +341,7 @@ function HomePage({
             />
           )}
           {/* CSS motion sample (the actual "video" for now) */}
-          <div className="fr-hero__motion" />
+          <DemoPhoto src="/lab-img/corporate/hero.webp" alt="" className="fr-hero__photo" eager fallback={<div className="fr-hero__motion" />} />
           <div className="fr-hero__sweep" />
           <div className="fr-scanlines" />
           <div className="fr-grain" />

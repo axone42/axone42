@@ -2,10 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import "./site.css";
+import DemoPhoto from "@/components/lab/DemoPhoto";
 
 /* ============================================================
    MODE ATELIER — 가상 패션 자사몰 (show-only, 클라이언트 인터랙션)
-   모든 상품 비주얼은 CSS로 그립니다(외부 이미지 없음).
+   상품·에디토리얼 사진은 프로젝트에 저장한 AI 생성 이미지를 사용합니다.
    EDGE-TO-EDGE: 브라우저 창 프레임 없이 실제 사이트처럼 렌더.
    ============================================================ */
 
@@ -230,33 +231,11 @@ function Garment({ type }: { type: Product["garment"] }) {
 }
 
 /* ---- 실제 상품 사진 + CSS 폴백 ----
-   /lab-img/fashion/<slug>.png 이 로드되면 사진, 실패/부재 시 CSS 비주얼로 폴백.
-   이미지는 추후 OpenAI로 생성 예정 — 지금은 폴백이 그대로 노출됩니다. */
-// 폴백을 먼저 렌더하고, 이미지가 "실제로 로드될 때만" 사진으로 교체한다.
-// (정적 프리렌더 + 404 상황에서 깨진 이미지 아이콘이 뜨는 문제를 원천 차단; 하이드레이션 안전.)
-function Photo({
-  src,
-  alt,
-  fallback,
-}: {
-  src: string;
-  alt: string;
-  fallback: React.ReactNode;
-}) {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    let alive = true;
-    const img = new window.Image();
-    img.onload = () => { if (alive) setLoaded(true); };
-    img.onerror = () => { if (alive) setLoaded(false); };
-    img.src = src;
-    return () => { alive = false; };
-  }, [src]);
-  return loaded ? (
-    <img src={src} alt={alt} className="fsh-photo" />
-  ) : (
-    <>{fallback}</>
-  );
+   /lab-img/fashion/<slug>.webp 이 로드되면 사진, 실패/부재 시 CSS 비주얼로 폴백.
+   AI 생성 이미지 로드 실패 시 CSS 비주얼을 표시합니다. */
+// 메인 사진은 먼저 로드하고, 상품 사진은 화면에 가까워질 때 로드합니다.
+function Photo({ src, alt, fallback }: { src: string; alt: string; fallback: React.ReactNode }) {
+  return <DemoPhoto src={src} alt={alt} fallback={fallback} className="fsh-photo" eager={src.includes("hero")} />;
 }
 
 function Heart({ filled }: { filled: boolean }) {
@@ -567,7 +546,7 @@ export default function Demo() {
         </div>
         <div className="fsh-hero__figure">
           <Photo
-            src="/lab-img/fashion/hero.png"
+            src="/lab-img/fashion/hero.webp"
             alt="2026 FALL LOOKBOOK"
             fallback={<span className="fsh-hero__figure-css" aria-hidden />}
           />
@@ -694,7 +673,7 @@ export default function Demo() {
                 role="button"
               >
                 <Photo
-                  src={`/lab-img/fashion/${p.id}.png`}
+                  src={`/lab-img/fashion/${p.id}.webp`}
                   alt={p.name}
                   fallback={<Garment type={p.garment} />}
                 />
@@ -803,7 +782,7 @@ export default function Demo() {
                 className="fsh-banner__tile"
                 style={{ background: p.bg }}
               >
-                <Garment type={p.garment} />
+                <Photo src={`/lab-img/fashion/${p.id}.webp`} alt={p.name} fallback={<Garment type={p.garment} />} />
               </span>
             ))}
           </div>
@@ -876,7 +855,7 @@ export default function Demo() {
                   style={{ background: selected.bg }}
                 >
                   <Photo
-                    src={`/lab-img/fashion/${selected.id}.png`}
+                    src={`/lab-img/fashion/${selected.id}.webp`}
                     alt={selected.name}
                     fallback={<Garment type={selected.garment} />}
                   />
@@ -991,7 +970,7 @@ export default function Demo() {
                             className="fsh-coord__vis"
                             style={{ background: s.bg }}
                           >
-                            <Garment type={s.garment} />
+                            <Photo src={`/lab-img/fashion/${s.id}.webp`} alt={s.name} fallback={<Garment type={s.garment} />} />
                           </span>
                           <span className="fsh-coord__name">{s.name}</span>
                           <span className="fsh-coord__price">{won(s.price)}</span>
@@ -1019,7 +998,7 @@ export default function Demo() {
             wishItems.map((p) => (
               <div key={p.id} className="fsh-line">
                 <span className="fsh-line__vis" style={{ background: p.bg }}>
-                  <Garment type={p.garment} />
+                  <Photo src={`/lab-img/fashion/${p.id}.webp`} alt={p.name} fallback={<Garment type={p.garment} />} />
                 </span>
                 <div className="fsh-line__info">
                   <p className="fsh-line__name">{p.name}</p>
@@ -1077,7 +1056,7 @@ export default function Demo() {
               return (
                 <div key={`${line.id}-${line.size}-${line.color}`} className="fsh-line">
                   <span className="fsh-line__vis" style={{ background: p.bg }}>
-                    <Garment type={p.garment} />
+                    <Photo src={`/lab-img/fashion/${p.id}.webp`} alt={p.name} fallback={<Garment type={p.garment} />} />
                   </span>
                   <div className="fsh-line__info">
                     <p className="fsh-line__name">{p.name}</p>

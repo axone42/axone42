@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import DemoPhoto from "@/components/lab/DemoPhoto";
 
 /* ── 데이터 모델 ─────────────────────────────────────────── */
 
@@ -409,12 +410,13 @@ export default function Demo() {
                   const src = SOURCE_STYLE[l.source];
                   return (
                     <article key={l.id} className="res-card">
-                      {/* CSS 썸네일 */}
+                      {/* AI 공간 예시 썸네일 */}
                       <div
                         className="res-card__thumb"
                         style={{ background: `linear-gradient(135deg, hsl(${l.hue} 62% 58%), hsl(${(l.hue + 40) % 360} 58% 42%))` }}
                       >
-                        <div aria-hidden className="res-card__grid" />
+                        <DemoPhoto src={`/lab-img/realestate/p${l.hue % 3 + 1}.webp`} alt="AI 생성 주거 공간 예시 · 실제 매물 사진 아님" className="res-card__photo" />
+                        <span className="res-card__image-label">AI 공간 예시</span>
                         <div aria-hidden className="res-card__glow" />
                         <div className="res-card__badges">
                           {l.isNew && <span className="res-badge res-badge--new">NEW</span>}
@@ -585,7 +587,9 @@ const RES_CSS = `
 .res-card:not(.res-card--skel):hover { transform: translateY(-4px); box-shadow: 0 16px 30px -18px rgba(20,20,50,0.4); border-color: var(--color-hairline-strong); }
 .res-card__thumb { position: relative; height: 108px; display: flex; align-items: flex-end; padding: 11px; overflow: hidden; }
 .res-card__grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px); background-size: 24px 24px; }
-.res-card__glow { position: absolute; inset: 0; background: radial-gradient(120% 80% at 80% -10%, rgba(255,255,255,0.35), transparent 55%); }
+.res-card__photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.res-card__image-label { position:absolute; bottom:8px; right:8px; z-index:1; color:#fff; background:#14132b99; font-size:9px; padding:2px 5px; border-radius:4px; }
+.res-card__glow { position:absolute; inset:0; background:linear-gradient(transparent 35%,#0009); }
 .res-card__name { position: relative; color: #fff; font-family: var(--font-geist); font-weight: 800; font-size: 14.5px; text-shadow: 0 1px 4px rgba(0,0,0,0.4); line-height: 1.2; }
 .res-card__badges { position: absolute; top: 9px; left: 9px; display: flex; gap: 5px; flex-wrap: wrap; }
 .res-badge { font-size: 10.5px; font-weight: 800; border-radius: 7px; padding: 3px 7px; letter-spacing: 0.02em; box-shadow: 0 2px 6px -2px rgba(0,0,0,0.3); }

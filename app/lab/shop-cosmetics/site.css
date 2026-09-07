@@ -444,3 +444,15 @@
   display: flex; align-items: center; gap: 8px; animation: cos-toast-in .2s ease;
 }
 @keyframes cos-toast-in { from { opacity: 0; transform: translate(-50%, 10px); } to { opacity: 1; transform: translate(-50%, 0); } }
+
+.cos-line__vis { position:relative; overflow:hidden; }
+.cos-line__vis .cos-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+
+/* Give campaign photography equal space to the introduction. */
+.cos-hero__inner { display:grid; grid-template-columns:1fr 1fr; gap:32px; padding:48px 24px; }
+.cos-hero__media { position:relative; right:auto; bottom:auto; width:100%; height:340px; display:flex; }
+.cos-hero__media .cos-photo { border-radius:18px; box-shadow:none; object-position:65% center; }
+@media(max-width:700px) {
+  .cos-hero__inner { grid-template-columns:1fr; padding:36px 24px 24px; gap:28px; }
+  .cos-hero__media { display:flex; height:auto; aspect-ratio:3/2; }
+}

@@ -3,32 +3,19 @@
 import { useEffect, useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import "./site.css";
+import DemoPhoto from "@/components/lab/DemoPhoto";
 
 /* ---------------- 제품 사진 (실사) + CSS 폴백 ---------------- */
 // 이미지가 로드되면 실제 제품 사진을, 404/부재 시 기존 CSS 비주얼로 우아하게 폴백한다.
 // slug는 원본 배열 인덱스 기준(p1, p2, …)으로 안정적으로 매핑된다.
 const IMG_BASE = "/lab-img/cosmetics";
 const slugFor = (id: string) => `p${(RANK.get(id) ?? 0) + 1}`;
-const photoSrc = (id: string) => `${IMG_BASE}/${slugFor(id)}.png`;
-const HERO_SRC = `${IMG_BASE}/hero.png`;
+const photoSrc = (id: string) => `${IMG_BASE}/${slugFor(id)}.webp`;
+const HERO_SRC = `${IMG_BASE}/hero.webp`;
 
-// 폴백을 먼저 렌더하고, 이미지가 "실제로 로드될 때만" 사진으로 교체한다.
-// (정적 프리렌더 + 404 상황에서 깨진 이미지 아이콘이 뜨는 문제를 원천 차단; 하이드레이션 안전.)
+// 메인 사진 우선 로드, 상품 사진 지연 로드 및 실패 시 CSS 대체.
 function Photo({ src, alt, fallback }: { src: string; alt: string; fallback: ReactNode }) {
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    let alive = true;
-    const img = new window.Image();
-    img.onload = () => { if (alive) setLoaded(true); };
-    img.onerror = () => { if (alive) setLoaded(false); };
-    img.src = src;
-    return () => { alive = false; };
-  }, [src]);
-  return loaded ? (
-    <img src={src} alt={alt} className="cos-photo" />
-  ) : (
-    <>{fallback}</>
-  );
+  return <DemoPhoto src={src} alt={alt} fallback={fallback} className="cos-photo" eager={src === HERO_SRC} />;
 }
 
 /* ---------------- 타입 & 시드 데이터 ---------------- */
@@ -771,7 +758,7 @@ export default function Demo() {
                       ) : (
                         cart.map((i) => (
                           <div key={i.key} className="cos-line">
-                            <div className="cos-line__vis" style={{ background: `linear-gradient(160deg, ${i.c2}, ${i.c1})` }} />
+                            <div className="cos-line__vis"><Photo src={photoSrc(i.id)} alt={i.name} fallback={null} /></div>
                             <div className="cos-line__mid">
                               <div className="cos-line__name">{i.name}</div>
                               <div className="cos-line__opt">{i.vol}ml</div>

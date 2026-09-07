@@ -1558,3 +1558,16 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+.fsh-banner__tile,.fsh-coord__vis,.fsh-line__vis { position:relative; overflow:hidden; }
+.fsh-banner__tile .fsh-photo,.fsh-coord__vis .fsh-photo,.fsh-line__vis .fsh-photo { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+
+/* Campaign photography remains visible on smaller screens. */
+.fsh-hero__figure { display:flex; right:0; width:43%; }
+.fsh-hero__figure .fsh-photo { object-position:center 28%; -webkit-mask-image:none; mask-image:none; }
+@media(max-width:980px) {
+  .fsh-hero { display:flex; flex-direction:column; }
+  .fsh-hero__inner { order:0; width:100%; min-height:0; }
+  .fsh-hero__figure { order:1; position:relative; right:auto; top:auto; bottom:auto; width:100%; height:400px; }
+  .fsh-hero__figure .fsh-photo { object-position:center 32%; }
+}

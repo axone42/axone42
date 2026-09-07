@@ -1,0 +1,314 @@
+{
+  "generator": "built-in image_gen",
+  "format": "WebP quality 84",
+  "images": [
+    {
+      "file": "public/lab-img/fashion/hero.webp",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 97686,
+      "prompt": "Premium fashion campaign, adult East Asian woman wearing charcoal wool coat in warm concrete studio; soft daylight; portrait; no text or logos."
+    },
+    {
+      "file": "public/lab-img/fashion/p1.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 49886,
+      "prompt": "Premium minimalist fashion ecommerce product photograph: an oversized charcoal single-breasted long wool coat on an invisible mannequin, front three-quarter view, complete garment visible. Neutral warm grey studio background, natural side softbox lighting, believable fabric texture and seams, sophisticated Korean fashion catalogue, centered isolated single product with generous margins, portrait 2:3. No words, no logos, no collage, no accessories. Production website asset."
+    },
+    {
+      "file": "public/lab-img/fashion/p2.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 18536,
+      "prompt": "Premium minimalist fashion ecommerce product photograph: a black structured tailored blazer on an invisible mannequin, sharp shoulders, front view, complete garment visible. Neutral warm grey studio background, natural side softbox lighting, believable fabric texture and seams, sophisticated Korean fashion catalogue, centered isolated single product with generous margins, portrait 2:3. No words, no logos, no collage, no accessories. Production website asset."
+    },
+    {
+      "file": "public/lab-img/fashion/p3.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 24120,
+      "prompt": "Premium minimalist fashion ecommerce product photograph: an ivory silk satin button-down shirt with elegant natural drape on an invisible mannequin, front view, complete garment visible. Neutral warm grey studio background, natural side softbox lighting, believable fabric texture and seams, sophisticated Korean fashion catalogue, centered isolated single product with generous margins, portrait 2:3. No words, no logos, no collage, no accessories. Production website asset."
+    },
+    {
+      "file": "public/lab-img/fashion/p4.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 117440,
+      "prompt": "Premium minimalist fashion ecommerce product photograph: an oatmeal lambswool crewneck sweater, artfully laid flat, tactile fine knit. Neutral warm grey studio background, natural side softbox lighting, believable fabric texture and seams, sophisticated Korean fashion catalogue, centered isolated single product with generous margins, portrait 2:3. No words, no logos, no collage, no accessories. Production website asset."
+    },
+    {
+      "file": "public/lab-img/fashion/p5.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 45460,
+      "prompt": "Photorealistic premium minimalist Korean fashion catalogue product photo of charcoal wide-leg pleated wool trousers, invisible mannequin, full trousers front view. Neutral warm grey studio backdrop, soft directional lighting, tactile realistic material, single product fully visible centered with generous margins. Portrait 2:3, no text, no logos, no collage. Website ecommerce asset."
+    },
+    {
+      "file": "public/lab-img/fashion/p6.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 77064,
+      "prompt": "Photorealistic premium minimalist Korean fashion catalogue product photo of indigo selvedge straight-leg denim jeans, invisible mannequin, full front view, realistic denim weave. Neutral warm grey studio backdrop, soft directional lighting, tactile realistic material, single product fully visible centered with generous margins. Portrait 2:3, no text, no logos, no collage. Website ecommerce asset."
+    },
+    {
+      "file": "public/lab-img/fashion/p7.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 57624,
+      "prompt": "Photorealistic premium minimalist Korean fashion catalogue product photo of dust beige linen blend belted midi dress with short sleeves, invisible mannequin, full front view. Neutral warm grey studio backdrop, soft directional lighting, tactile realistic material, single product fully visible centered with generous margins. Portrait 2:3, no text, no logos, no collage. Website ecommerce asset."
+    },
+    {
+      "file": "public/lab-img/fashion/p8.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 76230,
+      "prompt": "Photorealistic premium minimalist Korean fashion catalogue product photo of minimal black leather tote handbag, roomy rectangular body, two handles, three-quarter view. Neutral warm grey studio backdrop, soft directional lighting, tactile realistic material, single product fully visible centered with generous margins. Portrait 2:3, no text, no logos, no collage. Website ecommerce asset."
+    },
+    {
+      "file": "public/lab-img/fashion/p9.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 130354,
+      "prompt": "Photorealistic premium minimalist Korean fashion catalogue product photo of cream cable-knit wool turtleneck sweater artfully laid flat. Neutral warm grey studio backdrop, soft directional lighting, tactile realistic material, single product fully visible centered with generous margins. Portrait 2:3, no text, no logos, no collage. Website ecommerce asset."
+    },
+    {
+      "file": "public/lab-img/fashion/p10.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 39556,
+      "prompt": "Photorealistic premium minimalist Korean fashion catalogue product photo of classic beige belted double-breasted trench coat with storm flap, invisible mannequin, full front view. Neutral warm grey studio backdrop, soft directional lighting, tactile realistic material, single product fully visible centered with generous margins. Portrait 2:3, no text, no logos, no collage. Website ecommerce asset."
+    },
+    {
+      "file": "public/lab-img/cosmetics/p1.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 21556,
+      "prompt": "Photorealistic premium skincare ecommerce photograph for fictional AURA store: one translucent blush pink rose water toner bottle with white cap, a few rose petals at its base. Soft pastel pink and ivory studio palette, diffused natural light, realistic glass/plastic material and delicate shadows, luxury clean beauty art direction, immaculate product shape. Square composition, single product centered fully visible with wide margins. Minimal packaging label with only the word AURA in small simple letters, no other text, no medical symbols, no collage. Website product asset."
+    },
+    {
+      "file": "public/lab-img/cosmetics/p2.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 23558,
+      "prompt": "Photorealistic premium skincare ecommerce photograph for fictional AURA store: one frosted sage green cica essence dropper bottle, white dropper cap, a small centella leaf at its base. Soft pastel pink and ivory studio palette, diffused natural light, realistic glass/plastic material and delicate shadows, luxury clean beauty art direction, immaculate product shape. Square composition, single product centered fully visible with wide margins. Minimal packaging label with only the word AURA in small simple letters, no other text, no medical symbols, no collage. Website product asset."
+    },
+    {
+      "file": "public/lab-img/cosmetics/p3.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 29468,
+      "prompt": "Photorealistic premium skincare ecommerce photograph for fictional AURA store: one amber vitamin C serum dropper bottle with ivory cap, subtle orange slice at its base. Soft pastel pink and ivory studio palette, diffused natural light, realistic glass/plastic material and delicate shadows, luxury clean beauty art direction, immaculate product shape. Square composition, single product centered fully visible with wide margins. Minimal packaging label with only the word AURA in small simple letters, no other text, no medical symbols, no collage. Website product asset."
+    },
+    {
+      "file": "public/lab-img/cosmetics/p4.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 21148,
+      "prompt": "Photorealistic premium skincare ecommerce photograph for fictional AURA store: one pale lavender ceramic-look cream jar with matching lid beside it, visible white cream swirl. Soft pastel pink and ivory studio palette, diffused natural light, realistic glass/plastic material and delicate shadows, luxury clean beauty art direction, immaculate product shape. Square composition, single product centered fully visible with wide margins. Minimal packaging label with only the word AURA in small simple letters, no other text, no medical symbols, no collage. Website product asset."
+    },
+    {
+      "file": "public/lab-img/cosmetics/p5.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 29520,
+      "prompt": "Photorealistic premium skincare ecommerce photograph for fictional AURA store: one ivory daily sunscreen tube with pale yellow cap, gentle sunlight shadows. Soft pastel pink and ivory studio palette, diffused natural light, realistic glass/plastic material and delicate shadows, luxury clean beauty art direction, immaculate product shape. Square composition, single product centered fully visible with wide margins. Minimal packaging label with only the word AURA in small simple letters, no other text, no medical symbols, no collage. Website product asset."
+    },
+    {
+      "file": "public/lab-img/cosmetics/p6.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 22134,
+      "prompt": "Photorealistic premium skincare ecommerce photograph for fictional AURA store: one mint translucent cleansing gel tube with white cap, clear water droplets. Soft pastel pink and ivory studio palette, diffused natural light, realistic glass/plastic material and delicate shadows, luxury clean beauty art direction, immaculate product shape. Square composition, single product centered fully visible with wide margins. Minimal packaging label with only the word AURA in small simple letters, no other text, no medical symbols, no collage. Website product asset."
+    },
+    {
+      "file": "public/lab-img/cosmetics/p7.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 19606,
+      "prompt": "Photorealistic premium skincare ecommerce photograph for fictional AURA store: one pearl ivory fermented essence ampoule glass dropper bottle with pale gold collar. Soft pastel pink and ivory studio palette, diffused natural light, realistic glass/plastic material and delicate shadows, luxury clean beauty art direction, immaculate product shape. Square composition, single product centered fully visible with wide margins. Minimal packaging label with only the word AURA in small simple letters, no other text, no medical symbols, no collage. Website product asset."
+    },
+    {
+      "file": "public/lab-img/cosmetics/p8.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 18622,
+      "prompt": "Photorealistic premium skincare ecommerce photograph for fictional AURA store: one pale aqua water cream jar with white lid beside it, translucent gel texture. Soft pastel pink and ivory studio palette, diffused natural light, realistic glass/plastic material and delicate shadows, luxury clean beauty art direction, immaculate product shape. Square composition, single product centered fully visible with wide margins. Minimal packaging label with only the word AURA in small simple letters, no other text, no medical symbols, no collage. Website product asset."
+    },
+    {
+      "file": "public/lab-img/cosmetics/p9.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 20032,
+      "prompt": "Photorealistic premium skincare ecommerce photograph for fictional AURA store: one clear pale golden cleansing oil pump bottle, white pump, subtle olive leaf. Soft pastel pink and ivory studio palette, diffused natural light, realistic glass/plastic material and delicate shadows, luxury clean beauty art direction, immaculate product shape. Square composition, single product centered fully visible with wide margins. Minimal packaging label with only the word AURA in small simple letters, no other text, no medical symbols, no collage. Website product asset."
+    },
+    {
+      "file": "public/lab-img/cosmetics/p10.webp",
+      "width": 900,
+      "height": 900,
+      "bytes": 21638,
+      "prompt": "Photorealistic premium skincare ecommerce photograph for fictional AURA store: one blush peach sun serum squeeze tube with white cap, warm satin light. Soft pastel pink and ivory studio palette, diffused natural light, realistic glass/plastic material and delicate shadows, luxury clean beauty art direction, immaculate product shape. Square composition, single product centered fully visible with wide margins. Minimal packaging label with only the word AURA in small simple letters, no other text, no medical symbols, no collage. Website product asset."
+    },
+    {
+      "file": "public/lab-img/cosmetics/hero.webp",
+      "width": 1400,
+      "height": 933,
+      "bytes": 69118,
+      "prompt": "Photorealistic premium skincare ecommerce photograph for fictional AURA store: a cohesive skincare collection arranged on pale pink travertine pedestals: blush pink toner bottle, sage green serum dropper, lavender cream jar and ivory sunscreen tube, a few rose petals, soft watery caustic highlights. Landscape 3:2 campaign still life, objects grouped toward center-right, elegant negative space. Soft pastel pink and ivory studio palette, diffused natural light, realistic glass/plastic material and delicate shadows, luxury clean beauty art direction, immaculate product shape.  Minimal packaging label with only the word AURA in small simple letters, no other text, no medical symbols, no collage. Website product asset."
+    },
+    {
+      "file": "public/lab-img/corporate/p1.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 56188,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: a solitary adult silhouette on a wet empty city street at midnight, reflected window light, quiet nocturnal cinema. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/p2.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 32744,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: sculptural brutalist concrete stairway, monumental geometric architecture, hard side light and deep shadows. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/p3.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 54464,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: rain on a window overlooking blurred blue city lights at night, poetic atmospheric close-up. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/p4.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 57238,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: an empty retro diner at night, deep red neon light, chrome counter, vinyl stools, no signage. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/p5.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 23270,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: adult fashion model in black tailoring backlit by a large window in an industrial studio, dramatic silhouette. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/p6.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 75632,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: rugged rocky coastline under sea mist, waves crashing, cinematic aerial coastal landscape. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/p7.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 64334,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: empty urban underpass under amber sodium lamps after rain, lone adult far in distance. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/p8.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 18596,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: adult model wearing sculptural white outfit in an all-white minimal room, high fashion film still. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/p9.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 39384,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: wind blowing dust across a desert road, distant mountain horizon, muted brown cinematic campaign still. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/p10.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 26996,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: deep red velvet theatre curtains in a dark auditorium lit by a narrow spotlight. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/p11.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 54828,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: close-up of vintage motion picture film reels and a cinema camera on a dark studio table. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/p12.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 115110,
+      "prompt": "Photorealistic cinematic editorial photograph for a fictional creative studio portfolio: winter meadow with frost-covered reeds and quiet bare trees in morning mist. Wide landscape 3:2 composition, restrained color palette, rich blacks, realistic light, subtle analog film grain, sophisticated art direction, a single photographic scene, no text, no watermarks, no collage. Website portfolio thumbnail."
+    },
+    {
+      "file": "public/lab-img/corporate/t1.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 21218,
+      "prompt": "Photorealistic black-and-white editorial portrait of a fictional adult woman creative director in her late thirties, short dark bob haircut, black blazer, confident relaxed expression. Grey studio background, natural side light, genuine skin texture, waist-up with generous headroom, portrait 2:3, art magazine aesthetic. One person only, no text or logos."
+    },
+    {
+      "file": "public/lab-img/corporate/t2.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 42980,
+      "prompt": "Photorealistic black-and-white editorial portrait of a fictional adult male film editor in his early thirties, wavy light hair, thin rectangular glasses, dark casual shirt. Grey studio background, natural side light, genuine skin texture, waist-up with generous headroom, portrait 2:3, art magazine aesthetic. One person only, no text or logos."
+    },
+    {
+      "file": "public/lab-img/corporate/t3.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 27358,
+      "prompt": "Photorealistic black-and-white editorial portrait of a fictional adult woman motion designer in her early thirties, dark curly shoulder-length hair, understated black top. Grey studio background, natural side light, genuine skin texture, waist-up with generous headroom, portrait 2:3, art magazine aesthetic. One person only, no text or logos."
+    },
+    {
+      "file": "public/lab-img/corporate/t4.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 19708,
+      "prompt": "Photorealistic black-and-white editorial portrait of a fictional adult East Asian woman film producer in her thirties, straight dark hair tied back, black turtleneck. Grey studio background, natural side light, genuine skin texture, waist-up with generous headroom, portrait 2:3, art magazine aesthetic. One person only, no text or logos."
+    },
+    {
+      "file": "public/lab-img/corporate/t5.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 53340,
+      "prompt": "Photorealistic black-and-white editorial portrait of a fictional adult male cinematographer in his forties, short dark hair and light beard, charcoal overshirt. Grey studio background, natural side light, genuine skin texture, waist-up with generous headroom, portrait 2:3, art magazine aesthetic. One person only, no text or logos."
+    },
+    {
+      "file": "public/lab-img/corporate/t6.webp",
+      "width": 900,
+      "height": 1350,
+      "bytes": 26322,
+      "prompt": "Photorealistic black-and-white editorial portrait of a fictional adult androgynous brand strategist in their thirties, short textured hair, dark round-neck shirt. Grey studio background, natural side light, genuine skin texture, waist-up with generous headroom, portrait 2:3, art magazine aesthetic. One person only, no text or logos."
+    },
+    {
+      "file": "public/lab-img/corporate/hero.webp",
+      "width": 1400,
+      "height": 933,
+      "bytes": 55506,
+      "prompt": "Photorealistic cinematic wide landscape 3:2 photograph inside a creative film production studio: large cinema camera on a tripod in foreground to the right, beams of daylight through tall industrial windows, subtle haze, black and warm grey, deep shadows with negative space across upper center for a white oversized wordmark. No words or logos."
+    },
+    {
+      "file": "public/lab-img/realestate/p1.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 47234,
+      "prompt": "Photorealistic landscape 3:2 interior photograph of a modern Korean apartment living room with warm oak floor, cream sofa, sheer curtains, balcony windows, softly lit sunny day, realistic modest furnishings, no people or text."
+    },
+    {
+      "file": "public/lab-img/realestate/p2.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 34790,
+      "prompt": "Photorealistic landscape 3:2 interior photograph of a bright compact Korean apartment open kitchen and dining area, white cabinets, pale oak dining table, large window, neat lived-in styling, no people or text."
+    },
+    {
+      "file": "public/lab-img/realestate/p3.webp",
+      "width": 900,
+      "height": 600,
+      "bytes": 137734,
+      "prompt": "Photorealistic landscape 3:2 architectural photograph of a generic modern Korean midrise residential building with trees and landscaped walkway, soft daylight, no identifiable real development, no signs or text."
+    }
+  ]
+}
