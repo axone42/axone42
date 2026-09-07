@@ -19,9 +19,7 @@
   --fsh-green: #3a7d4f;
   --fsh-max: 1180px;
   --fsh-bar: 52px; /* 상단 AXONE 데모 바 높이 */
-  font-family:
-    "DM Sans", ui-sans-serif, system-ui, -apple-system, "Apple SD Gothic Neo",
-    "Malgun Gothic", sans-serif;
+  font-family: var(--font-sans);
   color: var(--fsh-ink);
   background: var(--fsh-paper);
   -webkit-font-smoothing: antialiased;
@@ -41,7 +39,7 @@
   gap: 48px;
   white-space: nowrap;
   padding: 9px 0;
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -85,7 +83,7 @@
   display: inline-flex;
   align-items: baseline;
   gap: 5px;
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-weight: 800;
   font-size: 19px;
   letter-spacing: 0.18em;
@@ -107,7 +105,7 @@
   margin: 0 auto;
 }
 .fsh-nav__link {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -197,7 +195,7 @@
   background: var(--fsh-accent);
   border: 1.5px solid #fff;
   border-radius: 10px;
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
 }
 
 /* ---------- 히어로 (풀블리드) ---------- */
@@ -293,7 +291,7 @@
   width: 100%;
 }
 .fsh-hero__eyebrow {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.34em;
@@ -301,7 +299,7 @@
   margin: 0 0 18px;
 }
 .fsh-hero__title {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: clamp(40px, 6vw, 66px);
   line-height: 1.02;
   font-weight: 800;
@@ -353,7 +351,7 @@
 }
 .fsh-trust__tx b {
   display: block;
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 12.5px;
   font-weight: 700;
   color: var(--fsh-ink);
@@ -376,7 +374,7 @@
   padding: 52px 32px 4px;
 }
 .fsh-sectionhead__eyebrow {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.28em;
@@ -384,7 +382,7 @@
   margin: 0 0 8px;
 }
 .fsh-sectionhead__title {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 28px;
   font-weight: 800;
   letter-spacing: -0.02em;
@@ -410,7 +408,7 @@
   flex-wrap: wrap;
 }
 .fsh-tab {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 12.5px;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -469,6 +467,7 @@
 .fsh-card {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 .fsh-card__vis {
   position: relative;
@@ -520,7 +519,7 @@
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.94);
   color: var(--fsh-ink);
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -553,7 +552,7 @@
   z-index: 3;
 }
 .fsh-badge-tag {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -603,7 +602,7 @@
   padding-top: 14px;
 }
 .fsh-card__cat {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 10.5px;
   font-weight: 700;
   letter-spacing: 0.14em;
@@ -623,6 +622,7 @@
 }
 .fsh-card__price {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
   gap: 7px;
   margin-bottom: 13px;
@@ -633,13 +633,13 @@
   text-decoration: line-through;
 }
 .fsh-card__now {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 15.5px;
   font-weight: 700;
   color: var(--fsh-ink);
 }
 .fsh-card__off {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 800;
   color: var(--fsh-red);
@@ -662,7 +662,7 @@
   box-shadow: inset 0 0 0 2px #fff;
 }
 .fsh-card__add {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 700;
   color: var(--fsh-ink);
@@ -820,7 +820,7 @@
   align-items: center;
 }
 .fsh-banner__eyebrow {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.3em;
@@ -828,7 +828,7 @@
   margin: 0 0 14px;
 }
 .fsh-banner__title {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 34px;
   font-weight: 800;
   line-height: 1.1;
@@ -893,7 +893,7 @@
   gap: 9px;
 }
 .fsh-footer__cols b {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   letter-spacing: 0.16em;
   color: var(--fsh-ink);
@@ -917,7 +917,7 @@
   color: var(--fsh-mute);
 }
 .fsh-footer__axone {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-weight: 700;
   color: var(--fsh-accent-deep);
   letter-spacing: 0.04em;
@@ -925,7 +925,7 @@
 
 /* ---------- 버튼 공통 ---------- */
 .fsh-btn {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -1049,7 +1049,7 @@
   padding: 34px 32px;
 }
 .fsh-detail__cat {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.16em;
@@ -1057,7 +1057,7 @@
   margin: 0 0 6px;
 }
 .fsh-detail__name {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 25px;
   font-weight: 800;
   letter-spacing: -0.01em;
@@ -1072,7 +1072,7 @@
   margin-bottom: 16px;
 }
 .fsh-detail__now {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 21px;
   font-weight: 800;
   color: var(--fsh-ink);
@@ -1125,7 +1125,7 @@
 .fsh-sizebtn {
   min-width: 46px;
   height: 42px;
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 700;
   color: var(--fsh-ink);
@@ -1194,7 +1194,7 @@
   padding-top: 18px;
 }
 .fsh-coord__title {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 700;
   color: var(--fsh-ink);
@@ -1234,7 +1234,7 @@
   line-height: 1.3;
 }
 .fsh-coord__price {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 12px;
   font-weight: 700;
   color: var(--fsh-mute);
@@ -1276,7 +1276,7 @@
   border-bottom: 1px solid var(--fsh-line);
 }
 .fsh-drawer__head h3 {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 16px;
   font-weight: 800;
   margin: 0;
@@ -1342,7 +1342,7 @@
   margin: 0 0 4px;
 }
 .fsh-line__price {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 13.5px;
   font-weight: 700;
   color: var(--fsh-ink);
@@ -1399,7 +1399,7 @@
   text-align: center;
   font-size: 13px;
   font-weight: 700;
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
 }
 .fsh-drawer__foot {
   border-top: 1px solid var(--fsh-line);
@@ -1422,7 +1422,7 @@
   color: var(--fsh-mute);
 }
 .fsh-total b {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 21px;
   font-weight: 800;
   color: var(--fsh-ink);
@@ -1449,7 +1449,7 @@
   justify-content: center;
 }
 .fsh-done h3 {
-  font-family: "Geist", var(--font-geist), sans-serif;
+  font-family: var(--font-sans);
   font-size: 18px;
   font-weight: 800;
   color: var(--fsh-ink);

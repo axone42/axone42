@@ -2,6 +2,14 @@
    AXONE — Light theme (frosted glass on white)
    ========================================================= */
 
+@font-face {
+  font-family: 'SUIT Variable';
+  src: url('/fonts/suit/SUIT-Variable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
   /* Colors */
   --color-void-canvas: #ffffff;   /* page background */
@@ -22,8 +30,10 @@
   --gradient-dusk-violet: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0) 40%, rgba(107,98,242,0.5) 50%, rgba(255,255,255,0) 60%, rgba(255,255,255,0));
 
   /* Fonts */
-  --font-dm-sans: 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --font-geist: 'Geist', 'DM Sans', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-sans: 'SUIT Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  /* 기존 페이지와 데모도 동일한 한글 글꼴을 사용합니다. */
+  --font-dm-sans: var(--font-sans);
+  --font-geist: var(--font-sans);
 
   /* Type scale */
   --text-caption: 13px;
@@ -60,9 +70,9 @@ body {
   color: var(--color-ash);
   font-family: var(--font-dm-sans);
   font-size: var(--text-body);
-  font-weight: 400;
-  line-height: 1.6;
-  letter-spacing: 0.01em;
+  font-weight: 450;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
   /* 어절 단위 줄바꿈: 한글은 공백에서만 끊기고 단어 중간이 잘리지 않음 */
   word-break: keep-all;
   overflow-wrap: break-word;
@@ -72,7 +82,7 @@ body {
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 ul { margin: 0; padding: 0; list-style: none; }
-button { font-family: inherit; }
+button, input, select, textarea { font-family: inherit; font-weight: inherit; letter-spacing: inherit; }
 h1, h2, h3, h4 { word-break: keep-all; text-wrap: balance; }
 p, li, span, a { overflow-wrap: break-word; }
 

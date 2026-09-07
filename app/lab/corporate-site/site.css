@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400;1,500&family=Bebas+Neue&family=Caveat:wght@400;600&family=Inter:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400;1,500&family=Bebas+Neue&family=Caveat:wght@400;600&display=swap');
 
 /* =========================================================
    corporate-site 데모 — "FRESHMAN"
    dark cinematic editorial / film-title-card aesthetic.
    pure black canvas, ultralight italic Cormorant display,
-   Inter body, Bebas condensed meta, Caveat handwritten flourish.
+   SUIT body, Bebas condensed meta, Caveat handwritten flourish.
    FLAT: no shadow, no gradient (except cinematic media), 0px radius.
    ONE signal-red accent per viewport max.
    모든 클래스 fr- 접두사로 전역 충돌 방지.
@@ -17,10 +17,10 @@
   --fr-shale: #101010;
   --fr-red: #ff2936;
 
-  --fr-display: "Cormorant Garamond", ui-serif, Georgia, serif;
-  --fr-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --fr-cond: "Bebas Neue", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --fr-hand: "Caveat", "Cormorant Garamond", cursive;
+  --fr-display: "Cormorant Garamond", "SUIT Variable", ui-serif, Georgia, serif;
+  --fr-sans: var(--font-sans);
+  --fr-cond: "Bebas Neue", var(--font-sans);
+  --fr-hand: "Caveat", "Cormorant Garamond", "SUIT Variable", cursive;
 
   /* full-bleed breakout out of LabShell's padded/max-width stage */
   width: 100vw;

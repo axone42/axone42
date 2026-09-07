@@ -63,11 +63,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             __html: "document.documentElement.classList.add('js')",
           }}
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Geist:wght@400;500;600&display=swap"
-          rel="stylesheet"
+          rel="preload"
+          href="/fonts/suit/SUIT-Variable.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
         />
       </head>
       <body>
