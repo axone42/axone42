@@ -52,14 +52,6 @@ export default function CaseStudies() {
               <div className="case__ind">{cs.industry}</div>
               <h3 className="case__title">{cs.title}</h3>
               <p className="case__summary">{cs.summary}</p>
-              <div className="case__metrics">
-                {cs.metrics.map((m) => (
-                  <div key={m.label} className="case__metric">
-                    <strong>{m.value}</strong>
-                    <span>{m.label}</span>
-                  </div>
-                ))}
-              </div>
               <div className="case__foot">
                 <span className="case__client">{cs.client}</span>
                 <span className="card__link">구현 상세</span>

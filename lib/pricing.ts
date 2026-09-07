@@ -28,11 +28,11 @@ export const priceItems: PriceItem[] = [
   { id: "shopping", name: "쇼핑몰 구축", from: 10_000_000, unit: "프로젝트", group: "개발" },
   { id: "website", name: "홈페이지 구축", from: 3_500_000, unit: "프로젝트", group: "개발" },
   { id: "erp", name: "ERP / CRM 개발", from: 15_000_000, unit: "범위별", note: "규모에 따라 협의", group: "개발" },
-  { id: "automation", name: "AI 자동화 구축", from: 1_500_000, unit: "건당", note: "+ 운영 월 50만원~", group: "자동화·데이터" },
+  { id: "automation", name: "AI 자동화 구축", from: 1_500_000, unit: "건당", note: "+ 운영 월 20만원", group: "자동화·데이터" },
   { id: "scraping", name: "데이터 수집 · 스크래핑", from: 2_500_000, unit: "프로젝트", group: "자동화·데이터" },
   { id: "marketing", name: "광고 · 마케팅 대행", from: 1_500_000, unit: "월", note: "매체비 별도", group: "마케팅·디자인" },
   { id: "design", name: "브랜드 · 시각 디자인", from: 1_500_000, unit: "프로젝트", note: "로고·상세페이지·브로셔", group: "마케팅·디자인" },
-  { id: "lecture", name: "실무 강의 (바이브코딩·AI 자동화)", from: 800_000, unit: "회차·인원별", group: "교육" },
+  { id: "lecture", name: "실무 강의 (바이브코딩·AI 자동화)", from: 1_000_000, unit: "4회차 기준·인원별", group: "교육" },
 ];
 
 export function formatKRW(n: number): string {

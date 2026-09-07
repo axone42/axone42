@@ -7,7 +7,6 @@ import Faq from "@/components/Faq";
 import ServiceIcon from "@/components/ServiceIcon";
 import { site, stats } from "@/lib/site";
 import { services } from "@/lib/services";
-import { testimonials } from "@/lib/showcase";
 
 const heroBullets = [
   "AX 전략 컨설팅 · 프로젝트 수행",
@@ -94,7 +93,9 @@ export default function Home() {
             <p className="eyebrow">Services</p>
             <h2 className="section-title">핵심 서비스 라인업</h2>
             <p className="section-lead">
-              전략·자동화부터 쇼핑몰·챗봇·시스템 개발, 교육까지. AX 여정의 모든 단계를 함께합니다.
+              전략·자동화부터 쇼핑몰·챗봇·시스템 개발, 교육까지.
+              <br />
+              AX 여정의 모든 단계를 함께합니다.
             </p>
           </Reveal>
 
@@ -120,20 +121,32 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Product reveal — mockups */}
+      {/* Product reveal — 전환 사례 + 결과물 화면 */}
       <section className="section">
         <div className="container">
           <Reveal>
             <p className="eyebrow">How it works</p>
             <h2 className="section-title">눈으로 보는 결과물</h2>
             <p className="section-lead">
-              워크플로우 자동화, 실시간 대시보드, 지능형 챗봇까지 — 실제로 이렇게 동작합니다.
+              실제 AX 전환 사례와 결과물 화면을 함께 확인하세요.
             </p>
           </Reveal>
-          <div className="cards" style={{ marginTop: 40 }}>
+
+          {/* AX 전환 사례 (결과물 화면 위) */}
+          <Reveal><h3 className="showcase__subtitle">AX 전환 사례</h3></Reveal>
+          <div style={{ marginTop: 20 }}>
+            <CaseStudies />
+          </div>
+          <p className="sample-note">* 표기된 고객사·성과·평가는 예시(샘플) 데이터입니다. 각 카드를 누르면 구현 방식과 평가를 볼 수 있습니다.</p>
+
+          {/* 결과물 화면 */}
+          <Reveal><h3 className="showcase__subtitle" style={{ marginTop: 52 }}>결과물 화면</h3></Reveal>
+          <div className="showcase">
             <Reveal><WorkflowMockup /></Reveal>
-            <Reveal delay={80}><DashboardMockup /></Reveal>
-            <Reveal delay={160}><ChatMockup /></Reveal>
+            <div className="showcase__split">
+              <Reveal delay={80}><DashboardMockup /></Reveal>
+              <Reveal delay={160}><ChatMockup /></Reveal>
+            </div>
           </div>
         </div>
       </section>
@@ -161,47 +174,6 @@ export default function Home() {
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Case studies (실적) */}
-      <section className="section">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">Case studies</p>
-            <h2 className="section-title">도입 성과</h2>
-            <p className="section-lead">숫자로 증명되는 변화. 업종과 과제에 맞춰 실제 성과를 만듭니다.</p>
-          </Reveal>
-          <div style={{ marginTop: 40 }}>
-            <CaseStudies />
-          </div>
-          <p className="sample-note">* 표기된 고객사·성과·평가는 예시(샘플) 데이터입니다. 각 카드를 누르면 구현 방식과 평가를 볼 수 있습니다.</p>
-        </div>
-      </section>
-
-      {/* Testimonials (후기) */}
-      <section className="section">
-        <div className="container">
-          <Reveal>
-            <p className="eyebrow">Testimonials</p>
-            <h2 className="section-title">고객의 이야기</h2>
-          </Reveal>
-          <div className="cards" style={{ marginTop: 40 }}>
-            {testimonials.map((t, i) => (
-              <Reveal key={t.name + t.company} delay={i * 60}>
-                <div className="card" style={{ height: "100%" }}>
-                  <div className="quote">
-                    <div className="quote__mark" aria-hidden>&ldquo;</div>
-                    <p className="quote__text">{t.quote}</p>
-                    <p className="quote__who">
-                      <b>{t.name}</b> · {t.role}, {t.company}
-                    </p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <p className="sample-note">* 후기는 예시(샘플) 데이터입니다.</p>
         </div>
       </section>
 

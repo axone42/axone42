@@ -13,7 +13,7 @@ export default function Nav() {
     <div className="nav-wrap">
       <nav className="nav">
         <Link href="/" className="nav__brand" onClick={() => setOpen(false)}>
-          <span className="nav__logo" aria-hidden />
+          <span className="nav__logo" aria-hidden>AX</span>
           {site.nameEn}
         </Link>
 

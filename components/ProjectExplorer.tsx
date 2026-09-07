@@ -87,6 +87,7 @@ function ProjectCard({
     <button type="button" className="card proj-card card--btn" style={{ height: "100%" }} onClick={onOpen} aria-haspopup="dialog">
       <div className="proj-card__top">
         <span className={`proj-status${p.status === "공개" ? " proj-status--live" : ""}`}>{p.status}</span>
+        {p.demoUrl && <span className="proj-demo">▶ 데모 체험</span>}
         {p.recommended && <span className="proj-rec">★ 추천</span>}
       </div>
       <h3 className="card__title">{p.title}</h3>
@@ -125,11 +126,39 @@ function ProjectModal({ p, onClose }: { p: Project; onClose: () => void }) {
         <div className="modal__scroll">
           <p className="modal__eyebrow">
             {p.category} · <span className={p.status === "공개" ? "proj-live-text" : ""}>{p.status}</span>
+            {p.demoUrl && <span className="proj-demo" style={{ marginLeft: 8 }}>▶ 데모 체험 가능</span>}
           </p>
           <h3 className="modal__title" id="project-title">{p.title}</h3>
           <p className="proj-en" style={{ marginTop: 0 }}>{p.en}</p>
 
+          {/* 라이브 데모 CTA — 눈에 띄게 상단 배치 */}
+          {p.demoUrl && (
+            <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="proj-demo-cta">
+              <span className="proj-demo-cta__icon" aria-hidden>▶</span>
+              <span>
+                <b>라이브 데모 체험하기</b>
+                <small>실제로 동작하는 화면을 새 탭에서 바로 열어봅니다</small>
+              </span>
+              <span className="proj-demo-cta__arrow" aria-hidden>→</span>
+            </a>
+          )}
+
           <p className="modal__desc">{p.detail ?? p.summary}</p>
+
+          {p.outcome && (
+            <div className="proj-outcome">
+              <span aria-hidden>✦</span> {p.outcome}
+            </div>
+          )}
+
+          {p.useCases && p.useCases.length > 0 && (
+            <div className="modal__section">
+              <h4>이런 분께 필요해요</h4>
+              <ul className="proj-uses">
+                {p.useCases.map((u) => <li key={u}>{u}</li>)}
+              </ul>
+            </div>
+          )}
 
           <div className="modal__section">
             <h4>핵심 기능</h4>
@@ -139,6 +168,15 @@ function ProjectModal({ p, onClose }: { p: Project; onClose: () => void }) {
               ))}
             </ul>
           </div>
+
+          {p.flow && p.flow.length > 0 && (
+            <div className="modal__section">
+              <h4>이렇게 동작해요</h4>
+              <ol className="flowsteps">
+                {p.flow.map((s) => <li key={s}>{s}</li>)}
+              </ol>
+            </div>
+          )}
 
           <div className="modal__section">
             <h4>사용 기술</h4>
@@ -150,24 +188,20 @@ function ProjectModal({ p, onClose }: { p: Project; onClose: () => void }) {
           </div>
 
           <div className="modal__cta">
-            <div className="proj-links" style={{ margin: 0, padding: 0, border: "none", flex: "1 1 auto" }}>
-              {p.repoUrl && (
-                <a href={p.repoUrl} target="_blank" rel="noopener noreferrer" className="proj-link">GitHub 저장소 ↗</a>
-              )}
+            <div style={{ display: "flex", gap: 10, flexWrap: "wrap", flex: "1 1 auto" }}>
               {p.demoUrl && (
-                <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="proj-link proj-link--demo">데모 사이트 →</a>
+                <a href={p.demoUrl} target="_blank" rel="noopener noreferrer" className="btn btn--primary">▶ 데모 체험</a>
               )}
-              {!p.repoUrl && !p.demoUrl && (
-                <span className="sample-note" style={{ margin: 0 }}>
-                  {p.status === "공개" ? "링크 준비 중입니다." : "공개 예정 프로젝트입니다."}
-                </span>
+              <a href="/contact" className="btn btn--ghost">도입 문의</a>
+              {p.repoUrl && (
+                <a href={p.repoUrl} target="_blank" rel="noopener noreferrer" className="proj-link">GitHub ↗</a>
               )}
             </div>
             <button type="button" className="btn btn--ghost" onClick={onClose}>닫기</button>
           </div>
 
           <p className="sample-note" style={{ marginTop: 16 }}>
-            * MVP 버전을 공유합니다. 최종본은 당사 자산으로, 도입·협업은 문의 요청해 주세요.
+            * 공개 데모는 예시 데이터로 동작합니다. 실제 도입 시 귀사 환경·데이터에 맞춰 구축하며, 도입·협업은 문의해 주세요.
           </p>
         </div>
       </div>

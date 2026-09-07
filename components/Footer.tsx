@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="footer__grid">
           <div>
             <div className="footer__brand">
-              <span className="nav__logo" aria-hidden />
+              <span className="nav__logo" aria-hidden>AX</span>
               {site.nameEn} · {site.name}
             </div>
             <p className="footer__desc">{site.description}</p>

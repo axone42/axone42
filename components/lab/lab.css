@@ -1,0 +1,191 @@
+/* =========================================================
+   AXONE 자체 프로젝트 데모 — 공통 디자인 시스템 (.labx)
+   globals.css의 테마 변수를 재사용합니다.
+   ========================================================= */
+
+.labx { min-height: 100vh; display: flex; flex-direction: column; background: var(--color-void-canvas); }
+
+/* ---------- 슬림 데모 바 (전체화면 상단) ---------- */
+.labx__bar {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  height: 52px; padding: 0 18px;
+  background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--color-hairline);
+}
+.labx__bar-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.labx__home { display: inline-flex; align-items: center; text-decoration: none; }
+.labx__demo-pill {
+  font-family: var(--font-geist); font-size: 10px; font-weight: 800; letter-spacing: 0.14em;
+  color: #fff; background: var(--color-dusk-violet); border-radius: 20px; padding: 3px 9px;
+}
+.labx__bar-title { font-family: var(--font-geist); font-weight: 800; font-size: 15px; color: var(--color-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.labx__bar-cat { font-size: 12px; color: var(--color-slate); border-left: 1px solid var(--color-hairline-strong); padding-left: 10px; }
+.labx__bar-right { display: flex; align-items: center; gap: 10px; flex: 0 0 auto; }
+.labx__bar-link { font-size: 13px; color: var(--color-ash); text-decoration: none; }
+.labx__bar-link:hover { color: var(--color-ink); }
+.labx__cta-sm {
+  font-size: 13px; font-weight: 700; color: #fff; text-decoration: none;
+  background: var(--color-dusk-violet); border: 1px solid var(--color-dusk-violet);
+  border-radius: 20px; padding: 7px 14px; transition: filter .15s ease;
+}
+.labx__cta-sm:hover { filter: brightness(1.08); }
+
+/* 서브라인 (프로젝트 한 줄 소개) */
+.labx__subline {
+  margin: 0; padding: 9px 18px; font-size: 12.5px; color: var(--color-slate);
+  background: var(--color-tint); border-bottom: 1px solid var(--color-hairline);
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+}
+.labx__subline b { color: var(--color-ash); font-family: var(--font-geist); }
+.labx__subline-stack { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.labx__subline-stack span { font-size: 11px; color: var(--color-slate); background: #fff; border: 1px solid var(--color-hairline); border-radius: 12px; padding: 2px 8px; }
+
+/* ---------- 데모 무대 (전체폭) ---------- */
+.labx__stage { flex: 1; padding: 22px; max-width: 1440px; width: 100%; margin: 0 auto; }
+@media (max-width: 640px) { .labx__stage { padding: 14px; } }
+
+/* ---------- 미니 푸터 ---------- */
+.labx__foot {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+  padding: 14px 20px; border-top: 1px solid var(--color-hairline); background: var(--color-tint);
+}
+.labx__foot-note { display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--color-ash); }
+@media (max-width: 560px) { .labx__bar-cat, .labx__bar-link { display: none; } }
+
+/* =========================================================
+   재사용 UI 블록 (데모 공통)
+   ========================================================= */
+
+/* 앱 패널 — 데모 본체 감싸기 (실사용 플랫폼 느낌: 가짜 OS 창 컨트롤 제거) */
+.lx-win {
+  border: 1px solid var(--color-hairline); border-radius: 16px; overflow: hidden;
+  background: #fff; box-shadow: 0 10px 30px -20px rgba(20,20,50,0.22);
+}
+.lx-win__bar {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  min-height: 50px; padding: 0 18px;
+  background: #fff; border-bottom: 1px solid var(--color-hairline);
+}
+.lx-win__title { display: flex; align-items: center; gap: 8px; font-family: var(--font-geist); font-size: 14px; font-weight: 700; color: var(--color-ink); }
+.lx-win__ctls { display: none; } /* 가짜 창 컨트롤 숨김 → 실제 앱 툴바처럼 */
+.lx-win__ctl { display: none; }
+.lx-win__body { padding: 0; }
+
+/* 패널/카드 */
+.lx-panel { background: #fff; border: 1px solid var(--color-hairline); border-radius: 14px; padding: 18px; }
+.lx-card { background: #fff; border: 1px solid var(--color-hairline); border-radius: 12px; padding: 14px; }
+.lx-card--tint { background: var(--color-tint); }
+
+/* 그리드 헬퍼 */
+.lx-grid { display: grid; gap: 14px; }
+.lx-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.lx-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.lx-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.lx-split { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; }
+@media (max-width: 780px) {
+  .lx-grid-3, .lx-grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .lx-split { grid-template-columns: 1fr; }
+}
+@media (max-width: 480px) {
+  .lx-grid-2, .lx-grid-3, .lx-grid-4 { grid-template-columns: 1fr; }
+}
+
+/* 섹션 타이틀 */
+.lx-h { font-family: var(--font-geist); font-size: 15px; font-weight: 700; color: var(--color-ink); margin: 0 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.lx-sub { font-size: 12.5px; color: var(--color-slate); }
+
+/* KPI 스탯 타일 */
+.lx-stat { background: #fff; border: 1px solid var(--color-hairline); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 5px; }
+.lx-stat__label { font-size: 12px; color: var(--color-slate); }
+.lx-stat__value { font-family: var(--font-geist); font-size: 22px; font-weight: 800; color: var(--color-ink); line-height: 1.1; }
+.lx-stat__delta { font-size: 11.5px; font-weight: 700; }
+.lx-up { color: #1f9d57; }
+.lx-down { color: #d64545; }
+
+/* 버튼 */
+.lx-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  font-family: var(--font-geist); font-size: 14px; font-weight: 700; cursor: pointer;
+  border-radius: 10px; padding: 10px 18px; border: 1px solid transparent; transition: filter .15s ease, background .15s ease;
+}
+.lx-btn--primary { background: var(--color-dusk-violet); color: #fff; }
+.lx-btn--primary:hover { filter: brightness(1.07); }
+.lx-btn--ghost { background: #fff; color: var(--color-ink); border-color: var(--color-hairline-strong); }
+.lx-btn--ghost:hover { background: var(--color-tint); }
+.lx-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+/* 입력 */
+.lx-input, .lx-textarea, .lx-select {
+  width: 100%; font-family: var(--font-dm-sans); font-size: 14px; color: var(--color-ink);
+  background: #fff; border: 1px solid var(--color-hairline-strong); border-radius: 10px; padding: 11px 13px;
+  outline: none; transition: border-color .15s ease, box-shadow .15s ease;
+}
+.lx-input:focus, .lx-textarea:focus, .lx-select:focus { border-color: var(--color-dusk-violet); box-shadow: 0 0 0 3px rgba(107,98,242,0.15); }
+.lx-textarea { resize: vertical; min-height: 96px; line-height: 1.55; }
+.lx-label { display: block; font-size: 12.5px; font-weight: 600; color: var(--color-ash); margin-bottom: 6px; }
+
+/* 탭 */
+.lx-tabs { display: flex; gap: 4px; background: var(--color-tint); border-radius: 12px; padding: 4px; }
+.lx-tab {
+  flex: 1; text-align: center; font-size: 13px; font-weight: 700; color: var(--color-slate);
+  border-radius: 9px; padding: 8px 12px; cursor: pointer; border: none; background: transparent; transition: all .15s ease;
+}
+.lx-tab.is-active { background: #fff; color: var(--color-ink); box-shadow: var(--shadow-soft); }
+
+/* 선택 칩(토글) */
+.lx-toggle {
+  font-size: 13px; font-weight: 600; color: var(--color-ash); cursor: pointer;
+  border: 1px solid var(--color-hairline-strong); border-radius: 20px; padding: 7px 14px; background: #fff; transition: all .15s ease;
+}
+.lx-toggle.is-on { background: var(--color-violet-soft); color: var(--color-dusk-violet); border-color: rgba(107,98,242,0.5); }
+
+/* 배지/상태 pill */
+.lx-pill { font-size: 11.5px; font-weight: 700; border-radius: 20px; padding: 3px 10px; display: inline-block; }
+.lx-pill--ok { color: #1f9d57; background: #e7f7ee; }
+.lx-pill--info { color: #2f6bd6; background: #e8f0fd; }
+.lx-pill--warn { color: #c98a12; background: #fdf3e0; }
+.lx-pill--danger { color: #d64545; background: #fdeaea; }
+.lx-pill--muted { color: var(--color-slate); background: var(--color-tint); }
+
+/* 테이블 */
+.lx-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.lx-table th { text-align: left; font-size: 11.5px; font-weight: 700; color: var(--color-slate); padding: 8px 10px; border-bottom: 1px solid var(--color-hairline); }
+.lx-table td { padding: 11px 10px; border-bottom: 1px solid var(--color-tint); color: var(--color-ash); }
+.lx-table tr:hover td { background: #fafaff; }
+.lx-table td.lx-strong { color: var(--color-ink); font-weight: 600; font-family: var(--font-geist); }
+
+/* 진행 바 */
+.lx-track { height: 8px; border-radius: 5px; background: var(--color-tint); overflow: hidden; }
+.lx-fill { display: block; height: 100%; border-radius: 5px; background: var(--color-dusk-violet); }
+
+/* 로딩 스켈레톤 */
+.lx-skel { position: relative; overflow: hidden; background: var(--color-tint); border-radius: 8px; }
+.lx-skel::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7), transparent);
+  transform: translateX(-100%); animation: lxshimmer 1.3s infinite;
+}
+@keyframes lxshimmer { 100% { transform: translateX(100%); } }
+
+/* 타이핑 점 */
+.lx-typing { display: inline-flex; gap: 4px; }
+.lx-typing i { width: 6px; height: 6px; border-radius: 50%; background: #b8b8cc; animation: lxtype 1.2s infinite ease-in-out; }
+.lx-typing i:nth-child(2) { animation-delay: .18s; }
+.lx-typing i:nth-child(3) { animation-delay: .36s; }
+@keyframes lxtype { 0%,60%,100% { transform: translateY(0); opacity: .5; } 30% { transform: translateY(-4px); opacity: 1; } }
+
+/* 다크 서피스 (주식 대시보드 등) */
+.lx-dark { background: #0f1018; color: #e6e6f0; border-radius: 14px; }
+.lx-dark .lx-card, .lx-dark .lx-panel { background: #171826; border-color: #262838; }
+.lx-dark .lx-stat { background: #171826; border-color: #262838; }
+.lx-dark .lx-stat__value { color: #fff; }
+.lx-dark .lx-stat__label, .lx-dark .lx-sub { color: #8a8ca6; }
+.lx-dark .lx-h { color: #fff; }
+.lx-dark .lx-table th { color: #8a8ca6; border-color: #262838; }
+.lx-dark .lx-table td { color: #c7c8db; border-color: #20222f; }
+.lx-dark .lx-table tr:hover td { background: #1c1e2e; }
+.lx-dark .lx-table td.lx-strong { color: #fff; }
+
+.lx-mono { font-variant-numeric: tabular-nums; font-family: var(--font-geist); }
+.lx-muted { color: var(--color-slate); }

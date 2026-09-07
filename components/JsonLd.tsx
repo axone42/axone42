@@ -13,7 +13,15 @@ export default function JsonLd() {
         name: `${site.name}(${site.nameEn})`,
         alternateName: site.nameEn,
         url: base,
+        logo: { "@type": "ImageObject", url: `${base}/icon.svg` },
         email: site.email,
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "customer service",
+          email: site.email,
+          areaServed: "KR",
+          availableLanguage: ["Korean"],
+        },
         founder: { "@type": "Person", name: site.ceo },
         foundingDate: site.established,
         address: {

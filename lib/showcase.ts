@@ -21,13 +21,6 @@ export type CaseStudy = {
   evaluation: Evaluation; // 도입 기업 평가
 };
 
-export type Testimonial = {
-  quote: string;
-  name: string;
-  role: string;
-  company: string;
-};
-
 export const clients: string[] = [
   "한빛커머스",
   "그린바이오",
@@ -251,26 +244,5 @@ export const caseStudies: CaseStudy[] = [
       role: "영업총괄",
       rating: 4.8,
     },
-  },
-];
-
-export const testimonials: Testimonial[] = [
-  {
-    quote: "엑셀로 버티던 업무가 한 번에 정리됐어요. 사람이 하던 일을 시스템이 대신합니다.",
-    name: "김○○",
-    role: "운영팀장",
-    company: "한빛커머스",
-  },
-  {
-    quote: "컨설팅이 문서로 끝나지 않고 실제 자동화까지 이어진 게 가장 만족스러웠습니다.",
-    name: "이○○",
-    role: "대표",
-    company: "그린바이오",
-  },
-  {
-    quote: "챗봇이 단순 FAQ를 넘어 진짜 상담을 합니다. 상담 인력 부담이 확 줄었어요.",
-    name: "박○○",
-    role: "CX 매니저",
-    company: "에듀랩",
   },
 ];
