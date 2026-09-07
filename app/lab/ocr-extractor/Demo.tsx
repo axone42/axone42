@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { csvCell, downloadText } from "@/lib/download";
 
 type DocKey = "receipt" | "tax" | "card";
@@ -14,9 +14,6 @@ type Field = {
 
 type LineItem = { name: string; qty: number; price: number; amount: number };
 
-// 문서 위에 그릴 감지 박스 (문서 컨테이너 기준 % 좌표)
-type Box = { top: number; left: number; width: number; height: number; color: string };
-
 type DocData = {
   key: DocKey;
   tab: string;
@@ -24,7 +21,6 @@ type DocData = {
   meta: string; // 부제
   fields: Field[];
   items: LineItem[] | null;
-  boxes: Box[];
 };
 
 const won = (n: number) => n.toLocaleString("ko-KR") + "원";
@@ -47,13 +43,6 @@ const RECEIPT: DocData = {
     { name: "아메리카노(ICE)", qty: 2, price: 3000, amount: 6000 },
     { name: "카페라떼", qty: 1, price: 4000, amount: 4000 },
   ],
-  boxes: [
-    { top: 5.5, left: 22, width: 56, height: 8, color: "#6b62f2" },
-    { top: 20, left: 8, width: 62, height: 5, color: "#e08a2b" },
-    { top: 26, left: 8, width: 70, height: 5, color: "#e08a2b" },
-    { top: 44, left: 6, width: 88, height: 20, color: "#2f9d57" },
-    { top: 74, left: 42, width: 52, height: 6, color: "#d64545" },
-  ],
 };
 
 const TAX: DocData = {
@@ -74,13 +63,6 @@ const TAX: DocData = {
     { name: "업무 자동화 구축", qty: 1, price: 2000000, amount: 2000000 },
     { name: "유지보수(월)", qty: 1, price: 1000000, amount: 1000000 },
   ],
-  boxes: [
-    { top: 4.5, left: 20, width: 60, height: 8, color: "#6b62f2" },
-    { top: 20, left: 8, width: 60, height: 5, color: "#e08a2b" },
-    { top: 26, left: 8, width: 66, height: 5, color: "#e08a2b" },
-    { top: 44, left: 6, width: 88, height: 20, color: "#2f9d57" },
-    { top: 76, left: 40, width: 54, height: 6, color: "#d64545" },
-  ],
 };
 
 const CARD: DocData = {
@@ -97,13 +79,6 @@ const CARD: DocData = {
     { key: "addr", label: "주소", value: "서울 강남구 테헤란로 123", conf: 92 },
   ],
   items: null,
-  boxes: [
-    { top: 20, left: 8, width: 40, height: 12, color: "#6b62f2" },
-    { top: 36, left: 8, width: 56, height: 6, color: "#e08a2b" },
-    { top: 58, left: 8, width: 50, height: 6, color: "#2f9d57" },
-    { top: 68, left: 8, width: 46, height: 6, color: "#2f9d57" },
-    { top: 78, left: 8, width: 62, height: 6, color: "#d64545" },
-  ],
 };
 
 const DOCS: Record<DocKey, DocData> = { receipt: RECEIPT, tax: TAX, card: CARD };
@@ -123,10 +98,16 @@ function confColor(conf: number) {
 }
 
 /* ---------- CSS로 그린 문서 (외부 이미지 없음) ---------- */
+// 실제 글자의 인라인 영역을 표시하므로 글꼴·줄바꿈·문서 크기가 바뀌어도 위치가 일치합니다.
+function DetectedText({ field, color = "#2f9d57", children }: { field: string; color?: string; children: ReactNode }) {
+  return <span className="ocrx__detected-text" data-ocr-field={field} style={{ "--ocr-color": color } as CSSProperties}>{children}</span>;
+}
+
 function ReceiptPaper({ doc }: { doc: DocData }) {
-  const rowStyle: React.CSSProperties = {
+  const rowStyle: CSSProperties = {
     display: "flex",
     justifyContent: "space-between",
+    gap: 10,
     fontSize: 12,
     padding: "3px 0",
     color: "#333",
@@ -144,37 +125,37 @@ function ReceiptPaper({ doc }: { doc: DocData }) {
       }}
     >
       <div style={{ textAlign: "center", marginBottom: 12 }}>
-        <div style={{ fontSize: 17, fontWeight: 800, letterSpacing: "0.04em" }}>{doc.title}</div>
+        <div style={{ fontSize: 17, fontWeight: 800, letterSpacing: "0.04em" }}><DetectedText field="store" color="#6b62f2">{doc.title}</DetectedText></div>
         <div style={{ fontSize: 11, color: "#888", marginTop: 2 }}>{doc.meta}</div>
       </div>
       <div style={{ borderTop: "1px dashed #ccc", paddingTop: 8, fontSize: 12, color: "#555" }}>
-        <div>사업자번호 : {doc.key === "tax" ? "125-81-77042" : "214-88-01234"}</div>
-        <div>거래일자 : {doc.fields.find((f) => f.key === "date")?.value}</div>
+        <div>사업자번호 : <DetectedText field="biz" color="#e08a2b">{doc.fields.find((f) => f.key === "biz")?.value}</DetectedText></div>
+        <div>{doc.fields.find((f) => f.key === "date")?.label} : <DetectedText field="date" color="#e08a2b">{doc.fields.find((f) => f.key === "date")?.value}</DetectedText></div>
       </div>
       <div style={{ borderTop: "1px dashed #ccc", borderBottom: "1px dashed #ccc", margin: "10px 0", padding: "8px 0" }}>
         {(doc.items || []).map((it, i) => (
           <div key={i} style={rowStyle}>
             <span>
-              {it.name} <span style={{ color: "#999" }}>x{it.qty}</span>
+              <DetectedText field={`item-${i}-name`}>{it.name}</DetectedText> <span style={{ color: "#999" }}><DetectedText field={`item-${i}-qty`}>x{it.qty}</DetectedText></span>
             </span>
-            <span style={{ fontVariantNumeric: "tabular-nums" }}>{won(it.amount)}</span>
+            <span style={{ fontVariantNumeric: "tabular-nums", flexShrink: 0 }}><DetectedText field={`item-${i}-amount`}>{won(it.amount)}</DetectedText></span>
           </div>
         ))}
       </div>
       <div style={{ ...rowStyle, color: "#555" }}>
         <span>공급가액</span>
-        <span>{doc.fields.find((f) => f.key === "supply")?.value}</span>
+        <span><DetectedText field="supply">{doc.fields.find((f) => f.key === "supply")?.value}</DetectedText></span>
       </div>
       <div style={{ ...rowStyle, color: "#555" }}>
         <span>부가세</span>
-        <span>{doc.fields.find((f) => f.key === "vat")?.value}</span>
+        <span><DetectedText field="vat">{doc.fields.find((f) => f.key === "vat")?.value}</DetectedText></span>
       </div>
       <div style={{ ...rowStyle, fontWeight: 800, fontSize: 14, borderTop: "1px solid #ddd", marginTop: 4, paddingTop: 6 }}>
         <span>합계</span>
-        <span>{doc.fields.find((f) => f.key === "total")?.value}</span>
+        <span><DetectedText field="total" color="#d64545">{doc.fields.find((f) => f.key === "total")?.value}</DetectedText></span>
       </div>
       <div style={{ textAlign: "center", marginTop: 12, fontSize: 11, color: "#888" }}>
-        결제 : {doc.fields.find((f) => f.key === "pay")?.value}
+        결제 : <DetectedText field="pay">{doc.fields.find((f) => f.key === "pay")?.value}</DetectedText>
       </div>
     </div>
   );
@@ -196,13 +177,15 @@ function CardPaper({ doc }: { doc: DocData }) {
       <div style={{ position: "absolute", top: 18, right: 20, width: 34, height: 34, borderRadius: 8, background: "var(--color-dusk-violet)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 800, fontSize: 14 }}>
         AX
       </div>
-      <div style={{ fontSize: 22, fontWeight: 800, color: "#1a1a2a" }}>{doc.title}</div>
-      <div style={{ fontSize: 12.5, color: "#6b62f2", fontWeight: 700, marginTop: 4 }}>{doc.meta}</div>
+      <div style={{ fontSize: 22, fontWeight: 800, color: "#1a1a2a" }}><DetectedText field="name" color="#6b62f2">{doc.title}</DetectedText></div>
+      <div style={{ fontSize: 12.5, color: "#6b62f2", fontWeight: 700, marginTop: 4 }}>
+        <DetectedText field="company" color="#e08a2b">{doc.fields.find((f) => f.key === "company")?.value}</DetectedText> · <DetectedText field="title" color="#e08a2b">{doc.fields.find((f) => f.key === "title")?.value}</DetectedText>
+      </div>
       <div style={{ borderTop: "1px solid #e2e2ea", margin: "16px 0 12px" }} />
       <div style={{ fontSize: 12.5, color: "#444", lineHeight: 1.9 }}>
-        <div>📞 {doc.fields.find((f) => f.key === "phone")?.value}</div>
-        <div>✉️ {doc.fields.find((f) => f.key === "email")?.value}</div>
-        <div>📍 {doc.fields.find((f) => f.key === "addr")?.value}</div>
+        <div>📞 <DetectedText field="phone">{doc.fields.find((f) => f.key === "phone")?.value}</DetectedText></div>
+        <div>✉️ <DetectedText field="email">{doc.fields.find((f) => f.key === "email")?.value}</DetectedText></div>
+        <div>📍 <DetectedText field="addr" color="#d64545">{doc.fields.find((f) => f.key === "addr")?.value}</DetectedText></div>
       </div>
     </div>
   );
@@ -270,7 +253,7 @@ export default function Demo() {
   const statusPill = scanning ? "lx-pill--info" : done ? "lx-pill--ok" : "lx-pill--muted";
 
   return (
-    <div className="lx-win ocrx">
+    <div className="lx-win ocrx" data-ocr-active={scanning || done}>
       {/* 앱 툴바 */}
       <div className="lx-win__bar ocrx__bar">
         <div className="lx-win__title ocrx__brand">
@@ -323,29 +306,6 @@ export default function Demo() {
 
               <div className="ocrx__paper-wrap">
                 {doc.key === "card" ? <CardPaper doc={doc} /> : <ReceiptPaper doc={doc} />}
-
-                {/* 감지 바운딩 박스 (스캔/완료 시 표시) */}
-                {(scanning || done) &&
-                  doc.boxes.map((b, i) => (
-                    <div
-                      key={i}
-                      style={{
-                        position: "absolute",
-                        top: `${b.top}%`,
-                        left: `${b.left}%`,
-                        width: `${b.width}%`,
-                        height: `${b.height}%`,
-                        border: `2px solid ${b.color}`,
-                        borderRadius: 4,
-                        background: `${b.color}18`,
-                        boxShadow: `0 0 0 1px ${b.color}22`,
-                        opacity: 0,
-                        animation: `ocrBox .4s ease forwards`,
-                        animationDelay: `${i * 0.12}s`,
-                        pointerEvents: "none",
-                      }}
-                    />
-                  ))}
 
                 {/* 스캔 라인 */}
                 {scanning && (
@@ -560,6 +520,15 @@ export default function Demo() {
           position: relative; width: 100%; max-width: 380px; overflow: hidden; border-radius: 8px;
           box-shadow: 0 18px 40px -22px rgba(20,20,50,0.35);
         }
+        .ocrx__detected-text {
+          border-radius: 2px;
+          -webkit-box-decoration-break: clone;
+          box-decoration-break: clone;
+        }
+        .ocrx[data-ocr-active="true"] .ocrx__detected-text {
+          box-shadow: 0 0 0 1.5px var(--ocr-color);
+          background: color-mix(in srgb, var(--ocr-color) 8%, transparent);
+        }
         .ocrx__corner { position: absolute; width: 18px; height: 18px; border: 2px solid rgba(107,98,242,0.55); pointer-events: none; }
         .ocrx__corner--tl { top: 12px; left: 12px; border-right: none; border-bottom: none; border-radius: 5px 0 0 0; }
         .ocrx__corner--tr { top: 12px; right: 12px; border-left: none; border-bottom: none; border-radius: 0 5px 0 0; }
@@ -632,10 +601,6 @@ export default function Demo() {
         @keyframes ocrScan {
           0% { top: 4%; }
           100% { top: 92%; }
-        }
-        @keyframes ocrBox {
-          0% { opacity: 0; transform: scale(0.96); }
-          100% { opacity: 1; transform: scale(1); }
         }
         @keyframes ocrPulse {
           0%, 100% { opacity: 1; transform: scale(1); }
