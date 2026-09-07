@@ -1,0 +1,75 @@
+<svg width="1280" height="380" viewBox="0 0 1280 380" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AXONE — 기업의 AI 전환을 설계하고 실행합니다">
+  <defs>
+    <linearGradient id="bar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f0a868"/>
+      <stop offset="0.34" stop-color="#c85c68"/>
+      <stop offset="0.68" stop-color="#6b62f2"/>
+      <stop offset="1" stop-color="#3a6bd6"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f0a868"/>
+      <stop offset="0.35" stop-color="#c85c68"/>
+      <stop offset="0.7" stop-color="#6b62f2"/>
+      <stop offset="1" stop-color="#3a6bd6"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.78" cy="0.18" r="0.7">
+      <stop offset="0" stop-color="#6b62f2" stop-opacity="0.30"/>
+      <stop offset="0.55" stop-color="#6b62f2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0.55" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#d7d4ff"/>
+    </linearGradient>
+    <style>
+      text { font-family: "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", ui-sans-serif, system-ui, sans-serif; }
+    </style>
+  </defs>
+
+  <!-- canvas -->
+  <rect width="1280" height="380" rx="20" fill="#0a0a0a"/>
+  <rect width="1280" height="380" rx="20" fill="url(#glow)"/>
+  <!-- signature top gradient bar -->
+  <rect x="0" y="0" width="1280" height="6" rx="3" fill="url(#bar)"/>
+
+  <!-- AX mark -->
+  <g transform="translate(96,132)">
+    <rect x="0" y="0" width="116" height="116" rx="30" fill="url(#mark)"/>
+    <text x="58" y="66" text-anchor="middle" dominant-baseline="central" font-size="52" font-weight="800" letter-spacing="-3" fill="#ffffff">AX</text>
+  </g>
+
+  <!-- wordmark + korean + slogans -->
+  <g transform="translate(256,0)">
+    <text x="0" y="150" font-size="20" letter-spacing="8" fill="#8b8b9a">에이엑스원</text>
+    <text x="-4" y="222" font-size="86" font-weight="800" letter-spacing="14" fill="url(#word)">AXONE</text>
+    <text x="0" y="272" font-size="24" fill="#ededed">기업의 AI 전환(AX)을 설계하고 실행합니다</text>
+    <text x="0" y="306" font-size="17" letter-spacing="1" fill="#8b8b9a">We design and execute enterprise AI Transformation.</text>
+  </g>
+
+  <!-- capability chips -->
+  <g transform="translate(256,332)" fill="#c2c2c2" font-size="14">
+    <g>
+      <rect x="0" y="-18" width="120" height="26" rx="13" fill="#161616" stroke="#2a2a35"/>
+      <text x="60" y="-1" text-anchor="middle">AX 컨설팅</text>
+    </g>
+    <g transform="translate(132,0)">
+      <rect x="0" y="-18" width="128" height="26" rx="13" fill="#161616" stroke="#2a2a35"/>
+      <text x="64" y="-1" text-anchor="middle">n8n 자동화</text>
+    </g>
+    <g transform="translate(272,0)">
+      <rect x="0" y="-18" width="108" height="26" rx="13" fill="#161616" stroke="#2a2a35"/>
+      <text x="54" y="-1" text-anchor="middle">AI 챗봇</text>
+    </g>
+    <g transform="translate(392,0)">
+      <rect x="0" y="-18" width="150" height="26" rx="13" fill="#161616" stroke="#2a2a35"/>
+      <text x="75" y="-1" text-anchor="middle">쇼핑몰·시스템</text>
+    </g>
+    <g transform="translate(554,0)">
+      <rect x="0" y="-18" width="126" height="26" rx="13" fill="#161616" stroke="#2a2a35"/>
+      <text x="63" y="-1" text-anchor="middle">홈페이지 제작</text>
+    </g>
+    <g transform="translate(692,0)">
+      <rect x="0" y="-18" width="108" height="26" rx="13" fill="#161616" stroke="#2a2a35"/>
+      <text x="54" y="-1" text-anchor="middle">실무 교육</text>
+    </g>
+  </g>
+</svg>
