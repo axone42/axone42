@@ -53,7 +53,7 @@
     </g>
     <g transform="translate(132,0)">
       <rect x="0" y="-18" width="128" height="26" rx="13" fill="#161616" stroke="#2a2a35"/>
-      <text x="64" y="-1" text-anchor="middle">n8n 자동화</text>
+      <text x="64" y="-1" text-anchor="middle">업무 자동화</text>
     </g>
     <g transform="translate(272,0)">
       <rect x="0" y="-18" width="108" height="26" rx="13" fill="#161616" stroke="#2a2a35"/>
