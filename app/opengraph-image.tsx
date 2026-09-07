@@ -27,9 +27,18 @@ export default function OGImage() {
               width: 56,
               height: 56,
               borderRadius: 16,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: "#ffffff",
+              fontSize: 24,
+              fontWeight: 800,
+              letterSpacing: -1.5,
               background: "linear-gradient(135deg, #e6a05f, #c85c68, #6b62f2, #3a6bd6)",
             }}
-          />
+          >
+            AX
+          </div>
           <div style={{ fontSize: 34, fontWeight: 600, letterSpacing: 1 }}>AXONE</div>
         </div>
 
@@ -45,7 +54,7 @@ export default function OGImage() {
           </div>
         </div>
 
-        <div style={{ fontSize: 24, color: "#8a8a8a" }}>axone.kr</div>
+        <div style={{ fontSize: 24, color: "#8a8a8a" }}>axone.ai.kr</div>
       </div>
     ),
     { ...size }
