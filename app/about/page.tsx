@@ -2,6 +2,7 @@ import PageSeo from "@/components/PageSeo";
 import { pageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Target, Zap, Handshake } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import { site } from "@/lib/site";
 
@@ -13,9 +14,9 @@ export const metadata: Metadata = pageMetadata({
 });
 
 const values = [
-  { icon: "🎯", title: "실행까지 책임", body: "컨설팅으로 끝내지 않습니다. 기획·개발 역량으로 실제 도입까지 완주합니다." },
-  { icon: "⚡", title: "빠른 자동화", body: "n8n 기반으로 아이디어를 빠르게 워크플로우로 만들어 검증합니다." },
-  { icon: "🤝", title: "역량 내재화", body: "만들어 드리는 것을 넘어, 팀이 스스로 운영할 수 있도록 교육합니다." },
+  { icon: Target, title: "실행까지 책임", body: "컨설팅으로 끝내지 않습니다. 기획·개발 역량으로 실제 도입까지 완주합니다." },
+  { icon: Zap, title: "빠른 자동화", body: "n8n 기반으로 아이디어를 빠르게 워크플로우로 만들어 검증합니다." },
+  { icon: Handshake, title: "역량 내재화", body: "만들어 드리는 것을 넘어, 팀이 스스로 운영할 수 있도록 교육합니다." },
 ];
 
 const infoRows = [
@@ -55,7 +56,7 @@ export default function AboutPage() {
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 60}>
                 <div className="card" style={{ height: "100%" }}>
-                  <span className="card__icon" aria-hidden>{v.icon}</span>
+                  <span className="card__icon" aria-hidden><v.icon size={20} strokeWidth={1.75} /></span>
                   <h3 className="card__title">{v.title}</h3>
                   <p className="card__body">{v.body}</p>
                 </div>
